@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+HR-BOA.code-workspace
 
 # debug
 npm-debug.log*
