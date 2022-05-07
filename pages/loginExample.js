@@ -22,7 +22,7 @@ function Login() {
   const handleCreateLobby = (e) => {
     e.preventDefault();
     socket.emit('createLobby', { name: loginData.name, lobby: loginData.lobby });
-    socket.on('success', async (data) => {
+    socket.on('connectedToLobby', async (data) => {
       console.log(data);
       await setLobby(data.lobbyData);
       await setPlayer(data.playerData);
@@ -33,7 +33,7 @@ function Login() {
   const handleJoinLobby = (e) => {
     e.preventDefault();
     socket.emit('joinLobby', { name: loginData.name, lobby: loginData.lobby});
-    socket.on('success', async (data) => {
+    socket.on('connectedToLobby', async (data) => {
       console.log(data)
       await setLobby(data.lobbyData);
       await setPlayer(data.playerData);

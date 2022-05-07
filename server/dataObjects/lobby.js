@@ -5,6 +5,7 @@ class Lobby {
     this.name = name;
     this.settings = {};
     this.players = {};
+    this.messages = {};
   }
 }
 

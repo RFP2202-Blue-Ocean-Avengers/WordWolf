@@ -3,8 +3,8 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const next  = require('next');
-const { lobbies, addLobby, getLobby, deleteLobby } = require('./lobby');
-const { assignPlayerToLobby, removePlayerFromLobby } = require('./player');
+const { lobbies, addLobby, getLobby, deleteLobby } = require('./dataObjects/lobby');
+const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev })
@@ -16,6 +16,10 @@ const emitLobbyData = async (lobby) => {
   io.emit('lobby', { lobbyData });
 }
 
+const emitConnectedToLobby = async (playerData, lobbyData, socket) => {
+  socket.emit('connectedToLobby', { playerData, lobbyData });
+}
+
 io.on('connect', socket => {
   socket.on('createLobby', async ({ name, lobby}) => {
     let lobbyData = await addLobby(lobby);
@@ -23,12 +27,12 @@ io.on('connect', socket => {
       lobbyData = await getLobby(lobby);
     }
     const playerData = await assignPlayerToLobby(name, lobby, socket.id);
-    socket.emit('success', { playerData, lobbyData });
+    emitConnectedToLobby(playerData, lobbyData, socket);
   });
   socket.on('joinLobby', async ({ name, lobby }) => {
     let lobbyData = await getLobby(lobby);
     const playerData = await assignPlayerToLobby(name, lobby, socket.id);
-    socket.emit('success', { playerData, lobbyData });
+    emitConnectedToLobby(playerData, lobbyData, socket);
     emitLobbyData(lobby);
   })
   socket.on('disconnect', () => {

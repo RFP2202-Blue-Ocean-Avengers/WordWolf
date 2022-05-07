@@ -1,12 +1,14 @@
 const { lobbies, deleteLobby } = require('./lobby');
 
 const players = new Map();
+
 class Player {
   constructor(name, lobby) {
     this.name = name;
     this.lobby = lobby;
     this.spectator = true;
     this.role = null;
+    this.color = null;
     this.questions = {};
     this.tokens = {
       yes: 0,
@@ -29,6 +31,12 @@ const assignPlayerToLobby = (name, lobby, socketId) => {
   lobbies.get(lobby).players[socketId] = player;
   players.set(socketId, player);
   return player;
+}
+
+const updatePlayerData = (data, lobby, socketId) => {
+  const currentLobby = lobby.get(lobby);
+  // update player data for whatever is needed?
+  // maybe their token or their role or something??
 }
 
 const removePlayerFromLobby = (lobby, socketId) => {
