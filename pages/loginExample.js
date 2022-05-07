@@ -26,7 +26,7 @@ function Login() {
       console.log(data);
       await setLobby(data.lobbyData);
       await setPlayer(data.playerData);
-      router.push(`/lobby/${loginData.lobby}`);
+      router.push(`/${loginData.lobby}/lobby`);
     });
   }
 
@@ -37,7 +37,7 @@ function Login() {
       console.log(data)
       await setLobby(data.lobbyData);
       await setPlayer(data.playerData);
-      router.push(`/lobby/${loginData.lobby}`);
+      router.push(`/${loginData.lobby/lobby}`);
     });
   }
 

@@ -4,6 +4,12 @@ class Lobby {
   constructor(name) {
     this.name = name;
     this.settings = {};
+    this.gameState = {
+      mayor: 'player',
+      state: 'pickWord',
+      word: 'table',
+
+    };
     this.players = {};
     this.messages = {};
   }

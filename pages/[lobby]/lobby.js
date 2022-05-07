@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { SocketContext } from "../api/socketContext";
 import { StoreContext } from '../api/contextStore';
-import { UnorderedList, ListItem } from '@chakra-ui/react';
+import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 function Lobby({ playerData, lobbyData }) {
   const socket = useContext(SocketContext);
+  const router = useRouter();
   const { lobby, setLobby, player, setPlayer } = useContext(StoreContext);
 
   useEffect(() => {
@@ -24,6 +26,9 @@ function Lobby({ playerData, lobbyData }) {
             ))
           : null}
       </UnorderedList>
+      <Button size="sm" onClick={() => router.push(`/${lobby.name}/game`)}>
+        Start
+      </Button>
     </div>
   );
 }
