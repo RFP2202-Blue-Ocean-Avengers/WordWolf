@@ -1,18 +1,13 @@
 import Link from 'next/link'
+import { SocketProvider } from './api/socketContext';
+import { ChakraProvider } from '@chakra-ui/react';
 
 export default function Home() {
   return (
-    <ul>
-      <li>
-        <Link href="/b" as="/a">
-          <a>a</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/a" as="/b">
-          <a>b</a>
-        </Link>
-      </li>
-    </ul>
+    <div>
+      <Link href="/loginExample" as="/loginExample">
+        <a>Login Page</a>
+      </Link>
+    </div>
   )
 }
