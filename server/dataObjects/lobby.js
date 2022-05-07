@@ -3,16 +3,21 @@ const lobbies = new Map();
 class Lobby {
   constructor(name) {
     this.name = name;
+    this.host = null; // this needs to somehow be set to the lobby creator
     this.settings = {};
     this.gameState = {
-      mayor: 'player',
-      state: 'pickWord',
-      word: 'table',
-
+      // maybe something like this? subject to change
+      // mayor: 'player',
+      // state: 'pickWord',
+      // word: 'table',
     };
+    this.colors = {};
     this.players = {};
     this.messages = {};
   }
+
+  // game logic probably goes here as functions?
+  // look into game logic in OOP styles
 }
 
 const addLobby = (name) => {
