@@ -60,9 +60,7 @@ When you've finished implementing and testing the feature your branch was create
 
 1. Make sure you're working on the correct branch!
 
-2. Open two terminal tabs and navigate to the root directory.
-
-3. Create a .env file and enter in the correct information
+2. Create a .env file and enter in the correct information
 
 3. Run `npm run dev` to start.
 
