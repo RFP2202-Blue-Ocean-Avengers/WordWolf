@@ -62,8 +62,8 @@ When you've finished implementing and testing the feature your branch was create
 
 2. Open two terminal tabs and navigate to the root directory.
 
-3. In one tab, run `npm start` to start the node server, which serves up static files from the /client/dist directory.
+3. Create a .env file and enter in the correct information
 
-4. In the second tab, run `npm run react-dev`, which uses webpack to regenerate the `bundle.js` file when you save changes to one of your components.
+3. Run `npm run dev` to start.
 
-5. Navigate to `localhost:3000` in your browser.
+4. Navigate to `localhost:3000` in your browser.
