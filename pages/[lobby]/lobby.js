@@ -15,13 +15,28 @@ function Lobby({ playerData, lobbyData }) {
     });
   }, [socket]);
 
-  const onGameStart = () => {
-    // emit game start to the server
+  // starts the game
+  const onGameStart = (e) => {
+    e.preventDefault();
+    // if less than 3 players are not spectators, do not let the game start
+    const joinedCount = Object.keys(lobby.players)
+      .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
+
+    if (joinedCount < 3) {
+      alert('unable to start with less than 3 players joined');
+      return;
+    }
+     // emit game start to the server and swap the page to the game
     socket.emit('gameStart', lobby.name);
-    // add logic so if player count is less than 3, the game doesn't start
-    // move to the game page
     router.push(`/${lobby.name}/game`)
   };
+
+
+  // toggles player's spectator status'
+  const toggleJoin = (e) => {
+    e.preventDefault();
+    socket.emit('toggleJoin', { name: player.name, lobby: lobby.name });
+  }
 
   return (
     <div>
@@ -34,7 +49,9 @@ function Lobby({ playerData, lobbyData }) {
             ))
           : null}
       </UnorderedList>
-      <Button size="sm" onClick={() => onGameStart}>
+      <Button size="sm" onClick={(e) => toggleJoin(e)}>Join Game</Button>
+      <Button size="sm" onClick={(e) => toggleJoin(e)}>Leave Game</Button>
+      <Button size="sm" onClick={(e) => onGameStart(e)}>
         Start
       </Button>
     </div>

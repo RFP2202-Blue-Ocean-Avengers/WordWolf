@@ -35,6 +35,9 @@ io.on('connect', socket => {
     emitConnectedToLobby(playerData, lobbyData, socket);
     emitLobbyData(lobby);
   });
+  socket.on('toggleJoin', async ({ name, lobby }) => {
+    emitLobbyData(lobby);
+  });
   socket.on('gameStart', async (lobby) => {
     startGame(lobby);
     let lobbyData = await getLobby(lobby);

@@ -13,7 +13,20 @@
 
 // import the contextStore so we have the lobby data and the player data
 
+import { useEffect, useContext } from "react";
+import { SocketContext } from "../api/socketContext";
+import { StoreContext } from '../api/contextStore';
+
 function Game() {
+  const socket = useContext(SocketContext);
+  const { lobby, setLobby, player, setPlayer } = useContext(StoreContext);
+
+  useEffect(() => {
+    socket.on("lobby", (data) => {
+      setLobby(data.lobbyData);
+    });
+  }, [socket]);
+
   return (
     <div>
       this is the game page
