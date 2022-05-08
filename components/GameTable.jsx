@@ -2,7 +2,7 @@ import { Center, Box } from "@chakra-ui/react"
 
 const GameTable = () => {
   return (
-    <Box w='900px' h='485px' background='#3A4171' borderWidth='10px' borderColor='#D19E61' borderRadius='full'>
+    <Box w='900px' h='485px' background='#3A4171' borderWidth='10px' borderColor='#D19E61' borderRadius='full' bgGradient="linear(to-r, #3A4171, #2d3664)">
       <Box w='70px' h='70px' borderRadius='full' background='#C4C4C4' borderWidth='5px' borderColor='#E6474E' pos='absolute' top='7' left='175'/>
       <Box w='70px' h='70px' borderRadius='full' background='#C4C4C4' borderWidth='5px'borderColor='#F18E35' pos='absolute' top='7' left='655'/>
       <Box w='70px' h='70px' borderRadius='full' background='#C4C4C4' borderWidth='5px' borderColor='#F5D74C' pos='absolute' top='490' left='175'/>
