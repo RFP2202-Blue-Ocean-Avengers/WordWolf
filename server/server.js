@@ -53,7 +53,7 @@ nextApp.prepare()
 
     server.listen(port, (err) => {
       if (err) { throw err; }
-      console.log(`listneing on port ${port}`);
+      console.log(`listening on port ${port}`);
     })
   })
   .catch((ex) => {
