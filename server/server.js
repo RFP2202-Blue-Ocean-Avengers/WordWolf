@@ -22,10 +22,7 @@ const emitConnectedToLobby = async (playerData, lobbyData, socket) => {
 
 io.on('connect', socket => {
   socket.on('createLobby', async ({ name, lobby}) => {
-    let lobbyData = await addLobby(lobby);
-    if (lobbyData.error) {
-      lobbyData = await getLobby(lobby);
-    }
+    let lobbyData = await addLobby(name, lobby);
     const playerData = await assignPlayerToLobby(name, lobby, socket.id);
     emitConnectedToLobby(playerData, lobbyData, socket);
   });

@@ -1,3 +1,4 @@
+const wordList = require('../../wordList.json');
 const lobbies = new Map();
 
 const lobby = {
@@ -172,9 +173,9 @@ const lobby = {
     5. cards are revealed
 */
 class Lobby {
-  constructor(name) {
+  constructor(host, name) {
     this.name = name;
-    this.host = null; // somehow set this when instance is created
+    this.host = host; // somehow set this when instance is created
     this.settings = {
       timer: 0,
     };
@@ -186,7 +187,7 @@ class Lobby {
   }
 }
 
-const addLobby = (name) => {
+const addLobby = (host, name) => {
   const existingLobby = lobbies.get(name);
   if (existingLobby) {
     return { error: 'Lobby name already in use' };
@@ -195,7 +196,7 @@ const addLobby = (name) => {
     return { error: 'Please provide a lobby name' };
   }
 
-  const lobby = new Lobby(name);
+  const lobby = new Lobby(host, name);
   lobbies.set(name, lobby);
   return lobby;
 }
@@ -212,9 +213,8 @@ const deleteLobby = (name) => {
 const startGame = (name) => {
   // const lobby = lobbies.get(name);
   const joinedCount = Object.keys(lobby.players)
-  .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);const playerCount = Object.keys(lobby.players).length;
-  // const playerCount = 10;
-
+  .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
+  const playerCount = Object.keys(lobby.players).length;
   let roles = ['villager', 'seer', 'werewolf'];   // base roles
 
   // adds villagers to the roles array dynamically
@@ -261,7 +261,6 @@ const startGame = (name) => {
   let mayorSelected = false;
   while (!mayorSelected) {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
-
     if (!player.spectator) {
       lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
       mayorSelected = true;
@@ -269,9 +268,14 @@ const startGame = (name) => {
   }
 
   // add a function to randomly select two words for the mayor to choose from
+  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
 
+  // changes the game state so the front end can change the display accordingly
   lobby.gameState = "mayorPick";
   console.log(lobby);
+
+  // updates the lobby data
   lobbies.set(name, lobby);
   return lobby;
 }
