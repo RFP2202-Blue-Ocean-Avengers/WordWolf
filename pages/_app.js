@@ -1,14 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { SocketProvider } from './api/socketContext';
 import { StoreProvider } from './api/contextStore';
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
       <StoreProvider>
-        <SocketProvider>
-          <Component {...pageProps} />
-        </SocketProvider>
+        <Component {...pageProps} />
       </StoreProvider>
     </ChakraProvider>
   )

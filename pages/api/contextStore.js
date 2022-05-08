@@ -4,13 +4,16 @@ const StoreContext = React.createContext();
 
 const StoreProvider = ({ children }) => {
   const [lobby, setLobby] = useState();
-  const [player, setPlayer] = useState();
+  const [loginData, setLoginData] = useState({
+    name: null,
+    lobby: null,
+  });
 
   const store = {
     lobby,
     setLobby,
-    player,
-    setPlayer,
+    loginData,
+    setLoginData,
   }
 
   return (
