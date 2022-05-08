@@ -8,8 +8,9 @@ class Player {
     this.lobby = lobby;
     this.spectator = true;
     this.role = null;
+    this.mayor = false;
     this.color = null;
-    this.questions = {};
+    this.questions = [];
     this.tokens = {
       yes: 0,
       no: 0,
