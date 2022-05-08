@@ -3,7 +3,7 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const next  = require('next');
-const { lobbies, addLobby, getLobby, deleteLobby } = require('./dataObjects/lobby');
+const { lobbies, addLobby, getLobby, deleteLobby, startGame } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -34,7 +34,12 @@ io.on('connect', socket => {
     const playerData = await assignPlayerToLobby(name, lobby, socket.id);
     emitConnectedToLobby(playerData, lobbyData, socket);
     emitLobbyData(lobby);
-  })
+  });
+  socket.on('gameStart', async (lobby) => {
+    startGame(lobby);
+    let lobbyData = await getLobby(lobby);
+    emitLobbyData(lobby);
+  });
   socket.on('disconnect', () => {
     console.log('closed socket: ' + socket.id);
     const player = players.get(socket.id);
@@ -49,12 +54,12 @@ nextApp.prepare()
   .then(() => {
     app.get('*', (req, res) => {
       return handler(req, res);
-    })
+    });
 
     server.listen(port, (err) => {
       if (err) { throw err; }
       console.log(`listneing on port ${port}`);
-    })
+    });
   })
   .catch((ex) => {
     console.error(ex.stack)

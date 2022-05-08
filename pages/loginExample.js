@@ -17,7 +17,7 @@ function Login() {
   const handleFormChange = (e) => {
     e.preventDefault();
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleCreateLobby = (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ function Login() {
       await setPlayer(data.playerData);
       router.push(`/${loginData.lobby}/lobby`);
     });
-  }
+  };
 
   const handleJoinLobby = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ function Login() {
       await setPlayer(data.playerData);
       router.push(`/${loginData.lobby/lobby}`);
     });
-  }
+  };
 
   return(
     <div>

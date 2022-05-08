@@ -15,6 +15,14 @@ function Lobby({ playerData, lobbyData }) {
     });
   }, [socket]);
 
+  const onGameStart = () => {
+    // emit game start to the server
+    socket.emit('gameStart', lobby.name);
+    // add logic so if player count is less than 3, the game doesn't start
+    // move to the game page
+    router.push(`/${lobby.name}/game`)
+  };
+
   return (
     <div>
       <h1>Lobby name: {lobby?.name}</h1>
@@ -26,7 +34,7 @@ function Lobby({ playerData, lobbyData }) {
             ))
           : null}
       </UnorderedList>
-      <Button size="sm" onClick={() => router.push(`/${lobby.name}/game`)}>
+      <Button size="sm" onClick={() => onGameStart}>
         Start
       </Button>
     </div>
