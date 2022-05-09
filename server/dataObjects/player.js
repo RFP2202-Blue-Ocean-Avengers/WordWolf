@@ -3,7 +3,8 @@ const { lobbies, deleteLobby } = require('./lobby');
 const players = new Map();
 
 class Player {
-  constructor(name, lobby) {
+  constructor(name, lobby, socketId) {
+    this.socketId = socketId;
     this.name = name;
     this.lobby = lobby;
     this.spectator = true;
@@ -22,22 +23,22 @@ class Player {
   }
 }
 
-const assignPlayerToLobby = (name, lobby) => {
+const assignPlayerToLobby = (name, lobby, socketId) => {
   const currentLobby = lobbies.get(lobby);
   if (Object.keys(currentLobby.players).length === 10) {
     return { error: 'Lobby is full' };
   }
 
-  const player = new Player(name, lobby);
+  const player = new Player(name, lobby, socketId);
   lobbies.get(lobby).players[name] = player;
-  players.set(name, player);
+  players.set(socketId, player);
   return player;
 }
 
-const removePlayerFromLobby = (lobby, socketId) => {
-  const currentLobby = lobbies.get(lobby);
-  if (currentLobby.players[socketId]) {
-    delete currentLobby.players[socketId];
+const removePlayerFromLobby = (player) => {
+  const currentLobby = lobbies.get(player.lobby);
+  if (currentLobby.players[player.name]) {
+    delete currentLobby.players[player.name];
     if (Object.keys(currentLobby.players).length === 0) {
       deleteLobby(lobby);
     }

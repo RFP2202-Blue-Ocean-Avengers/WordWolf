@@ -22,12 +22,12 @@ io.on('connect', socket => {
   }
 
   socket.on('createLobby', async ({ name, lobby }) => {
-    await assignPlayerToLobby(name, lobby);
+    await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
   });
   socket.on('joinLobby', async ({ name, lobby }) => {
-    await assignPlayerToLobby(name, lobby);
+    await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
     emitLobbyData(lobby);
@@ -38,12 +38,15 @@ io.on('connect', socket => {
   });
   socket.on('gameStart', async (lobby) => {
     startGame(lobby);
-    let lobbyData = await getLobby(lobby);
     emitLobbyData(lobby);
   });
   socket.on('disconnect', () => {
     console.log('closed socket: ' + socket.id);
-
+    const player = players.get(socket.id);
+    if (player) {
+      removePlayerFromLobby(player);
+      emitLobbyData(player.lobby);
+    }
   });
 });
 
