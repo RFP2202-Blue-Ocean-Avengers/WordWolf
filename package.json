@@ -3,12 +3,13 @@
   "scripts": {
     "dev": "nodemon server/server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "framer-motion": "^6.3.3",
@@ -21,6 +22,13 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "jest": "^28.1.0",
     "supertest": "^6.2.3"
   }

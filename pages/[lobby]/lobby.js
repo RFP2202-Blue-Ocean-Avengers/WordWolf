@@ -1,44 +1,93 @@
-import { useState, useEffect, useContext } from "react";
-import { SocketContext } from "../api/socketContext";
+import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
-import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { socket } from '../api/service/socket';
+import Lobby from '../../components/Lobby';
 
-function Lobby({ playerData, lobbyData }) {
-  const socket = useContext(SocketContext);
-  const router = useRouter();
-  const { lobby, setLobby, player, setPlayer } = useContext(StoreContext);
+function Game() {
+  const { lobby, setLobby, loginData } = useContext(StoreContext);
+
+  const onInit = () => {
+    const emit = (loginData.create ? 'createLobby' : 'joinLobby');
+    const payload = { name: loginData.name, lobby: loginData.lobby };
+    socket.emit(emit, payload);
+    socket.on('connectedToLobby', async (data) => {
+      await setLobby(data.lobbyData);
+    });
+  };
 
   useEffect(() => {
-    socket.on("lobby", (data) => {
+    onInit();
+  }, []);
+
+  useEffect(() => {
+    socket.on(`${loginData.lobby}`, (data) => {
       setLobby(data.lobbyData);
     });
   }, [socket]);
 
-  const onGameStart = () => {
-    // emit game start to the server
+  // toggles player's spectator status'
+  const toggleJoin = (e) => {
+    e.preventDefault();
+    const seat = e.target.name;
+    if (lobby.seats[seat]) {
+      alert('seat already taken');
+    } else if (false) {
+      // refactor this statement to check if the player has already taken a seat
+      alert('you are already joined');
+    } else {
+      socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name, seat });
+    }
+  };
+
+  // if a player clicks this button, it would remove them from their seat and move them to spectate
+  // also make sure it emits to the backend
+  const toggleSpectate = (e) => {
+    e.preventDefault();
+  };
+
+  // starts the game
+  const onGameStart = (e) => {
+    e.preventDefault();
+    // if less than 3 players are not spectators, do not let the game start
+    const joinedCount = Object.keys(lobby.players).reduce(
+      (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
+      0,
+    );
+
+    if (joinedCount < 3) {
+      alert('unable to start with less than 3 players joined');
+      return;
+    }
+    // emit game start to the server and swap the page to the game
     socket.emit('gameStart', lobby.name);
-    // add logic so if player count is less than 3, the game doesn't start
-    // move to the game page
-    router.push(`/${lobby.name}/game`)
+  };
+
+  const display = () => {
+    switch (lobby.gameState) {
+      case ('lobby'):
+        return (
+          <Lobby
+            lobby={lobby}
+            toggleJoin={toggleJoin}
+            onGameStart={onGameStart}
+          />
+        );
+      case ('mayorPick'):
+        return <h1>Mayor Picking</h1>;
+      case ('questionRound'):
+        return <h1>Question Round</h1>;
+      case ('endGame'):
+        return <h1>End Game</h1>;
+      default:
+        return <h1>No Game State</h1>;
+    }
   };
 
   return (
     <div>
-      <h1>Lobby name: {lobby?.name}</h1>
-      <h1>Current Players</h1>
-      <UnorderedList>
-        {lobby
-          ? Object.keys(lobby.players).map((player) => (
-              <ListItem key={player}>{lobby.players[player].name}</ListItem>
-            ))
-          : null}
-      </UnorderedList>
-      <Button size="sm" onClick={() => onGameStart}>
-        Start
-      </Button>
+      {lobby && display()}
     </div>
   );
 }
 
-export default Lobby;
+export default Game;
