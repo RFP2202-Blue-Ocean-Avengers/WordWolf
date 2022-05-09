@@ -64,4 +64,4 @@ When you've finished implementing and testing the feature your branch was create
 
 3. Run `npm run dev` to start.
 
-4. Navigate to `localhost:3000` in your browser.
+4. Navigate to `localhost:3001` in your browser.
