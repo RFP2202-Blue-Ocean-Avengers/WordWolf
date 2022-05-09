@@ -1,160 +1,7 @@
 const wordList = require('../../wordList.json');
+
 const lobbies = new Map();
 
-// const lobby = {
-//   name: 'lobby',
-//   host: 'danny',
-//   settings: { timer: 240 }, // 4 minutes in seconds
-//   gameState:'lobby',
-//   players: {
-//     danny: {
-//       name: 'danny',
-//       lobby: 'lobby',
-//       spectator: false,
-//       role: null,
-//       mayor: false,
-//       color: 'purple',
-//       questions: [
-//         {
-//           message: 'is it alive?',
-//           answer: 'yes',
-//         }
-//       ],
-//       tokens: {
-//         yes: 1,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     eunice: {
-//       name: 'eunice',
-//       lobby: 'lobby',
-//       spectator: true,
-//       role: null,
-//       mayor: false,
-//       color: 'blue',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     amy: {
-//       name: 'amy',
-//       lobby: 'lobby',
-//       spectator: false,
-//       role: null,
-//       mayor: false,
-//       color: 'red',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     anny: {
-//       name: 'anny',
-//       lobby: 'lobby',
-//       spectator: true,
-//       role: null,
-//       mayor: false,
-//       color: 'grey',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     casey: {
-//       name: 'casey',
-//       lobby: 'lobby',
-//       spectator: false,
-//       role: null,
-//       mayor: false,
-//       color: 'brown',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     bogdan: {
-//       name: 'bogdan',
-//       lobby: 'lobby',
-//       spectator: true,
-//       role: null,
-//       mayor: false,
-//       color: 'green',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//     andy: {
-//       name: 'andy',
-//       lobby: 'lobby',
-//       spectator: false,
-//       role: null,
-//       mayor: false,
-//       color: 'orange',
-//       questions: [],
-//       tokens: {
-//         yes: 0,
-//         no: 0,
-//         maybe: 0,
-//         'wayOff': 0,
-//         'soClose': 0,
-//         'correct': 0,
-//       }
-//     },
-//   },
-//   words: [],
-//   chosenWord: null,
-//   messages: [
-//     {
-//       name: 'danny',
-//       message: 'is it alive?',
-//       question: true,
-//       answer: 'yes',
-//     },
-//     {
-//       name: 'bogdan',
-//       message: 'can I eat it?',
-//       question: true,
-//       answer: null,
-//     },
-//     {
-//       name: 'amy',
-//       message: 'who do you guys think the wolf is??',
-//       question: false,
-//       answer: null,
-//     }
-//   ]
-// }
 /*
   #lobby
     1. host starts the game
@@ -172,6 +19,7 @@ const lobbies = new Map();
     4b. if word is guessed, werewolf is revealed, and they guess who the seer is with 15s on the timer
     5. cards are revealed
 */
+
 class Lobby {
   constructor(host, name) {
     this.name = name;
@@ -210,11 +58,9 @@ const deleteLobby = (name) => {
   lobbies.delete(name);
 }
 
-const toggleJoin = (lobby, socketId) => {
+const toggleJoin = (name, lobby) => {
   const currentLobby = lobbies.get(lobby);
-  console.log(socketId)
-  currentLobby.players[socketId].spectator = !currentLobby.players.spectator;
-  console.log(currentLobby.players[socketId].spectator);
+  currentLobby.players[name].spectator = !currentLobby.players[name].spectator;
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
 }

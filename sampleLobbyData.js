@@ -1,5 +1,6 @@
 const lobby = {
   name: 'lobby',
+  host: 'danny',
   settings: { timer: 240 }, // 4 minutes in seconds
   gameState:'lobby',
   players: {
@@ -128,7 +129,7 @@ const lobby = {
       }
     },
   },
-  words: ['tooth', 'yogurt', 'dog'],
+  words: [],
   chosenWord: null,
   messages: [
     {
@@ -151,5 +152,3 @@ const lobby = {
     }
   ]
 }
-
-module.exports = lobby;
