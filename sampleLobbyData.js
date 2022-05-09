@@ -129,8 +129,8 @@ const lobby = {
       }
     },
   },
-  words: [],
-  chosenWord: null,
+  words: ['dog', 'cat'],
+  chosenWord: 'dog',
   messages: [
     {
       name: 'danny',

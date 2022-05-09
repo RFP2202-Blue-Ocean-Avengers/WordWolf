@@ -8,40 +8,25 @@ function Game() {
   const { lobby, setLobby, loginData, setLoginData } = useContext(StoreContext);
   const router = useRouter();
 
+  const onInit = () => {
+    const emit = (loginData.create ? 'createLobby' : 'joinLobby');
+    const payload = { name: loginData.name, lobby: loginData.lobby };
+    socket.emit(emit, payload);
+    socket.on('connectedToLobby', async (data) => {
+      await setLobby(data.lobbyData);
+    });
+  };
+
   useEffect(() => {
-    if (loginData.create) {
-      handleCreateLobby(loginData);
-    } else {
-      handleJoinLobby(loginData);
-    }
+    onInit();
   }, [])
 
   useEffect(() => {
-    socket.on('lobby', (data) => {
+    socket.on(`${loginData.lobby}`, (data) => {
       console.log(data.lobbyData);
       setLobby(data.lobbyData);
     });
   }, [socket]);
-
-  const handleCreateLobby = (loginData) => {
-    socket.emit("createLobby", {
-      name: loginData.name,
-      lobby: loginData.lobby,
-    });
-    socket.on("connectedToLobby", async (data) => {
-      await setLobby(data.lobbyData);
-    });
-  };
-
-  const handleJoinLobby = (loginData) => {
-    socket.emit("joinLobby", {
-      name: loginData.name,
-      lobby: loginData.lobby
-    });
-    socket.on("connectedToLobby", async (data) => {
-      await setLobby(data.lobbyData);
-    });
-  };
 
   // toggles player's spectator status'
   const toggleJoin = (e) => {

@@ -13,7 +13,9 @@ const port = process.env.PORT || 3000;
 
 const emitLobbyData = async (lobby) => {
   const lobbyData = await getLobby(lobby);
-  io.emit('lobby', { lobbyData });
+  if (lobbyData) {
+    io.emit(`${lobby}`, { lobbyData });
+  }
 }
 
 io.on('connect', socket => {
@@ -39,6 +41,15 @@ io.on('connect', socket => {
   socket.on('gameStart', async (lobby) => {
     startGame(lobby);
     emitLobbyData(lobby);
+  });
+  socket.on('mayorPick', async () => {
+
+  });
+  socket.on('questionRound', async  () => {
+
+  });
+  socket.on('endGame', async () => {
+
   });
   socket.on('disconnect', () => {
     console.log('closed socket: ' + socket.id);

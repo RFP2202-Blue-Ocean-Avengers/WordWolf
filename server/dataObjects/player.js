@@ -40,7 +40,7 @@ const removePlayerFromLobby = (player) => {
   if (currentLobby.players[player.name]) {
     delete currentLobby.players[player.name];
     if (Object.keys(currentLobby.players).length === 0) {
-      deleteLobby(lobby);
+      deleteLobby(player.lobby);
     }
   }
 }
