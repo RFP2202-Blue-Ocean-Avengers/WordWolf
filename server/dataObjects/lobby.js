@@ -12,11 +12,13 @@ const lobbies = new Map();
     4. that word is sent to the werewolves and the seer
   #questionRound
     1. the questions round begins
-    2. people can asks questions in the chat and the mayor will respond with tokens to each player accordingly
+    2. people can asks questions in the chat and the mayor will
+    respond with tokens to each player accordingly
   #endGame
     3. if time runs out | if tokens run out | if word is guessed THEN game is over
     4a. if word is not guessed, everyone votes on who the werewolf is
-    4b. if word is guessed, werewolf is revealed, and they guess who the seer is with 15s on the timer
+    4b. if word is guessed, werewolf is revealed,
+    and they guess who the seer is with 15s on the timer
     5. cards are revealed
 */
 
@@ -30,7 +32,7 @@ class Lobby {
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {};
     this.words = [];
-    this.chosenWord = ''
+    this.chosenWord = '';
     this.messages = [];
   }
 }
@@ -47,55 +49,54 @@ const addLobby = (host, name) => {
   const lobby = new Lobby(host, name);
   lobbies.set(name, lobby);
   return lobby;
-}
+};
 
 const getLobby = (name) => {
   const lobby = lobbies.get(name);
   return lobby;
-}
+};
 
 const deleteLobby = (name) => {
   lobbies.delete(name);
-}
+};
 
 const toggleJoin = (name, lobby) => {
   const currentLobby = lobbies.get(lobby);
   currentLobby.players[name].spectator = !currentLobby.players[name].spectator;
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
-}
+};
 
 const startGame = (name) => {
   const lobby = lobbies.get(name);
   const joinedCount = Object.keys(lobby.players)
-  .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
-  const playerCount = Object.keys(lobby.players).length;
-  let roles = ['villager', 'seer', 'werewolf'];   // base roles
+    .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
+  const roles = ['villager', 'seer', 'werewolf']; // base roles
 
   // adds villagers to the roles array dynamically
   const addVillagers = (count) => {
     while (count > 0) {
       roles.push('villager');
-      count--;
+      count -= 1;
     }
-  }
+  };
 
   // Durstenfeld shuffle algorithm to shuffle the roles array
   const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
     }
-  }
+  };
 
   if (joinedCount > 6) {
     roles.push('werewolf');
-    let villagersToAdd = joinedCount - roles.length;
+    const villagersToAdd = joinedCount - roles.length;
     addVillagers(villagersToAdd);
   } else if (joinedCount <= 6) {
-    let villagersToAdd = joinedCount - roles.length;
+    const villagersToAdd = joinedCount - roles.length;
     addVillagers(villagersToAdd);
   }
 
@@ -127,13 +128,13 @@ const startGame = (name) => {
   lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
 
   // changes the game state so the front end can change the display accordingly
-  lobby.gameState = "mayorPick";
+  lobby.gameState = 'mayorPick';
   console.log(lobby);
 
   // updates the lobby data
   lobbies.set(name, lobby);
   return lobby;
-}
+};
 
 module.exports = {
   lobbies,
@@ -143,7 +144,7 @@ module.exports = {
   deleteLobby,
   startGame,
   toggleJoin,
-}
+};
 
 // addLobby('lobby');
 // startGame('lobby');

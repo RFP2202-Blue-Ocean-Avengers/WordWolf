@@ -16,9 +16,9 @@ class Player {
       yes: 0,
       no: 0,
       maybe: 0,
-      'wayOff': 0,
-      'soClose': 0,
-      'correct': 0,
+      wayOff: 0,
+      soClose: 0,
+      correct: 0,
     };
   }
 }
@@ -33,7 +33,7 @@ const assignPlayerToLobby = (name, lobby, socketId) => {
   lobbies.get(lobby).players[name] = player;
   players.set(socketId, player);
   return player;
-}
+};
 
 const removePlayerFromLobby = (player) => {
   const currentLobby = lobbies.get(player.lobby);
@@ -43,10 +43,10 @@ const removePlayerFromLobby = (player) => {
       deleteLobby(player.lobby);
     }
   }
-}
+};
 
 module.exports = {
   players,
   assignPlayerToLobby,
   removePlayerFromLobby,
-}
+};

@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </StoreProvider>
     </ChakraProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
