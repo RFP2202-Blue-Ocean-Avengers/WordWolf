@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { Button, Input, UnorderedList, ListItem } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { StoreContext } from "./api/contextStore";
+import Login from '../components/Login';
 
-function Login() {
+function Home() {
   const router = useRouter();
   const { loginData, setLoginData } = useContext(StoreContext);
 
@@ -45,34 +45,11 @@ function Login() {
   };
 
   return (
-    <div>
-      <form>
-        <Input
-          type="text"
-          size="sm"
-          placeholder="Enter your nickname"
-          name="name"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <Input
-          type="text"
-          size="sm"
-          placeholder="Enter lobby name"
-          name="lobby"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <Button size="sm" onClick={(e) => handleCreateLobby(e)}>
-          Create Lobby
-        </Button>
-        <br />
-        <Button size="sm" onClick={(e) => handleJoinLobby(e)}>
-          Join Lobby
-        </Button>
-      </form>
-    </div>
+    <Login
+      handleFormChange={handleFormChange}
+      handleCreateLobby={handleCreateLobby}
+      handleJoinLobby={handleJoinLobby}/>
   );
 }
 
-export default Login;
+export default Home;
