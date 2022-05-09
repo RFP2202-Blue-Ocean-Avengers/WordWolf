@@ -54,7 +54,7 @@ nextApp.prepare()
     server.listen(port, (err) => {
       if (err) { throw err; }
       console.log(`listening on port ${port}`);
-    })
+    });
   })
   .catch((ex) => {
     console.error(ex.stack)
