@@ -54,12 +54,16 @@ function Game() {
       0,
     );
 
-    if (joinedCount < 3) {
-      alert('unable to start with less than 3 players joined');
+    if (joinedCount < 4) {
+      alert('unable to start with less than 4 players joined');
       return;
     }
     // emit game start to the server and swap the page to the game
     socket.emit('gameStart', lobby.name);
+  };
+
+  const mayorPick = () => {
+
   };
 
   const display = () => {

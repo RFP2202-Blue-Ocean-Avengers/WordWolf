@@ -5,6 +5,7 @@ const io = require('socket.io')(server);
 const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin,
+  toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 
@@ -40,18 +41,23 @@ io.on('connect', (socket) => {
     toggleJoin(name, lobby, seat);
     emitLobbyData(lobby);
   });
+  socket.on('toggleSpectate', async ({ name, lobby, seat }) => {
+    toggleSpectate(name, lobby, seat);
+    emitLobbyData(lobby);
+  });
   socket.on('gameStart', async (lobby) => {
     startGame(lobby);
     emitLobbyData(lobby);
   });
-  socket.on('mayorPick', async () => {
-
+  socket.on('mayorPick', async ({ lobby, word }) => {
+    mayorPick(lobby, word);
+    emitLobbyData(lobby);
   });
-  socket.on('questionRound', async () => {
-
+  socket.on('questionRound', async (lobby) => {
+    emitLobbyData(lobby);
   });
-  socket.on('endGame', async () => {
-
+  socket.on('endGame', async (lobby) => {
+    emitLobbyData(lobby);
   });
   socket.on('disconnect', () => {
     // add on disconnect, remove from seat in the lobby if they are sitting

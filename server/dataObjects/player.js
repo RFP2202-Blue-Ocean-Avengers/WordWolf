@@ -8,6 +8,7 @@ class Player {
     this.name = name;
     this.lobby = lobby;
     this.spectator = true;
+    this.seat = null;
     this.role = null;
     this.mayor = false;
     this.color = null;
@@ -38,7 +39,13 @@ const assignPlayerToLobby = (name, lobby, socketId) => {
 const removePlayerFromLobby = (player) => {
   const currentLobby = lobbies.get(player.lobby);
   if (currentLobby.players[player.name]) {
+    // removes player from lobby
     delete currentLobby.players[player.name];
+    // removes player from seat if they are in one
+    const { seat } = currentLobby.players[player.name];
+    if (seat) {
+      currentLobby.seats[currentLobby.player[seat]] = null;
+    }
     if (Object.keys(currentLobby.players).length === 0) {
       deleteLobby(player.lobby);
     }
