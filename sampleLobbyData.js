@@ -2,7 +2,7 @@ const lobby = {
   name: 'lobby',
   host: 'danny',
   settings: { timer: 240 }, // 4 minutes in seconds
-  gameState:'lobby',
+  gameState: 'lobby',
   players: {
     danny: {
       name: 'danny',
@@ -15,16 +15,16 @@ const lobby = {
         {
           message: 'is it alive?',
           answer: 'yes',
-        }
+        },
       ],
       tokens: {
         yes: 1,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     eunice: {
       name: 'eunice',
@@ -38,10 +38,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     amy: {
       name: 'amy',
@@ -55,10 +55,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     anny: {
       name: 'anny',
@@ -72,10 +72,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     casey: {
       name: 'casey',
@@ -89,10 +89,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     bogdan: {
       name: 'bogdan',
@@ -106,10 +106,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
     andy: {
       name: 'andy',
@@ -123,10 +123,10 @@ const lobby = {
         yes: 0,
         no: 0,
         maybe: 0,
-        'wayOff': 0,
-        'soClose': 0,
-        'correct': 0,
-      }
+        wayOff: 0,
+        soClose: 0,
+        correct: 0,
+      },
     },
   },
   words: ['dog', 'cat'],
@@ -149,6 +149,8 @@ const lobby = {
       message: 'who do you guys think the wolf is??',
       question: false,
       answer: null,
-    }
-  ]
-}
+    },
+  ],
+};
+
+export default lobby;

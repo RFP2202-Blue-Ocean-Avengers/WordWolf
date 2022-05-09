@@ -1,13 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
-import { useRouter } from 'next/router';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
 
 function Game() {
-  const { lobby, setLobby, loginData, setLoginData } = useContext(StoreContext);
-  const router = useRouter();
-
+  const { lobby, setLobby, loginData } = useContext(StoreContext);
   const onInit = () => {
     const emit = (loginData.create ? 'createLobby' : 'joinLobby');
     const payload = { name: loginData.name, lobby: loginData.lobby };
@@ -19,11 +16,10 @@ function Game() {
 
   useEffect(() => {
     onInit();
-  }, [])
+  }, []);
 
   useEffect(() => {
     socket.on(`${loginData.lobby}`, (data) => {
-      console.log(data.lobbyData);
       setLobby(data.lobbyData);
     });
   }, [socket]);
@@ -31,7 +27,7 @@ function Game() {
   // toggles player's spectator status'
   const toggleJoin = (e) => {
     e.preventDefault();
-    socket.emit("toggleJoin", { name: loginData.name, lobby: lobby.name });
+    socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name });
   };
 
   // starts the game
@@ -40,21 +36,27 @@ function Game() {
     // if less than 3 players are not spectators, do not let the game start
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
-      0
+      0,
     );
 
     if (joinedCount < 3) {
-      alert("unable to start with less than 3 players joined");
+      alert('unable to start with less than 3 players joined');
       return;
     }
     // emit game start to the server and swap the page to the game
-    socket.emit("gameStart", lobby.name);
+    socket.emit('gameStart', lobby.name);
   };
 
   const display = () => {
     switch (lobby.gameState) {
       case ('lobby'):
-        return <Lobby lobby={lobby} toggleJoin={toggleJoin} onGameStart={onGameStart} />;
+        return (
+          <Lobby
+            lobby={lobby}
+            toggleJoin={toggleJoin}
+            onGameStart={onGameStart}
+          />
+        );
       case ('mayorPick'):
         return <h1>Mayor Picking</h1>;
       case ('questionRound'):
@@ -64,7 +66,7 @@ function Game() {
       default:
         return <h1>No Game State</h1>;
     }
-  }
+  };
 
   return (
     <div>

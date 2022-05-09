@@ -2,12 +2,14 @@ require('dotenv').config();
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const next  = require('next');
-const { lobbies, addLobby, getLobby, deleteLobby, startGame, toggleJoin } = require('./dataObjects/lobby');
+const next = require('next');
+const {
+  lobbies, addLobby, getLobby, startGame, toggleJoin,
+} = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 
 const dev = process.env.NODE_ENV !== 'production';
-const nextApp = next({ dev })
+const nextApp = next({ dev });
 const handler = nextApp.getRequestHandler();
 const port = process.env.PORT || 3000;
 
@@ -16,12 +18,12 @@ const emitLobbyData = async (lobby) => {
   if (lobbyData) {
     io.emit(`${lobby}`, { lobbyData });
   }
-}
+};
 
-io.on('connect', socket => {
+io.on('connect', (socket) => {
   const emitConnectedToLobby = async (lobbyData) => {
     socket.emit('connectedToLobby', { lobbyData });
-  }
+  };
 
   socket.on('createLobby', async ({ name, lobby }) => {
     await assignPlayerToLobby(name, lobby, socket.id);
@@ -45,14 +47,14 @@ io.on('connect', socket => {
   socket.on('mayorPick', async () => {
 
   });
-  socket.on('questionRound', async  () => {
+  socket.on('questionRound', async () => {
 
   });
   socket.on('endGame', async () => {
 
   });
   socket.on('disconnect', () => {
-    console.log('closed socket: ' + socket.id);
+    console.log(`closed socket: ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
       removePlayerFromLobby(player);
@@ -73,8 +75,8 @@ nextApp.prepare()
       }
     });
 
-    app.get('/joinLobby',  (req, res) => {
-      const { name, lobby } = JSON.parse(req.query.loginData);
+    app.get('/joinLobby', (req, res) => {
+      const { lobby } = JSON.parse(req.query.loginData);
       if (!lobbies.get(lobby)) {
         res.send('error');
       } else {
@@ -82,9 +84,7 @@ nextApp.prepare()
       }
     });
 
-    app.get('*', async (req, res) => {
-      return handler(req, res);
-    });
+    app.get('*', async (req, res) => handler(req, res));
 
     server.listen(port, (err) => {
       if (err) { throw err; }
@@ -92,6 +92,6 @@ nextApp.prepare()
     });
   })
   .catch((ex) => {
-    console.error(ex.stack)
-    process.exit(1)
+    console.error(ex.stack);
+    process.exit(1);
   });

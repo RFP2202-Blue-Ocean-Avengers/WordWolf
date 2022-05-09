@@ -1,6 +1,6 @@
-import { Button, Input, UnorderedList, ListItem } from "@chakra-ui/react";
+import { Button, Input } from '@chakra-ui/react';
 
-const Login = ({ handleFormChange, handleCreateLobby, handleJoinLobby }) => {
+function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
   return (
     <div>
       <form>
@@ -31,7 +31,7 @@ const Login = ({ handleFormChange, handleCreateLobby, handleJoinLobby }) => {
         </Button>
       </form>
     </div>
-  )
+  );
 }
 
 export default Login;
