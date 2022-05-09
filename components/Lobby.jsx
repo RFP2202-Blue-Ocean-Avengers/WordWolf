@@ -29,6 +29,16 @@ const Lobby = ({ lobby, toggleJoin, onGameStart }) => {
             )
           : null}
       </UnorderedList>
+      <h1>Spectators</h1>
+      <UnorderedList>
+        {lobby
+          ? Object.keys(lobby.players).map((player) =>
+              !lobby.players[player].spectator ? null : (
+                <ListItem key={player}>{lobby.players[player].name}</ListItem>
+              )
+            )
+          : null}
+      </UnorderedList>
     </div>
   );
 };
