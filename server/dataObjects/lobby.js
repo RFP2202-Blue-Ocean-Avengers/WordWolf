@@ -31,9 +31,22 @@ class Lobby {
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {};
+    this.seats = {
+      seat1: null,
+      seat2: null,
+      seat3: null,
+      seat4: null,
+      seat5: null,
+      seat6: null,
+      seat7: null,
+      seat8: null,
+      seat9: null,
+      seat10: null,
+    };
     this.words = [];
     this.chosenWord = '';
     this.messages = [];
+    this.questions = [];
   }
 }
 
@@ -60,11 +73,20 @@ const deleteLobby = (name) => {
   lobbies.delete(name);
 };
 
-const toggleJoin = (name, lobby) => {
+const toggleJoin = (name, lobby, seat) => {
   const currentLobby = lobbies.get(lobby);
-  currentLobby.players[name].spectator = !currentLobby.players[name].spectator;
+  currentLobby.players[name].spectator = false;
+  if (!currentLobby.seats[seat]) {
+    currentLobby.seats[seat] = currentLobby.players[name];
+  } else {
+    currentLobby.seats[seat] = null;
+  }
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
+};
+
+const toggleSpectate = (name, lobby, seat) => {
+
 };
 
 const startGame = (name) => {

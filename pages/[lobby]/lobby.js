@@ -5,6 +5,7 @@ import Lobby from '../../components/Lobby';
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
+
   const onInit = () => {
     const emit = (loginData.create ? 'createLobby' : 'joinLobby');
     const payload = { name: loginData.name, lobby: loginData.lobby };
@@ -27,7 +28,21 @@ function Game() {
   // toggles player's spectator status'
   const toggleJoin = (e) => {
     e.preventDefault();
-    socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name });
+    const seat = e.target.name;
+    if (lobby.seats[seat]) {
+      alert('seat already taken');
+    } else if (false) {
+      // refactor this statement to check if the player has already taken a seat
+      alert('you are already joined');
+    } else {
+      socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name, seat });
+    }
+  };
+
+  // if a player clicks this button, it would remove them from their seat and move them to spectate
+  // also make sure it emits to the backend
+  const toggleSpectate = (e) => {
+    e.preventDefault();
   };
 
   // starts the game

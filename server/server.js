@@ -36,8 +36,8 @@ io.on('connect', (socket) => {
     await emitConnectedToLobby(lobbyData, socket);
     emitLobbyData(lobby);
   });
-  socket.on('toggleJoin', async ({ name, lobby }) => {
-    toggleJoin(name, lobby);
+  socket.on('toggleJoin', async ({ name, lobby, seat }) => {
+    toggleJoin(name, lobby, seat);
     emitLobbyData(lobby);
   });
   socket.on('gameStart', async (lobby) => {
@@ -54,6 +54,7 @@ io.on('connect', (socket) => {
 
   });
   socket.on('disconnect', () => {
+    // add on disconnect, remove from seat in the lobby if they are sitting
     console.log(`closed socket: ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {

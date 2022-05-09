@@ -27,22 +27,28 @@ function Home() {
           }
         })
         .catch((err) => new Error(err));
+    } else {
+      alert('one of the fields is missing');
     }
   };
 
   const handleJoinLobby = async (e) => {
     e.preventDefault();
-    axios
-      .get('/joinLobby', { params: { loginData } })
-      .then((res) => {
-        if (res.data === 'ok') {
-          setLoginData({ ...loginData, create: false });
-          router.push(`/${loginData.lobby}/lobby`);
-        } else {
-          alert('lobby does not exist');
-        }
-      })
-      .catch((err) => new Error(err));
+    if (loginData.name && loginData.lobby) {
+      axios
+        .get('/joinLobby', { params: { loginData } })
+        .then((res) => {
+          if (res.data === 'ok') {
+            setLoginData({ ...loginData, create: false });
+            router.push(`/${loginData.lobby}/lobby`);
+          } else {
+            alert('lobby does not exist');
+          }
+        })
+        .catch((err) => new Error(err));
+    } else {
+      alert('one of the fields is missing');
+    }
   };
 
   return (
