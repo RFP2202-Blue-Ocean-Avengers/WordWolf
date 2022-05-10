@@ -1,5 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
-import Tokens from './Tokens.jsx';
+import Tokens from "./Tokens.jsx";
 
 function GameTable({ lobby }) {
   // const players = Object.keys(lobby.players).length;
@@ -236,7 +236,9 @@ function GameTable({ lobby }) {
           height="60px"
           background="#FFFFFF"
         >
-          {lobby.gameState}
+          {lobby.gameState !== "questionRound"
+            ? lobby.gameState
+            : lobby.questions[0]}
         </Box>
         <Box
           marginTop="10px"
@@ -250,20 +252,111 @@ function GameTable({ lobby }) {
           color="white"
           fontWeight="bold"
         >
-          Tokens remaining:
-          &nbsp;
+          Tokens remaining: &nbsp;
           {lobby.tokens}
         </Box>
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
-        <Tokens />
+        <Box
+          // red
+          name="tokens1"
+          pos="relative"
+          left="185"
+          bottom="330"
+        >
+          <Tokens />
+        </Box>
+        {players >= 6 ? (
+          <Box
+            // blue
+            name="tokens6"
+            pos="relative"
+            left="395"
+            bottom="370"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        <Box
+          // orange
+          name="tokens2"
+          pos="relative"
+          left="605"
+          bottom="410"
+        >
+          <Tokens />
+        </Box>
+        {players === 10 ? (
+          <Box
+            // black
+            name="tokens10"
+            pos="relative"
+            left="50"
+            bottom="370"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        {players >= 8 ? (
+          <Box
+            // pink
+            name="tokens8"
+            pos="relative"
+            left="710"
+            bottom="410"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        {players >= 7 ? (
+          <Box
+            // purple
+            name="tokens7"
+            pos="relative"
+            left="50"
+            bottom="330"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        {players >= 9 ? (
+          <Box
+            // brown
+            name="tokens9"
+            pos="relative"
+            left="710"
+            bottom="370"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        <Box
+          // yellow
+          name="tokens3"
+          pos="relative"
+          left="185"
+          bottom="330"
+        >
+          <Tokens />
+        </Box>
+        {players >= 5 ? (
+          <Box
+            // lblue
+            name="tokens5"
+            pos="relative"
+            left="395"
+            bottom="370"
+          >
+            <Tokens />
+          </Box>
+        ) : null}
+        <Box
+          // green
+          name="tokens4"
+          pos="relative"
+          left="605"
+          bottom="410"
+        >
+          <Tokens />
+        </Box>
       </Box>
     </>
   );
