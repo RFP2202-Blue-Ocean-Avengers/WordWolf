@@ -1,6 +1,6 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
+import GameTable from './GameTable';
 import LobbyTable from './LobbyTable';
-import JoinButtons from './lobby/JoinButtons';
 
 function Lobby({
   lobby, toggleJoin, onGameStart, loginData,
@@ -19,8 +19,8 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
-      <LobbyTable toggleJoin={toggleJoin} loginData={loginData} />
-      <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
+      {lobby.gameState === "lobby" ? <GameTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} /> : null }
+      {lobby.gameState === "game" ? <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} /> : null }
       {lobby.host === loginData.name
         ? (
           <Button size="sm" onClick={(e) => onGameStart(e)}>
