@@ -70,7 +70,7 @@ function Game() {
             lobby={lobby}
             toggleJoin={toggleJoin}
             onGameStart={onGameStart}
-            player={lobby.players[loginData.name]}
+            currentPlayer={lobby.players[loginData.name]}
           />
         );
       case ('mayorPick'):

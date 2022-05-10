@@ -3,7 +3,7 @@ import LobbyTable from './LobbyTable';
 import JoinButtons from './lobby/JoinButtons';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, player,
+  lobby, toggleJoin, onGameStart, currentPlayer,
 }) {
   return (
     <div>
@@ -19,7 +19,7 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
-      <LobbyTable toggleJoin={toggleJoin} player={player} />
+      <LobbyTable toggleJoin={toggleJoin} player={currentPlayer} lobby={lobby} />
       <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
       {lobby.host
         ? (

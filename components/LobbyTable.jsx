@@ -13,8 +13,8 @@ function LobbyTable({ toggleJoin, lobby, player }) {
         <HStack>
           <Box name={player1} as="button" w="70px" h="70px" borderRadius="full" background={!player1 === '' ? '#E6474E' : '#C4C4C4'} borderWidth="5px" borderColor="#E6474E" pos="relative" top="-10" left="175" onClick={(e) => selectP1(e)} />
           {player1}
-          <Box name="seat6" as="button" w="70px" h="70px" borderRadius="full" background={lobby.seats.seat6 ? '#164186' : '#C4C4C4'} borderWidth="5px" borderColor="#164186" pos="relative" top="-10" left="350" onClick={(e) => toggleJoin(e)} />
-          <Box name="seat2" as="button" w="70px" h="70px" borderRadius="full" background={lobby.seats.seat2 ? '#F18E35' : '#C4C4C4'} borderWidth="5px" borderColor="#F18E35" pos="relative" top="-10" left="500" onClick={(e) => toggleJoin(e)} />
+          <Box name="seat6" as="button" w="70px" h="70px" borderRadius="full" background="#C4C4C4" borderWidth="5px" borderColor="#164186" pos="relative" top="-10" left="350" onClick={(e) => toggleJoin(e)} />
+          <Box name="seat2" as="button" w="70px" h="70px" borderRadius="full" background="#C4C4C4" borderWidth="5px" borderColor="#F18E35" pos="relative" top="-10" left="500" onClick={(e) => toggleJoin(e)} />
         </HStack>
         <HStack>
           <Box name="seat10" as="button" w="70px" h="70px" borderRadius="full" background="#C4C4C4" borderWidth="5px" borderColor="#333333" pos="relative" top="5" left="-2" onClick={(e) => toggleJoin(e)} />
