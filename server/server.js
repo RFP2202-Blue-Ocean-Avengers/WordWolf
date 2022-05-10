@@ -7,6 +7,7 @@ const {
   lobbies, addLobby, getLobby, startGame, toggleJoin,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
+const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -53,6 +54,21 @@ io.on('connect', (socket) => {
   socket.on('endGame', async () => {
 
   });
+  socket.on('newMessage', async (data, lobby) => {
+    socket.join(lobby);
+    addMessage(data, false);
+    const allmessages = getLobbyMessages(lobby);
+    io.to(lobby).emit('allMessages', allmessages);
+  });
+
+  socket.on('newGameMessage', async (data, lobby) => {
+    addMessage(data, true);
+    console.log('gamemessage: ', data)
+    const allmessages = getGameMessages(lobby);
+    console.log(allmessages)
+    io.to(lobby).emit('allGameMessages', allmessages);
+  });
+
   socket.on('disconnect', () => {
     // add on disconnect, remove from seat in the lobby if they are sitting
     console.log(`closed socket: ${socket.id}`);
@@ -82,6 +98,15 @@ nextApp.prepare()
         res.send('error');
       } else {
         res.send('ok');
+      }
+    });
+
+    app.get('/messages/:lobby', (req, res) => {
+      const allmessages = getLobbyMessages(req.params.lobby);
+      if (allmessages) {
+        res.send(allmessages);
+      } else {
+        res.send([]);
       }
     });
 

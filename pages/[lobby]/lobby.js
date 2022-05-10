@@ -2,6 +2,8 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
+import Chat from '../../components/chat/Chat';
+import GameChat from '../../components/chat/GameChat';
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
@@ -66,11 +68,14 @@ function Game() {
     switch (lobby.gameState) {
       case ('lobby'):
         return (
-          <Lobby
-            lobby={lobby}
-            toggleJoin={toggleJoin}
-            onGameStart={onGameStart}
-          />
+          <div>
+            <Lobby
+              lobby={lobby}
+              toggleJoin={toggleJoin}
+              onGameStart={onGameStart}
+            />
+            <Chat username={loginData.name} lobby={loginData.lobby} />
+          </div>
         );
       case ('mayorPick'):
         return <h1>Mayor Picking</h1>;
