@@ -12,14 +12,13 @@ class Player {
     this.role = null;
     this.mayor = false;
     this.color = null;
-    this.questions = [];
     this.tokens = {
-      yes: 0,
-      no: 0,
-      maybe: 0,
-      wayOff: 0,
-      soClose: 0,
-      correct: 0,
+      yes: [],
+      no: [],
+      maybe: [],
+      wayOff: [],
+      soClose: [],
+      correct: [],
     };
   }
 }

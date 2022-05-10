@@ -32,7 +32,7 @@ class Lobby {
       timer: 0,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
-    this.players = {};
+    this.players = {}; // an object that contains players in the game
     this.seats = {
       seat1: null,
       seat2: null,
@@ -44,12 +44,14 @@ class Lobby {
       seat8: null,
       seat9: null,
       seat10: null,
-    };
-    this.words = [];
-    this.chosenWord = '';
-    this.messages = [];
-    this.questions = [];
+    }; // seats for the game
+    this.words = []; // two randomly chosen words
+    this.chosenWord = ''; // word chosen by the mayor for this round
+    this.messages = []; // all messages store for chat?
+    this.questions = []; // questions queue
     this.tokens = 36; // if this runs out the game ends
+    this.villagerVotes = []; // player objects will be stored in here as votes
+    this.werewolfVotes = []; // player objects will be stored in here as votes
   }
 }
 

@@ -1,4 +1,4 @@
-function QuestionRound({ lobby }) {
+function QuestionRound({ lobby, afterQuestionRound, loginData }) {
   return (
     <div>{lobby.gameState}</div>
   );

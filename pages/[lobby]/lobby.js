@@ -43,7 +43,7 @@ function Game() {
   };
 
   const toggleSpectate = (e) => {
-    e.preventDefault();
+    const seat = e.target.name;
     // make sure to check if the player is already a spectator
     /*
       emits to the server 'toggleSpectate' with
@@ -52,13 +52,12 @@ function Game() {
           seat: name of seat,
         }
     */
+    socket.emit('toggleSpectate', { lobby: lobby.name, name: loginData.name, seat });
   };
 
   // starts the game
   // if less than 4 players are joined do not let the game start
-  const onGameStart = (e) => {
-    e.preventDefault();
-
+  const onGameStart = () => {
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -72,31 +71,16 @@ function Game() {
     socket.emit('gameStart', lobby.name);
   };
 
-  const onMayorPick = (e) => {
-    e.preventDefault();
-    /*
-      emit to the server 'onMayorPick' with
-        { lobby: name of the lobby, word: word that is chosen }
-    */
+  const onMayorPick = (word) => {
+    socket.emit('onMayorPick', { lobby: lobby.name, word });
   };
 
-  const afterQuestionsRound = (e) => {
-    e.preventDefault();
-    /*
-      emit to the server based on a condition
-       if all tokens are handed out
-        will emit the phrase 'outOfTokens'
-          { lobby: name of the lobby, condition: 'outOfTokens'}
-       if timer runs out
-        will emit the phrase 'outOfTime'
-       if correct word is chosen
-        will emit the phrase 'wordGuessed'
-    */
+  const afterQuestionsRound = (condition) => {
+    socket.emit(condition, { lobby: lobby.name, condition });
   };
 
   // resets the game state to be a clean state
-  const resetGame = (e) => {
-    e.preventDefault();
+  const resetGame = () => {
     socket.emit('resetGame', lobby.name);
   };
 
@@ -115,6 +99,7 @@ function Game() {
           <Lobby
             lobby={lobby}
             toggleJoin={toggleJoin}
+            toggleSpectate={toggleSpectate}
             onGameStart={onGameStart}
             loginData={loginData}
           />
@@ -123,12 +108,16 @@ function Game() {
         return (
           <MayorPick
             lobby={lobby}
+            onMayorPick={onMayorPick}
+            loginData={loginData}
           />
         );
       case ('questionRound'):
         return (
           <QuestionRound
             lobby={lobby}
+            afterQuestionsRound={afterQuestionsRound}
+            loginData={loginData}
           />
         );
       case ('endGame'):
@@ -145,7 +134,35 @@ function Game() {
 
   return (
     <div>
-      {lobby && display()}
+      {/* {lobby && display()} */}
+
+      {/* for testing purposes, I've displayed all the states of
+      the game out onto the lobby screen by default */}
+      <Lobby
+        lobby={lobby}
+        toggleJoin={toggleJoin}
+        toggleSpectate={toggleSpectate}
+        onGameStart={onGameStart}
+        loginData={loginData}
+      />
+
+      <MayorPick
+        lobby={lobby}
+        onMayorPick={onMayorPick}
+        loginData={loginData}
+      />
+
+      <QuestionRound
+        lobby={lobby}
+        afterQuestionsRound={afterQuestionsRound}
+        loginData={loginData}
+      />
+
+      <EndGame
+        lobby={lobby}
+        resetGame={resetGame}
+      />
+
     </div>
   );
 }
