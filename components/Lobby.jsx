@@ -2,7 +2,9 @@ import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
 import JoinButtons from './lobby/JoinButtons';
 
-function Lobby({ lobby, toggleJoin, onGameStart }) {
+function Lobby({
+  lobby, toggleJoin, onGameStart, player,
+}) {
   return (
     <div>
       <h1>
@@ -17,7 +19,7 @@ function Lobby({ lobby, toggleJoin, onGameStart }) {
           ))
           : null}
       </UnorderedList>
-      <LobbyTable toggleJoin={toggleJoin} />
+      <LobbyTable toggleJoin={toggleJoin} player={player} />
       <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
       {lobby.host
         ? (
