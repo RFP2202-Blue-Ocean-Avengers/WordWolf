@@ -67,7 +67,7 @@ function Settings() {
                 <p>  In WordWolf, players are asking yes/no questions to guess a magic word before the time is up. Seer and Werewolves know the magic words and are trying to help or hinder the Villagers from guessing the word by asking helpful or misleading questions while keeping their identity concealed. </p>
 
                 <strong> Required players: </strong>
-                <p>  To play wordwolf, you need at least 3 players, although we recommend playing with no less than 5 players. While there is no upper limit to the amount of players in a game, we recommend playing with no more than 10 players. (You can always play in multiple lobbies.)</p>
+                <p>  To play wordwolf, you need at least 3 players, although we recommend playing with no less than 5 players. With an upper limit of 10 players in a game. (You can always play in multiple lobbies.)</p>
 
                 <strong> Gameplay: </strong>
                 <p>  The game starts by one player becoming the mayor or chosing a mayor at random. The mayor then choses a magic word and all players (including the mayor) are assigned a hidden role. The default roles are Villager, Seer and Werewolf with the Villagers and the Seer being on the Village team and the Werewolves being on the Werewolf team. For more advanced roles, see the Role overview. The Villagers and the Seer know nothing about other players' roles, while the Werewolves know each other. The Seer and the Werewolves know the magic word.</p>
@@ -89,9 +89,11 @@ function Settings() {
                 </ul>
 
                 <strong> Special cases: </strong>
-                <p>The mayor can have any role other players can have as well. If the mayor is a Werewolf, he may lie when answering questions. If the mayor is a Seer, he may chose an easy word to guess.</p>
-                <p>In a vote for the village team, all players (including the Werewolves) get to vote.</p>
-                <p>The vote at the end of the game does not need to result in a majority. If any of the players with the most votes are werewolf/seer, the voting will succeed.</p>
+                <ul style={{ 'list-style-position': 'inside' }}>
+                <li>The mayor can have any role other players can have as well. If the mayor is a Werewolf, he may lie when answering questions. If the mayor is a Seer, he may chose an easy word to guess.</li>
+                <li>In a vote for the village team, all players (including the Werewolves) get to vote.</li>
+                <li>The vote at the end of the game does not need to result in a majority. If any of the players with the most votes are werewolf/seer, the voting will succeed.</li>
+                </ul>
               </div>
               )}
           </ModalBody>
