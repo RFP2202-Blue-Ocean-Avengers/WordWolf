@@ -21,6 +21,7 @@ import { GrStar } from 'react-icons/gr';
 import { BsExclamationLg } from 'react-icons/bs';
 import { MdDoDisturb } from 'react-icons/md';
 
+import { socket } from '../pages/api/service/socket';
 
 
 
@@ -29,29 +30,33 @@ import { MdDoDisturb } from 'react-icons/md';
 
 
 
+function MayorQModal({ lobby, loginData }) {
 
-function MayorQModal(props) {
-
-  const [currQuestion, setCurrQuestion] = useState(undefined);
+  const [currQuestion, setCurrQuestion] = useState(lobby.questions[0]);
 
 
-  const clickedOnButton = (e) => {
-    // will handle the click types here through e.target.id
+  const clickedOnButton = (e) => { // will handle the click types here through e.target.id
+
+    socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobby: lobby.name });
+
+    console.log(lobby);
+    console.log(currQuestion);
+
   };
 
 
   return (
     <Container id="MayorQModal">
 
-        <QuestionP id="CurrQuestion">{currQuestion ? `Q: ${currQuestion}` : `Q: ---`}</QuestionP>
+      <QuestionP id="CurrQuestion">{currQuestion ? `Q: ${currQuestion}` : `Q: ---`}</QuestionP>
 
       <ButtonsDiv id="QuestionButtons">
-        <TokenBY id="AnsYes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck size={30} style={{margin:"0px auto"}}/></TokenBY>
-        <TokenBM id="AnsMaybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark size={30} style={{margin:"0px auto"}}/></TokenBM>
-        <TokenBN id="AnsNo" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross size={30} style={{margin:"0px auto"}}/></TokenBN>
-        <TokenBC id="AnsCorrect" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar size={30} style={{margin:"0px auto"}}/></TokenBC>
-        <TokenBCO id="AnsClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg size={30} style={{margin:"0px auto"}}/></TokenBCO>
-        <TokenBW id="AnsWrong" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb size={30} style={{margin:"0px auto"}}/></TokenBW>
+        <TokenBY id="AnsYes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="AnsYes" size={30} style={{ margin: "0px auto" }} /></TokenBY>
+        <TokenBM id="AnsMaybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="AnsMaybe" size={30} style={{ margin: "0px auto" }} /></TokenBM>
+        <TokenBN id="AnsNo" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="AnsNo" size={30} style={{ margin: "0px auto" }} /></TokenBN>
+        <TokenBC id="AnsCorrect" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="AnsCorrect" size={30} style={{ margin: "0px auto" }} /></TokenBC>
+        <TokenBCO id="AnsClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="AnsClose" size={30} style={{ margin: "0px auto" }} /></TokenBCO>
+        <TokenBW id="AnsWrong" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="AnsWrong" size={30} style={{ margin: "0px auto" }} /></TokenBW>
       </ButtonsDiv>
 
     </Container>
@@ -135,3 +140,5 @@ background-color: #714124;
 border-radius: 45px;
 margin: 10px;
 `;
+
+// {lobby.players[loginData.name].mayor === true && <MayorQModal />}
