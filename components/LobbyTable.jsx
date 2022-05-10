@@ -1,20 +1,32 @@
+import { useState } from 'react';
 import { Box, HStack } from '@chakra-ui/react';
 
 function LobbyTable({ toggleJoin, loginData }) {
-  const player1 = '';
+  const [player1, setPlayer1] = useState('');
+  const [player6, setPlayer6] = useState('');
   const selectP1 = (e) => {
     toggleJoin(e);
-    console.log(loginData.name);
+    setPlayer1(loginData.name);
+    if (player6 === loginData.name) {
+      setPlayer6('');
+    }
+  };
+  const selectP6 = (e) => {
+    toggleJoin(e);
+    setPlayer6(loginData.name);
+    if (player1 === loginData.name) {
+      setPlayer1('');
+    }
   };
   return (
     <>
       <Box h="100px" />
       <Box w="900px" h="485px" background="#3A4171" borderWidth="10px" borderColor="#D19E61" borderRadius="full" bgGradient="linear(to-r, #3A4171, #2d3664)" marginRight="200px" justify="center">
         <HStack>
-          <Box name={player1} as="button" w="70px" h="70px" borderRadius="full" background={!player1 === '' ? '#E6474E' : '#C4C4C4'} borderWidth="5px" borderColor="#E6474E" pos="relative" top="-10" left="175" onClick={(e) => selectP1(e)}>
-            {player1}
+          <Box name={player1} as="button" w="70px" h="70px" borderRadius="full" background={player1 !== '' ? '#E6474E' : '#C4C4C4'} borderWidth="5px" borderColor="#E6474E" pos="relative" top="-10" left="175" onClick={(e) => selectP1(e)}>
+            {player1.substring(0, 2).toUpperCase()}
           </Box>
-          <Box name="seat6" as="button" w="70px" h="70px" borderRadius="full" background="#C4C4C4" borderWidth="5px" borderColor="#164186" pos="relative" top="-10" left="350" onClick={(e) => toggleJoin(e)} />
+          <Box name={player6} as="button" w="70px" h="70px" borderRadius="full" background={player6 !== '' ? '#164186' : '#C4C4C4'} borderWidth="5px" borderColor="#164186" pos="relative" top="-10" left="350" onClick={(e) => selectP6(e)}>{player6.substring(0, 2).toUpperCase()}</Box>
           <Box name="seat2" as="button" w="70px" h="70px" borderRadius="full" background="#C4C4C4" borderWidth="5px" borderColor="#F18E35" pos="relative" top="-10" left="500" onClick={(e) => toggleJoin(e)} />
         </HStack>
         <HStack>
