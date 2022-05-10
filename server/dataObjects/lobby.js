@@ -79,9 +79,20 @@ const deleteLobby = (name) => {
 const toggleJoin = (name, lobby, seat) => {
   const currentLobby = lobbies.get(lobby);
   currentLobby.players[name].spectator = false;
+  currentLobby.players[name].seat = seat;
   if (!currentLobby.seats[seat]) {
     currentLobby.seats[seat] = currentLobby.players[name];
   }
+  lobbies.set(currentLobby.name, currentLobby);
+  return lobby;
+};
+
+const swapSeats = (name, lobby, seat) => {
+  const currentLobby = lobbies.get(lobby);
+  const prevSeat = currentLobby.players[name].seat;
+  currentLobby.players[name].seat = seat;
+  currentLobby.seats[prevSeat] = null;
+  currentLobby.seats[seat] = currentLobby.players[name];
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
 };
@@ -205,6 +216,7 @@ module.exports = {
   deleteLobby,
   startGame,
   toggleJoin,
+  swapSeats,
   toggleSpectate,
   onMayorPick,
   afterQuestionRound,

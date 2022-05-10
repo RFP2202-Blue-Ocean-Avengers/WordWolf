@@ -19,7 +19,7 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
-      <LobbyTable toggleJoin={toggleJoin} loginData={loginData} />
+      <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} />
       <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
       {lobby.host === loginData.name
         ? (
