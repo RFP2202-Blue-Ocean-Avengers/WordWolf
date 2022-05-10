@@ -1,6 +1,5 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
-import JoinButtons from './lobby/JoinButtons';
 
 function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
