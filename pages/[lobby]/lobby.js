@@ -110,12 +110,14 @@ function Game() {
         );
       case ('mayorPick'):
         return (
-          <MayorPick
-            lobby={lobby}
-            onMayorPick={onMayorPick}
-            loginData={loginData}
-          />
-          <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
+          <div>
+            <MayorPick
+              lobby={lobby}
+              onMayorPick={onMayorPick}
+              loginData={loginData}
+            />
+            <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
+          </div>
         );
       case ('questionRound'):
         return (
