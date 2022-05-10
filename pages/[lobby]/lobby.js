@@ -2,14 +2,11 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
-<<<<<<< HEAD
 import MayorPick from '../../components/MayorPick';
 import QuestionRound from '../../components/QuestionRound';
 import EndGame from '../../components/EndGame';
-=======
 import Chat from '../../components/chat/Chat';
 import GameChat from '../../components/chat/GameChat';
->>>>>>> origin/main
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
