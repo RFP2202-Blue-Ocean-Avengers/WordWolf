@@ -1,9 +1,11 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable no-multiple-empty-lines */
 /*
 RFP2202-Blue-Ocean-Avengers BOA
 Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Kim
 5/8/22
 Blue Ocean
-this is the modal for the villager, mayor and seer roles to vote on the werewolf if the word has been gussed
+modal for the villager, mayor and seer roles to vote on the werewolf if the word has been gussed
 */
 
 import io from 'socket.io-client';
@@ -19,11 +21,11 @@ function VillagerVote(props) {
 
   const clickedOnButton = (e) => {
     // will handle the click here setCurrVote
-  }
+  };
 
 
   return (
-    <section id='VillagerVote'>
+    <section id="VillagerVote">
       <p>WHO IS THE WEREWOLF?</p>
 
       <div>
@@ -33,7 +35,7 @@ function VillagerVote(props) {
             <option value={p.username}>{p.username}</option>)} */}
         </select>
 
-        <button id='Submit' onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
+        <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
 
       </div>
 

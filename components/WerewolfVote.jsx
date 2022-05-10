@@ -1,9 +1,11 @@
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable padded-blocks */
 /*
 RFP2202-Blue-Ocean-Avengers BOA
 Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Kim
 5/8/22
 Blue Ocean
-this is the modal for the werewolf and any other special role to vote on the seer if the time has ran out
+modal for the werewolf and any other special role to vote on the seer if the time has ran out
 */
 
 import io from 'socket.io-client';
@@ -19,11 +21,11 @@ function WerewolfVote(props) {
 
   const clickedOnButton = (e) => {
     // will handle the click types here through e.target.id
-  }
+  };
 
 
   return (
-    <section id='WerewolfVote'>
+    <section id="WerewolfVote">
       <p>WHO IS THE SEER?</p>
 
       <div>
@@ -33,7 +35,7 @@ function WerewolfVote(props) {
             <option value={p.username}>{p.username}</option>)} */}
         </select>
 
-        <button id='Submit' onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
+        <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
 
       </div>
 
