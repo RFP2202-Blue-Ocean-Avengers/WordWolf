@@ -6,14 +6,18 @@ function LobbyTable({ toggleJoin, loginData }) {
   const [player6, setPlayer6] = useState('');
   const selectP1 = (e) => {
     toggleJoin(e);
-    setPlayer1(loginData.name);
+    if (player1 === '') {
+      setPlayer1(loginData.name);
+    }
     if (player6 === loginData.name) {
       setPlayer6('');
     }
   };
   const selectP6 = (e) => {
     toggleJoin(e);
-    setPlayer6(loginData.name);
+    if (player6 === '') {
+      setPlayer6(loginData.name);
+    }
     if (player1 === loginData.name) {
       setPlayer1('');
     }
