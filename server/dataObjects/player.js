@@ -42,9 +42,9 @@ const removePlayerFromLobby = (player) => {
     // removes player from lobby
     delete currentLobby.players[player.name];
     // removes player from seat if they are in one
-    const { seat } = currentLobby.players[player.name];
-    if (seat) {
-      currentLobby.seats[currentLobby.player[seat]] = null;
+    if (currentLobby.players[player.name].seat) {
+      const { seat } = currentLobby.players[player.name].seat;
+      currentLobby.seats[seat] = null;
     }
     if (Object.keys(currentLobby.players).length === 0) {
       deleteLobby(player.lobby);

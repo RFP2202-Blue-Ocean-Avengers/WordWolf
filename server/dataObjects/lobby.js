@@ -16,7 +16,9 @@ const lobbies = new Map();
     respond with tokens to each player accordingly
   #endGame
     3. if time runs out | if tokens run out | if word is guessed THEN game is over
+  #outOfTokens / #outOfTime
     4a. if word is not guessed, everyone votes on who the werewolf is
+  #wordGuessed
     4b. if word is guessed, werewolf is revealed,
     and they guess who the seer is with 15s on the timer
     5. cards are revealed
@@ -47,6 +49,7 @@ class Lobby {
     this.chosenWord = '';
     this.messages = [];
     this.questions = [];
+    this.tokens = 36; // if this runs out the game ends
   }
 }
 
@@ -78,8 +81,6 @@ const toggleJoin = (name, lobby, seat) => {
   currentLobby.players[name].spectator = false;
   if (!currentLobby.seats[seat]) {
     currentLobby.seats[seat] = currentLobby.players[name];
-  } else {
-    currentLobby.seats[seat] = null;
   }
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
@@ -170,12 +171,14 @@ const onMayorPick = (lobbyName, word) => {
   return lobby;
 };
 
-// implement logic and functions to allowe for questions to be asked
+// implement logic and functions to allow for questions to be asked
 
-const afterQuestionRound = (lobbyName) => {
+const afterQuestionRound = (lobbyName, condition) => {
   const lobby = getLobby(lobbyName);
 
-  lobby.gameState = 'endGame';
+  // changes the game state to be one of three options
+  // 'outOfTime' || 'outOfTokens' || 'wordGuessed'
+  lobby.gameState = condition;
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
@@ -184,10 +187,13 @@ const afterQuestionRound = (lobbyName) => {
 
 const resetGame = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
   lobby.gameState = 'lobby';
+  lobby.tokens = 36;
+
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
