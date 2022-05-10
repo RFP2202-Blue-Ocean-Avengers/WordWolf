@@ -105,7 +105,6 @@ function Game() {
             lobby={lobby}
             toggleJoin={toggleJoin}
             onGameStart={onGameStart}
-            currentPlayer={lobby.players[loginData.name]}
             loginData={loginData}
           />
         );
