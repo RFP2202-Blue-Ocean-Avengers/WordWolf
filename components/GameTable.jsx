@@ -1,5 +1,5 @@
-import { Box, HStack } from "@chakra-ui/react";
-import Tokens from "./Tokens.jsx";
+import { Box, HStack } from '@chakra-ui/react';
+import Tokens from './Tokens';
 
 function GameTable({ lobby }) {
   // const players = Object.keys(lobby.players).length;
