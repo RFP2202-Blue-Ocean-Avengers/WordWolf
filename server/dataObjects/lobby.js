@@ -16,7 +16,9 @@ const lobbies = new Map();
     respond with tokens to each player accordingly
   #endGame
     3. if time runs out | if tokens run out | if word is guessed THEN game is over
+  #outOfTokens / #outOfTime
     4a. if word is not guessed, everyone votes on who the werewolf is
+  #wordGuessed
     4b. if word is guessed, werewolf is revealed,
     and they guess who the seer is with 15s on the timer
     5. cards are revealed
@@ -25,7 +27,7 @@ const lobbies = new Map();
 class Lobby {
   constructor(host, name) {
     this.name = name;
-    this.host = host; // somehow set this when instance is created
+    this.host = host;
     this.settings = {
       timer: 0,
     };
@@ -47,6 +49,7 @@ class Lobby {
     this.chosenWord = '';
     this.messages = [];
     this.questions = [];
+    this.tokens = 36; // if this runs out the game ends
   }
 }
 
@@ -64,8 +67,8 @@ const addLobby = (host, name) => {
   return lobby;
 };
 
-const getLobby = (name) => {
-  const lobby = lobbies.get(name);
+const getLobby = (lobbyName) => {
+  const lobby = lobbies.get(lobbyName);
   return lobby;
 };
 
@@ -78,8 +81,6 @@ const toggleJoin = (name, lobby, seat) => {
   currentLobby.players[name].spectator = false;
   if (!currentLobby.seats[seat]) {
     currentLobby.seats[seat] = currentLobby.players[name];
-  } else {
-    currentLobby.seats[seat] = null;
   }
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
@@ -89,11 +90,11 @@ const toggleSpectate = (name, lobby, seat) => {
 
 };
 
-const startGame = (name) => {
-  const lobby = lobbies.get(name);
+const startGame = (lobbyName) => {
+  const lobby = lobbies.get(lobbyName);
   const joinedCount = Object.keys(lobby.players)
     .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
-  const roles = ['villager', 'seer', 'werewolf']; // base roles
+  const roles = ['villager', 'villager', 'seer', 'werewolf']; // base roles
 
   // adds villagers to the roles array dynamically
   const addVillagers = (count) => {
@@ -154,18 +155,60 @@ const startGame = (name) => {
   console.log(lobby);
 
   // updates the lobby data
-  lobbies.set(name, lobby);
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
+const onMayorPick = (lobbyName, word) => {
+  const lobby = getLobby(lobbyName);
+
+  // assigns the mayor's chosen word to the lobby
+  lobby.chosenWord = word;
+
+  // changes the game state, and updates the lobby
+  lobby.gameState = 'questionRound';
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
+// implement logic and functions to allow for questions to be asked
+
+const afterQuestionRound = (lobbyName, condition) => {
+  const lobby = getLobby(lobbyName);
+
+  // changes the game state to be one of three options
+  // 'outOfTime' || 'outOfTokens' || 'wordGuessed'
+  lobby.gameState = condition;
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
+// implement logic and functions for the voting period
+
+const resetGame = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+
+  lobby.words = [];
+  lobby.chosenWord = '';
+  lobby.questions = [];
+  lobby.gameState = 'lobby';
+  lobby.tokens = 36;
+
+  lobbies.set(lobbyName, lobby);
   return lobby;
 };
 
 module.exports = {
   lobbies,
-  Lobby,
   addLobby,
   getLobby,
   deleteLobby,
   startGame,
   toggleJoin,
+  toggleSpectate,
+  onMayorPick,
+  afterQuestionRound,
+  resetGame,
 };
 
 // addLobby('lobby');
