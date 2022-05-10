@@ -137,30 +137,36 @@ function Game() {
 
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      <Lobby
-        lobby={lobby}
-        toggleJoin={toggleJoin}
-        toggleSpectate={toggleSpectate}
-        onGameStart={onGameStart}
-        loginData={loginData}
-      />
+      {lobby
+      && (
+      <>
+        <Lobby
+          lobby={lobby}
+          toggleJoin={toggleJoin}
+          toggleSpectate={toggleSpectate}
+          onGameStart={onGameStart}
+          loginData={loginData}
+        />
 
-      <MayorPick
-        lobby={lobby}
-        onMayorPick={onMayorPick}
-        loginData={loginData}
-      />
+        <MayorPick
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+          loginData={loginData}
+        />
 
-      <QuestionRound
-        lobby={lobby}
-        afterQuestionsRound={afterQuestionsRound}
-        loginData={loginData}
-      />
+        <QuestionRound
+          lobby={lobby}
+          afterQuestionsRound={afterQuestionsRound}
+          loginData={loginData}
+        />
 
-      <EndGame
-        lobby={lobby}
-        resetGame={resetGame}
-      />
+        <EndGame
+          lobby={lobby}
+          resetGame={resetGame}
+          loginData={loginData}
+        />
+      </>
+      )}
 
     </div>
   );

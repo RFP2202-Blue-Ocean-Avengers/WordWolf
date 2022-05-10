@@ -1,6 +1,10 @@
 function QuestionRound({ lobby, afterQuestionRound, loginData }) {
   return (
-    <div>{lobby.gameState}</div>
+    <div>
+      This is the Question Round component, and this is the game state:
+      {' '}
+      {lobby.gameState}
+    </div>
   );
 }
 
