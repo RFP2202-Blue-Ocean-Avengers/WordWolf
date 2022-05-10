@@ -31,9 +31,8 @@ function Game() {
     const seat = e.target.name;
     if (lobby.seats[seat]) {
       alert('seat already taken');
-    } else if (false) {
-      // refactor this statement to check if the player has already taken a seat
-      alert('you are already joined');
+    } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
+      socket.emit('swapSeats', { name: loginData.name, lobby: lobby.name, seat });
     } else {
       socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name, seat });
     }
