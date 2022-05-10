@@ -2,9 +2,14 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
+<<<<<<< HEAD
 import MayorPick from '../../components/MayorPick';
 import QuestionRound from '../../components/QuestionRound';
 import EndGame from '../../components/EndGame';
+=======
+import Chat from '../../components/chat/Chat';
+import GameChat from '../../components/chat/GameChat';
+>>>>>>> origin/main
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
@@ -33,7 +38,11 @@ function Game() {
     e.preventDefault();
     const seat = e.target.name;
     if (lobby.seats[seat]) {
-      alert('seat already taken');
+      if (lobby.seats[seat].name === loginData.name) {
+        socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+      } else {
+        alert('seat already taken');
+      }
     } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
       socket.emit('swapSeats', { name: loginData.name, lobby: lobby.name, seat });
     } else {
@@ -42,16 +51,12 @@ function Game() {
   };
 
   const toggleSpectate = (e) => {
-    const seat = e.target.name;
-    // make sure to check if the player is already a spectator
-    /*
-      emits to the server 'toggleSpectate' with
-        { lobby: name of lobby,
-          name: name of player,
-          seat: name of seat,
-        }
-    */
-    socket.emit('toggleSpectate', { lobby: lobby.name, name: loginData.name, seat });
+    e.preventDefault();
+    if (!lobby.players[loginData.name].spectator) {
+      socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+    } else {
+      alert("You\'re already a spectator");
+    }
   };
 
   // starts the game
@@ -95,13 +100,16 @@ function Game() {
     switch (gameState) {
       case ('lobby'):
         return (
-          <Lobby
-            lobby={lobby}
-            toggleJoin={toggleJoin}
-            toggleSpectate={toggleSpectate}
-            onGameStart={onGameStart}
-            loginData={loginData}
-          />
+          <div>
+            <Lobby
+              lobby={lobby}
+              toggleJoin={toggleJoin}
+              onGameStart={onGameStart}
+              loginData={loginData}
+              toggleSpectate={toggleSpectate}
+            />
+            <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
+          </div>
         );
       case ('mayorPick'):
         return (
@@ -110,6 +118,7 @@ function Game() {
             onMayorPick={onMayorPick}
             loginData={loginData}
           />
+          <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
         );
       case ('questionRound'):
         return (

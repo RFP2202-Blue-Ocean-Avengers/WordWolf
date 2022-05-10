@@ -8,6 +8,7 @@ const {
   toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
+const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -27,11 +28,15 @@ io.on('connect', (socket) => {
   };
 
   socket.on('createLobby', async ({ name, lobby }) => {
+    socket.join(lobby);
+
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
   });
   socket.on('joinLobby', async ({ name, lobby }) => {
+    socket.join(lobby);
+
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
@@ -45,8 +50,8 @@ io.on('connect', (socket) => {
     await swapSeats(name, lobby, seat);
     emitLobbyData(lobby);
   });
-  socket.on('toggleSpectate', async ({ name, lobby, seat }) => {
-    await toggleSpectate(name, lobby, seat);
+  socket.on('toggleSpectate', async ({ name, lobby }) => {
+    await toggleSpectate(name, lobby);
     emitLobbyData(lobby);
   });
   socket.on('gameStart', async (lobby) => {
@@ -65,12 +70,26 @@ io.on('connect', (socket) => {
     await resetGame(lobby);
     emitLobbyData(lobby);
   });
+
+  socket.on('newMessage', async (data, lobby) => {
+    addMessage(data, false);
+    const allmessages = getLobbyMessages(lobby);
+    io.to(lobby).emit('allMessages', allmessages);
+  });
+
+  socket.on('newGameMessage', async (data, lobby) => {
+    addMessage(data, true);
+    const allmessages = getGameMessages(lobby);
+    io.to(lobby).emit('allGameMessages', allmessages);
+  });
+
   socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting
     console.log(`closed socket: ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
       await removePlayerFromLobby(player);
+      socket.leave(player.lobby);
       emitLobbyData(player.lobby);
     }
   });
@@ -94,6 +113,15 @@ nextApp.prepare()
         res.send('error');
       } else {
         res.send('ok');
+      }
+    });
+
+    app.get('/messages/:lobby', (req, res) => {
+      const allmessages = getLobbyMessages(req.params.lobby);
+      if (allmessages) {
+        res.send(allmessages);
+      } else {
+        res.send([]);
       }
     });
 

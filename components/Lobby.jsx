@@ -1,9 +1,8 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
-import JoinButtons from './Lobby/JoinButtons';
 
 function Lobby({
-  lobby, toggleJoin, toggleSpectate, onGameStart, loginData,
+  lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
 }) {
   return (
     <div>
@@ -20,7 +19,6 @@ function Lobby({
           : null}
       </UnorderedList>
       <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} />
-      <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
       {lobby.host === loginData.name
         ? (
           <Button size="sm" onClick={(e) => onGameStart(e)}>
@@ -28,14 +26,15 @@ function Lobby({
           </Button>
         ) : null}
       <br />
-      <h1>Joined Players</h1>
+      <Button onClick={(e) => toggleSpectate(e)}>Spectate</Button>
+      {/* <h1>Joined Players</h1>
       <UnorderedList>
         {lobby
           ? Object.keys(lobby.players).map((player) => (lobby.players[player].spectator ? null : (
             <ListItem key={player}>{lobby.players[player].name}</ListItem>
           )))
           : null}
-      </UnorderedList>
+      </UnorderedList> */}
       <h1>Spectators</h1>
       <UnorderedList>
         {lobby
