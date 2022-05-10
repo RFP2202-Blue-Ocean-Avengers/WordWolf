@@ -74,7 +74,7 @@ function Game() {
               toggleJoin={toggleJoin}
               onGameStart={onGameStart}
             />
-            <Chat username={loginData.name} lobby={loginData.lobby} />
+            <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
           </div>
         );
       case ('mayorPick'):

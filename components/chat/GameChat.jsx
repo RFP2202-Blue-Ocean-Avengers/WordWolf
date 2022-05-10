@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Input } from '@chakra-ui/react';
+import ReactScrollableFeed from 'react-scrollable-feed';
 import { socket } from '../../pages/api/service/socket';
 import Message from './Message';
 
@@ -35,7 +36,9 @@ function GameChat({ username, lobby }) {
         overflow: 'auto',
       }}
       >
-        {allMessages?.map((msg) => <Message message={msg} />)}
+        <ReactScrollableFeed>
+          {allMessages?.map((msg) => <Message message={msg} />)}
+        </ReactScrollableFeed>
       </div>
       <div style={{ display: 'flex', padding: '10px' }}>
         <Input

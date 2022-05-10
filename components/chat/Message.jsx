@@ -1,8 +1,16 @@
-import React from 'react';
+import { useContext, useEffect } from 'react';
+import { StoreContext } from '../../pages/api/contextStore';
 
 function Message({ message }) {
+  const { lobby } = useContext(StoreContext);
+  const { name } = message;
+  // const color = (lobby.players.name.color) ? lobby.player.color : 'black';
+  useEffect(() => {
+    console.log(lobby.players, name)
+  }, []);
+
   return (
-    <div style={{ fontSize: '24px' }}>
+    <div style={{ fontSize: '24px'}}>
       {(!message.question)
         ? (
           <div>
