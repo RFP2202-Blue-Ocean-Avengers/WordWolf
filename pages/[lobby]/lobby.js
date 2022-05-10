@@ -31,6 +31,7 @@ function Game() {
   const toggleJoin = (e) => {
     e.preventDefault();
     const seat = e.target.name;
+    const color = e.target.id;
     if (lobby.seats[seat]) {
       if (lobby.seats[seat].name === loginData.name) {
         socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
@@ -38,9 +39,13 @@ function Game() {
         alert('seat already taken');
       }
     } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
-      socket.emit('swapSeats', { name: loginData.name, lobby: lobby.name, seat });
+      socket.emit('swapSeats', {
+        name: loginData.name, lobby: lobby.name, seat, color,
+      });
     } else {
-      socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name, seat });
+      socket.emit('toggleJoin', {
+        name: loginData.name, lobby: lobby.name, seat, color,
+      });
     }
   };
 

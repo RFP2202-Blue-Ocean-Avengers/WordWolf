@@ -76,10 +76,11 @@ const deleteLobby = (name) => {
   lobbies.delete(name);
 };
 
-const toggleJoin = (name, lobby, seat) => {
+const toggleJoin = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
   currentLobby.players[name].spectator = false;
   currentLobby.players[name].seat = seat;
+  currentLobby.players[name].color = color;
   if (!currentLobby.seats[seat]) {
     currentLobby.seats[seat] = currentLobby.players[name];
   }
@@ -87,9 +88,10 @@ const toggleJoin = (name, lobby, seat) => {
   return lobby;
 };
 
-const swapSeats = (name, lobby, seat) => {
+const swapSeats = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
   const prevSeat = currentLobby.players[name].seat;
+  currentLobby.players[name].color = color;
   currentLobby.players[name].seat = seat;
   currentLobby.seats[prevSeat] = null;
   currentLobby.seats[seat] = currentLobby.players[name];
@@ -103,6 +105,7 @@ const toggleSpectate = (name, lobby) => {
   currentLobby.players[name].spectator = true;
   currentLobby.players[name].seat = null;
   currentLobby.seats[prevSeat] = null;
+  currentLobby.players[name].color = null;
   lobbies.set(currentLobby.name, currentLobby);
   return lobby;
 };

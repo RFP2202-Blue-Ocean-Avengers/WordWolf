@@ -42,12 +42,16 @@ io.on('connect', (socket) => {
     await emitConnectedToLobby(lobbyData, socket);
     emitLobbyData(lobby);
   });
-  socket.on('toggleJoin', async ({ name, lobby, seat }) => {
-    await toggleJoin(name, lobby, seat);
+  socket.on('toggleJoin', async ({
+    name, lobby, seat, color,
+  }) => {
+    await toggleJoin(name, lobby, seat, color);
     emitLobbyData(lobby);
   });
-  socket.on('swapSeats', async ({ name, lobby, seat }) => {
-    await swapSeats(name, lobby, seat);
+  socket.on('swapSeats', async ({
+    name, lobby, seat, color,
+  }) => {
+    await swapSeats(name, lobby, seat, color);
     emitLobbyData(lobby);
   });
   socket.on('toggleSpectate', async ({ name, lobby }) => {
