@@ -39,10 +39,16 @@ function Game() {
     }
   };
 
-  // if a player clicks this button, it would remove them from their seat and move them to spectate
-  // also make sure it emits to the backend
   const toggleSpectate = (e) => {
     e.preventDefault();
+    // make sure to check if the player is already a spectator
+    /*
+      emits to the server 'toggleSpectate' with
+        { lobby: name of lobby,
+          name: name of player,
+          seat: name of seat,
+        }
+    */
   };
 
   // starts the game
@@ -54,12 +60,41 @@ function Game() {
       0,
     );
 
-    if (joinedCount < 3) {
-      alert('unable to start with less than 3 players joined');
+    if (joinedCount < 4) {
+      alert('unable to start with less than 4 players joined');
       return;
     }
     // emit game start to the server and swap the page to the game
     socket.emit('gameStart', lobby.name);
+  };
+
+  const onMayorPick = (e) => {
+    e.preventDefault();
+    /*
+      emit to the server 'onMayorPick' with
+        { lobby: name of the lobby, word: word that is chosen }
+    */
+  };
+
+  const afterQuestionsRound = (e) => {
+    e.preventDefault();
+    /*
+      emit to the server based on a condition
+       if all tokens are handed out
+        will emit the phrase 'outOfTokens'
+          { lobby: name of the lobby, condition: 'outOfTokens'}
+       if timer runs out
+        will emit the phrase 'outOfTime'
+       if correct word is chosen
+        will emit the phrase 'wordGuessed'
+    */
+  };
+
+  // resets the game state to be a clean state
+  // allows for restart from the lobby
+  const resetGame = (e) => {
+    e.preventDefault();
+    socket.emit('resetGame', lobby.name);
   };
 
   const display = () => {
@@ -70,14 +105,19 @@ function Game() {
             lobby={lobby}
             toggleJoin={toggleJoin}
             onGameStart={onGameStart}
+            loginData={loginData}
           />
         );
       case ('mayorPick'):
         return <h1>Mayor Picking</h1>;
       case ('questionRound'):
         return <h1>Question Round</h1>;
-      case ('endGame'):
-        return <h1>End Game</h1>;
+      case ('wordGuessed'):
+        return <h1>End Game: word guessed</h1>;
+      case ('outOfTokens'):
+        return <h1>End Game: out of tokens</h1>;
+      case ('outOfTime'):
+        return <h1>End Game: out of time</h1>;
       default:
         return <h1>No Game State</h1>;
     }
