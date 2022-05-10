@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
-import Lobby from '../../components/LobbyTable';
+import Lobby from '../../components/Lobby';
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
