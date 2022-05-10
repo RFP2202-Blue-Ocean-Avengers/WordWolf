@@ -27,11 +27,15 @@ io.on('connect', (socket) => {
   };
 
   socket.on('createLobby', async ({ name, lobby }) => {
+    socket.join(lobby);
+
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
   });
   socket.on('joinLobby', async ({ name, lobby }) => {
+    socket.join(lobby);
+
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
     await emitConnectedToLobby(lobbyData, socket);
@@ -55,7 +59,6 @@ io.on('connect', (socket) => {
 
   });
   socket.on('newMessage', async (data, lobby) => {
-    socket.join(lobby);
     addMessage(data, false);
     const allmessages = getLobbyMessages(lobby);
     io.to(lobby).emit('allMessages', allmessages);
@@ -72,6 +75,7 @@ io.on('connect', (socket) => {
     console.log(`closed socket: ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
+      socket.leave(player.lobby);
       removePlayerFromLobby(player);
       emitLobbyData(player.lobby);
     }

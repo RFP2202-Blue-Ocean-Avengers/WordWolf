@@ -83,7 +83,7 @@ function Game() {
         return (
           <div>
             <h1>Question Round</h1>
-            <GameChat username={loginData.name} lobby={loginData.lobby} />
+            {/* <GameChat username={loginData.name} lobby={loginData.lobby} /> */}
           </div>
         );
 
@@ -97,6 +97,7 @@ function Game() {
   return (
     <div>
       {lobby && display()}
+      <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
     </div>
   );
 }

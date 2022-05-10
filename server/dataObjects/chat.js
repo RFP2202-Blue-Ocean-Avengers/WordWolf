@@ -29,15 +29,23 @@
 //   updateMessageAnswer,
 // }
 
+const { getLobby } = require('./lobby');
+
 const messages = [];
 const gameMesages = [];
 
 const addMessage = (data, gameStart) => {
+  const { lobby } = data;
+  const theLobby = getLobby(lobby);
   if (gameStart) {
     gameMesages.push(data);
+    if (data.question) {
+      theLobby.questions.push(data);
+    }
     return data;
   }
   messages.push(data);
+  theLobby.messages.push(data);
   return data;
 };
 

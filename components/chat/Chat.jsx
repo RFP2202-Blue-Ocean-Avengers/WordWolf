@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import uuid from 'react-uuid';
 import { Button, Input } from '@chakra-ui/react';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import { socket } from '../../pages/api/service/socket';
@@ -10,7 +11,6 @@ function Chat({ players, username, lobby }) {
   const [allMessages, setAllMessages] = useState([]);
   // get the message before type
   useEffect(() => {
-    console.log(players);
     axios(`/messages/${lobby}`)
       .then((data) => setAllMessages(data.data))
       .catch();
@@ -56,7 +56,7 @@ function Chat({ players, username, lobby }) {
       }}
       >
         <ReactScrollableFeed>
-          {allMessages?.map((msg) => <Message players={players} message={msg} />)}
+          {allMessages?.map((msg) => <Message key={uuid()} players={players} message={msg} />)}
         </ReactScrollableFeed>
       </div>
       <div style={{ display: 'flex', padding: '20px' }}>

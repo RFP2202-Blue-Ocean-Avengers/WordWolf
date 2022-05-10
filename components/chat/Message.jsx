@@ -1,16 +1,20 @@
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { socket } from '../../pages/api/service/socket';
 import { StoreContext } from '../../pages/api/contextStore';
 
 function Message({ message }) {
   const { lobby } = useContext(StoreContext);
   const { name } = message;
-  // const color = (lobby.players.name.color) ? lobby.player.color : 'black';
+  const [color, setColor] = useState('black');
+
   useEffect(() => {
-    console.log(lobby.players, name)
-  }, []);
+    if (lobby.players[name]?.color) {
+      setColor(lobby.players[name].color);
+    }
+  }, [socket]);
 
   return (
-    <div style={{ fontSize: '24px'}}>
+    <div style={{ fontSize: '24px', color }}>
       {(!message.question)
         ? (
           <div>
@@ -24,7 +28,7 @@ function Message({ message }) {
             {message.name}
             {': '}
             <div style={{
-              backgroundColor: '#2534BA', color: 'white', width: '208px', height: '41px', fontSize: '24px', borderRadius: '20px', textAlign: 'center', marginTop: '3px',
+              backgroundColor: color, color: 'white', width: '208px', height: '41px', fontSize: '24px', borderRadius: '20px', textAlign: 'center', marginTop: '3px',
             }}
             >
               {message.message}
