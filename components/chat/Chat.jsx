@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Input } from '@chakra-ui/react';
 import { socket } from '../../pages/api/service/socket';
@@ -29,9 +29,18 @@ function Chat({ username, lobby }) {
     setMessage('');
   };
   return (
-    <div style={{ width: '350px', height: '700px', backgroundColor: '#C4C4C4' }}>
+    <div style={{
+      width: '350px',
+      height: '700px',
+      backgroundColor: '#C4C4C4',
+    }}
+    >
       <h2 style={{
-        position: 'relative', left: '25%', fontSize: '50px', padding: '10px', fontWeight: 'bold',
+        position: 'relative',
+        left: '25%',
+        fontSize: '50px',
+        padding: '10px',
+        fontWeight: 'bold',
       }}
       >
         CHAT
@@ -44,7 +53,7 @@ function Chat({ username, lobby }) {
         overflow: 'auto',
       }}
       >
-        {allMessages?.map((message) => <Message message={message} />)}
+        {allMessages?.map((msg) => <Message message={msg} />)}
       </div>
       <div style={{ display: 'flex', padding: '20px' }}>
         <Input
@@ -56,7 +65,10 @@ function Chat({ username, lobby }) {
         />
         <Button
           style={{
-            backgroundColor: 'black', color: 'white', width: '65px', height: '85px',
+            backgroundColor: 'black',
+            color: 'white',
+            width: '65px',
+            height: '85px',
           }}
           onClick={() => handleSubmitOnClick()}
         >

@@ -9,7 +9,8 @@
 //     this.name = name;
 //     this.message = message;
 //     this.question = question; // if it is a question or not, boolean
-//     this.answer = null; // if it is a question, this will be changed, if not then it will stay null
+//     this.answer = null;
+// if it is a question, this will be changed, if not then it will stay null
 //   }
 // }
 
@@ -40,10 +41,8 @@ const addMessage = (data, gameStart) => {
   return data;
 };
 
-const getLobbyMessages = (lobby) =>
-  messages.filter((message) => message.lobby === lobby);
+const getLobbyMessages = (lobby) => messages.filter((message) => message.lobby === lobby);
 
-const getGameMessages = (lobby) =>
-  gameMesages.filter((message) => message.lobby === lobby);
+const getGameMessages = (lobby) => gameMesages.filter((message) => message.lobby === lobby);
 
 module.exports = { addMessage, getLobbyMessages, getGameMessages };

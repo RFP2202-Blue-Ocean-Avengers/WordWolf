@@ -63,9 +63,7 @@ io.on('connect', (socket) => {
 
   socket.on('newGameMessage', async (data, lobby) => {
     addMessage(data, true);
-    console.log('gamemessage: ', data)
     const allmessages = getGameMessages(lobby);
-    console.log(allmessages)
     io.to(lobby).emit('allGameMessages', allmessages);
   });
 

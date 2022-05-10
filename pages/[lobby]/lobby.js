@@ -80,7 +80,13 @@ function Game() {
       case ('mayorPick'):
         return <h1>Mayor Picking</h1>;
       case ('questionRound'):
-        return <h1>Question Round</h1>;
+        return (
+          <div>
+            <h1>Question Round</h1>
+            <GameChat username={loginData.name} lobby={loginData.lobby} />
+          </div>
+        );
+
       case ('endGame'):
         return <h1>End Game</h1>;
       default:
