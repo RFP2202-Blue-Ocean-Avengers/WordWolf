@@ -27,3 +27,7 @@ export const MaybeButton = styled.button`
 export const TokenList = styled.div`
 
 `;
+
+export const QuestionContainer = styled.div`
+
+`;

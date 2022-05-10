@@ -1,5 +1,5 @@
-import React from 'react';
-import IndividualQuestion from './IndividualQuestion.jsx'
+import { useState, useEffect, React } from 'react';
+import IndividualQuestion from './IndividualQuestion.jsx';
 import {
   TokenModalContainer,
   CloseButton,
@@ -8,19 +8,34 @@ import {
   NoButton,
   MaybeButton,
   TokenList,
-} from './ModalStyles/Tokens.js';
+} from './modalStyles/Tokens.js';
 
-function TokenModal() {
+// props: player object as "player" & list of default tokens as "selectedTokens"
+
+function TokenModal({ player, selectedTokens }) {
+  const [currentTokenList, setTokenList] = useState(null);
+
+  useEffect(() => {
+    setTokenList(selectedTokens);
+  }, [selectedTokens]);
+
+  function onClick(tokenType) {
+    setTokenList(player.tokens[tokenType]);
+  }
   return (
     <TokenModalContainer>
       <CloseButton>x</CloseButton>
       <ResponseContainer>
-        <YesButton>Yes</YesButton>
-        <NoButton>No</NoButton>
-        <MaybeButton>Maybe</MaybeButton>
+        <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
+        <NoButton onClick={() => onClick('no')}>No</NoButton>
+        <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
       </ResponseContainer>
       <TokenList>
-        <IndividualQuestion />
+        { currentTokenList
+          ? currentTokenList.map((question) => (
+            <IndividualQuestion question={question} />
+          ))
+          : null }
       </TokenList>
     </TokenModalContainer>
   );
