@@ -1,8 +1,6 @@
 // stores message data for the chat ?
 // maybe also stores the questions ?
 
-const messages = new Map();
-
 // example message object
 class Message {
   constructor(name, message, question) {
@@ -16,14 +14,13 @@ class Message {
 const addMessageToLobby = (payload) => {
   const { name, message, question } = payload;
   // add the message to the lobby's list of messages ?
-}
+};
 
 const updateMessageAnswer = (payload) => {
   // get the message from the lobby list of messages and update it accordingly
-}
+};
 
 module.exports = {
-  messages,
   addMessageToLobby,
   updateMessageAnswer,
-}
+};

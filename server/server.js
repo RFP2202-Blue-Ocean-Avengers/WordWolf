@@ -5,6 +5,7 @@ const io = require('socket.io')(server);
 const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin,
+  toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 
@@ -37,28 +38,35 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
   socket.on('toggleJoin', async ({ name, lobby, seat }) => {
-    toggleJoin(name, lobby, seat);
+    await toggleJoin(name, lobby, seat);
+    emitLobbyData(lobby);
+  });
+  socket.on('toggleSpectate', async ({ name, lobby, seat }) => {
+    await toggleSpectate(name, lobby, seat);
     emitLobbyData(lobby);
   });
   socket.on('gameStart', async (lobby) => {
-    startGame(lobby);
+    await startGame(lobby);
     emitLobbyData(lobby);
   });
-  socket.on('mayorPick', async () => {
-
+  socket.on('onMayorPick', async ({ lobby, word }) => {
+    await onMayorPick(lobby, word);
+    emitLobbyData(lobby);
   });
-  socket.on('questionRound', async () => {
-
+  socket.on('afterQuestionRound', async ({ lobby, condition }) => {
+    await afterQuestionRound(lobby, condition);
+    emitLobbyData(lobby);
   });
-  socket.on('endGame', async () => {
-
+  socket.on('resetGame', async (lobby) => {
+    await resetGame(lobby);
+    emitLobbyData(lobby);
   });
-  socket.on('disconnect', () => {
+  socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting
     console.log(`closed socket: ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
-      removePlayerFromLobby(player);
+      await removePlayerFromLobby(player);
       emitLobbyData(player.lobby);
     }
   });
