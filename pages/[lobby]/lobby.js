@@ -2,6 +2,9 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
+import MayorPick from '../../components/MayorPick';
+import QuestionRound from '../../components/QuestionRound';
+import EndGame from '../../components/EndGame';
 
 function Game() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
@@ -52,9 +55,10 @@ function Game() {
   };
 
   // starts the game
+  // if less than 4 players are joined do not let the game start
   const onGameStart = (e) => {
     e.preventDefault();
-    // if less than 3 players are not spectators, do not let the game start
+
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -91,14 +95,21 @@ function Game() {
   };
 
   // resets the game state to be a clean state
-  // allows for restart from the lobby
   const resetGame = (e) => {
     e.preventDefault();
     socket.emit('resetGame', lobby.name);
   };
 
   const display = () => {
-    switch (lobby.gameState) {
+    const endGameArray = ['wordGuessed', 'outOfTokens', 'outOfTime'];
+    let gameState;
+    if (endGameArray.includes(lobby.gameState)) {
+      gameState = 'endGame';
+    } else {
+      gameState = lobby.gameState;
+    }
+
+    switch (gameState) {
       case ('lobby'):
         return (
           <Lobby
@@ -109,17 +120,26 @@ function Game() {
           />
         );
       case ('mayorPick'):
-        return <h1>Mayor Picking</h1>;
+        return (
+          <MayorPick
+            lobby={lobby}
+          />
+        );
       case ('questionRound'):
-        return <h1>Question Round</h1>;
-      case ('wordGuessed'):
-        return <h1>End Game: word guessed</h1>;
-      case ('outOfTokens'):
-        return <h1>End Game: out of tokens</h1>;
-      case ('outOfTime'):
-        return <h1>End Game: out of time</h1>;
+        return (
+          <QuestionRound
+            lobby={lobby}
+          />
+        );
+      case ('endGame'):
+        return (
+          <EndGame
+            lobby={lobby}
+            resetGame={resetGame}
+          />
+        );
       default:
-        return <h1>No Game State</h1>;
+        return null;
     }
   };
 
