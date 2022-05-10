@@ -4,7 +4,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const next = require('next');
 const {
-  lobbies, addLobby, getLobby, startGame, toggleJoin,
+  lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
@@ -39,6 +39,10 @@ io.on('connect', (socket) => {
   });
   socket.on('toggleJoin', async ({ name, lobby, seat }) => {
     await toggleJoin(name, lobby, seat);
+    emitLobbyData(lobby);
+  });
+  socket.on('swapSeats', async ({ name, lobby, seat }) => {
+    await swapSeats(name, lobby, seat);
     emitLobbyData(lobby);
   });
   socket.on('toggleSpectate', async ({ name, lobby, seat }) => {
