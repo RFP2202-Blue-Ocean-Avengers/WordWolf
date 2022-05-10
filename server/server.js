@@ -45,8 +45,8 @@ io.on('connect', (socket) => {
     await swapSeats(name, lobby, seat);
     emitLobbyData(lobby);
   });
-  socket.on('toggleSpectate', async ({ name, lobby, seat }) => {
-    await toggleSpectate(name, lobby, seat);
+  socket.on('toggleSpectate', async ({ name, lobby }) => {
+    await toggleSpectate(name, lobby);
     emitLobbyData(lobby);
   });
   socket.on('gameStart', async (lobby) => {

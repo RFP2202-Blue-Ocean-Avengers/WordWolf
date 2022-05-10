@@ -30,7 +30,11 @@ function Game() {
     e.preventDefault();
     const seat = e.target.name;
     if (lobby.seats[seat]) {
-      alert('seat already taken');
+      if (lobby.seats[seat].name === loginData.name) {
+        socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+      } else {
+        alert('seat already taken');
+      }
     } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
       socket.emit('swapSeats', { name: loginData.name, lobby: lobby.name, seat });
     } else {
@@ -40,14 +44,11 @@ function Game() {
 
   const toggleSpectate = (e) => {
     e.preventDefault();
-    // make sure to check if the player is already a spectator
-    /*
-      emits to the server 'toggleSpectate' with
-        { lobby: name of lobby,
-          name: name of player,
-          seat: name of seat,
-        }
-    */
+    if (!lobby.players[loginData.name].spectator) {
+      socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+    } else {
+      alert("You\'re already a spectator");
+    }
   };
 
   // starts the game
@@ -105,6 +106,7 @@ function Game() {
             toggleJoin={toggleJoin}
             onGameStart={onGameStart}
             loginData={loginData}
+            toggleSpectate={toggleSpectate}
           />
         );
       case ('mayorPick'):

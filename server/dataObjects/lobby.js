@@ -97,8 +97,14 @@ const swapSeats = (name, lobby, seat) => {
   return lobby;
 };
 
-const toggleSpectate = (name, lobby, seat) => {
-
+const toggleSpectate = (name, lobby) => {
+  const currentLobby = lobbies.get(lobby);
+  const prevSeat = currentLobby.players[name].seat;
+  currentLobby.players[name].spectator = true;
+  currentLobby.players[name].seat = null;
+  currentLobby.seats[prevSeat] = null;
+  lobbies.set(currentLobby.name, currentLobby);
+  return lobby;
 };
 
 const startGame = (lobbyName) => {
