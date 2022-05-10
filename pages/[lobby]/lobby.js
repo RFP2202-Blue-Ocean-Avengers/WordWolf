@@ -2,13 +2,11 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
-import MayorPick from '../../components/MayorPick';
-import QuestionRound from '../../components/QuestionRound';
-import EndGame from '../../components/EndGame';
+import Game from '../../components/Game';
 import Chat from '../../components/chat/Chat';
 import GameChat from '../../components/chat/GameChat';
 
-function Game() {
+function Container() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
 
   const onInit = () => {
@@ -86,10 +84,10 @@ function Game() {
   };
 
   const display = () => {
-    const endGameArray = ['wordGuessed', 'outOfTokens', 'outOfTime'];
+    const gameArray = ['mayorPick', 'quetsionRound', 'wordGuessed', 'outOfTokens', 'outOfTime'];
     let gameState;
-    if (endGameArray.includes(lobby.gameState)) {
-      gameState = 'endGame';
+    if (gameArray.includes(lobby.gameState)) {
+      gameState = 'game';
     } else {
       gameState = lobby.gameState;
     }
@@ -101,38 +99,26 @@ function Game() {
             <Lobby
               lobby={lobby}
               toggleJoin={toggleJoin}
+              toggleSpectate={toggleSpectate}
               onGameStart={onGameStart}
               loginData={loginData}
-              toggleSpectate={toggleSpectate}
             />
             <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
           </div>
         );
-      case ('mayorPick'):
+      case ('game'):
         return (
           <div>
-            <MayorPick
+            <Game
               lobby={lobby}
               onMayorPick={onMayorPick}
+              afterQuestionsRound={afterQuestionsRound}
+              resetGame={resetGame}
               loginData={loginData}
             />
             <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
+
           </div>
-        );
-      case ('questionRound'):
-        return (
-          <QuestionRound
-            lobby={lobby}
-            afterQuestionsRound={afterQuestionsRound}
-            loginData={loginData}
-          />
-        );
-      case ('endGame'):
-        return (
-          <EndGame
-            lobby={lobby}
-            resetGame={resetGame}
-          />
         );
       default:
         return null;
@@ -155,24 +141,15 @@ function Game() {
           onGameStart={onGameStart}
           loginData={loginData}
         />
-
-        <MayorPick
+        <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
+        <Game
           lobby={lobby}
           onMayorPick={onMayorPick}
-          loginData={loginData}
-        />
-
-        <QuestionRound
-          lobby={lobby}
           afterQuestionsRound={afterQuestionsRound}
-          loginData={loginData}
-        />
-
-        <EndGame
-          lobby={lobby}
           resetGame={resetGame}
           loginData={loginData}
         />
+        <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
       </>
       )}
 
@@ -180,4 +157,4 @@ function Game() {
   );
 }
 
-export default Game;
+export default Container;
