@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import IndividualQuestion from './IndividualQuestion';
 import {
   TokenModalContainer,
@@ -12,41 +11,29 @@ import {
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
-function TokenModal({ player, selectedTokens }) {
-  const [currentTokenList, setTokenList] = useState(null);
-
-  useEffect(() => {
-    setTokenList(selectedTokens);
-  }, [selectedTokens]);
-
-  function onClick(tokenType) {
-    setTokenList(player.player.tokens[tokenType]);
+function TokenModal({ player, setTokenType, tokenType }) {
+  function onClick(currentToken) {
+    setTokenType(currentToken);
   }
 
   function onCancel() {
-    setTokenList(null);
+    setTokenType(false);
   }
 
   return (
-    <div>
-      { currentTokenList
-        ? (
-          <TokenModalContainer>
-            <CloseButton onClick={() => onCancel()}>x</CloseButton>
-            <ResponseContainer>
-              <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
-              <NoButton onClick={() => onClick('no')}>No</NoButton>
-              <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
-            </ResponseContainer>
-            <TokenList>
-              { currentTokenList.map((question) => (
-                <IndividualQuestion question={question} />
-              ))}
-            </TokenList>
-          </TokenModalContainer>
-        )
-        : null }
-    </div>
+    <TokenModalContainer>
+      <CloseButton onClick={() => onCancel()}>x</CloseButton>
+      <ResponseContainer>
+        <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
+        <NoButton onClick={() => onClick('no')}>No</NoButton>
+        <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
+      </ResponseContainer>
+      <TokenList>
+        { player.player.tokens[tokenType].map((question) => (
+          <IndividualQuestion question={question} />
+        ))}
+      </TokenList>
+    </TokenModalContainer>
   );
 }
 
