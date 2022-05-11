@@ -31,6 +31,7 @@ function GameChat({ players, username, lobby }) {
     await socket.emit('newGameMessage', data, lobby);
     setMessage('');
   };
+
   return (
     <div style={{
       width: '542px', height: '181px', backgroundColor: 'white',

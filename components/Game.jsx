@@ -6,6 +6,7 @@ import GameChat from "./chat/GameChat";
 import GameLogo from "../assets/GameLogo.svg";
 import UserRole from "./UserRole";
 import TokenModal from "./TokenModal";
+import MayorPickModal from './MayorPickModal';
 
 function Game({
   lobby,
@@ -74,6 +75,12 @@ function Game({
       <Box>
         <TokenModal player={playerObj} selectedTokens={selected} />
       </Box>
+      {lobby?.mayor?.name === loginData.name ? (
+        <MayorPickModal
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+        />
+      ) : null}
     </div>
   );
 }

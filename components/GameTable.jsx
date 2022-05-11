@@ -2,7 +2,6 @@ import { Box, HStack } from "@chakra-ui/react";
 import Tokens from "./Tokens";
 
 function GameTable({ tokenSetter, loginData, lobby }) {
-
   return (
     <Box
       w="900px"
@@ -18,7 +17,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
       <HStack>
         {lobby?.seats?.seat1 ? (
           <Box
-            //red
+            // red
             name="seat1"
             id="#E6474E"
             as="button"
@@ -80,7 +79,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         )}
         {lobby?.seats?.seat2 ? (
           <Box
-            //orange
+            // orange
             name="seat2"
             id="#F18E35"
             as="button"
@@ -341,7 +340,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
       >
         {lobby.gameState !== "questionRound"
           ? lobby.gameState
-          : lobby.questions[0]}
+          : lobby.questions[0]?.message}
       </Box>
       <Box
         marginTop="10px"

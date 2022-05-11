@@ -6,6 +6,7 @@ const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
+  answerQuestion, VoteWerewolf, VoteSeer,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
@@ -63,6 +64,7 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
   socket.on('onMayorPick', async ({ lobby, word }) => {
+    console.log(lobby, word);
     await onMayorPick(lobby, word);
     emitLobbyData(lobby);
   });
@@ -79,12 +81,30 @@ io.on('connect', (socket) => {
     addMessage(data, false);
     const allmessages = getLobbyMessages(lobby);
     io.to(lobby).emit('allMessages', allmessages);
+    emitLobbyData(lobby);
   });
 
   socket.on('newGameMessage', async (data, lobby) => {
     addMessage(data, true);
     const allmessages = getGameMessages(lobby);
     io.to(lobby).emit('allGameMessages', allmessages);
+    emitLobbyData(lobby);
+  });
+
+  socket.on('AnsweredQuestion', async ({ answer, question, lobbyName }) => {
+    // adds the question to the appropriate player's array of that answer
+    await answerQuestion(answer, question, lobbyName);
+    emitLobbyData(lobbyName);
+  });
+
+  socket.on('VoteWerewolf', async ({ name }) => {
+    // adds a player object to the provided name's werewolfVotes array
+    console.log('invoke werewolf votes');
+  });
+
+  socket.on('VoteSeer', async ({ name }) => {
+    // adds a player object to the provided name's villagerVotes array
+    console.log('invoke seer votes');
   });
 
   socket.on('disconnect', async () => {
@@ -112,9 +132,12 @@ nextApp.prepare()
     });
 
     app.get('/joinLobby', (req, res) => {
-      const { lobby } = JSON.parse(req.query.loginData);
-      if (!lobbies.get(lobby)) {
-        res.send('error');
+      const { name, lobby } = JSON.parse(req.query.loginData);
+      const currentLobby = lobbies.get(lobby);
+      if (!currentLobby) {
+        res.send('lobby name not found');
+      } else if (currentLobby.players[name]) {
+        res.send('name already in use');
       } else {
         res.send('ok');
       }
