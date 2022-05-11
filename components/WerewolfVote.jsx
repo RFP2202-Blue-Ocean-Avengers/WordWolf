@@ -9,9 +9,7 @@ modal for the werewolf and any other special role to vote on the seer if the tim
 the choice for vote is done with the table select
 */
 
-import io from 'socket.io-client';
-import { useState, useEffect, useContext } from 'react';
-import { Button, Input, UnorderedList, ListItem } from '@chakra-ui/react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';

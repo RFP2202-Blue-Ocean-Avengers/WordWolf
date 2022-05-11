@@ -10,9 +10,7 @@ the vote is selected with a table select
 needs the loppy
 */
 
-import io from 'socket.io-client';
-import { useState, useEffect, useContext } from 'react';
-import { Button, Input, UnorderedList, ListItem } from '@chakra-ui/react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';

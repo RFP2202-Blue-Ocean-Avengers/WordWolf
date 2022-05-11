@@ -42,7 +42,7 @@ function Home() {
             setLoginData({ ...loginData, create: false });
             router.push(`/${loginData.lobby}/lobby`);
           } else {
-            alert('lobby does not exist');
+            alert(res.data);
           }
         })
         .catch((err) => new Error(err));

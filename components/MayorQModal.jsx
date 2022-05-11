@@ -14,13 +14,10 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import io from 'socket.io-client';
-import { useState, useEffect, useContext } from 'react';
-import { Button, Input, UnorderedList, ListItem } from '@chakra-ui/react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import { BiCheck } from 'react-icons/bi';
-import { BiQuestionMark } from 'react-icons/bi';
+import { BiCheck, BiQuestionMark } from 'react-icons/bi';
 import { ImCross } from 'react-icons/im';
 import { GrStar } from 'react-icons/gr';
 import { BsExclamationLg } from 'react-icons/bs';
@@ -55,15 +52,19 @@ function MayorQModal({ lobby }) {
   return (
     <Container id="MayorQModal">
 
-      <QuestionP id="CurrQuestion">Q: {currQuestion.message || '---'}</QuestionP>
+      <QuestionP id="CurrQuestion">
+        Q:
+        {' '}
+        {currQuestion.message || '---'}
+      </QuestionP>
 
       <ButtonsDiv id="QuestionButtons">
-        <TokenBY id="yes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="yes" size={30} style={{ margin: "0px auto" }} /></TokenBY>
-        <TokenBM id="maybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="maybe" size={30} style={{ margin: "0px auto" }} /></TokenBM>
-        <TokenBN id="no" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="no" size={30} style={{ margin: "0px auto" }} /></TokenBN>
-        <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: "0px auto" }} /></TokenBC>
-        <TokenBCO id="soClone" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClone" size={30} style={{ margin: "0px auto" }} /></TokenBCO>
-        <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: "0px auto" }} /></TokenBW>
+        <TokenBY id="yes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="yes" size={30} style={{ margin: '0px auto' }} /></TokenBY>
+        <TokenBM id="maybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="maybe" size={30} style={{ margin: '0px auto' }} /></TokenBM>
+        <TokenBN id="no" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="no" size={30} style={{ margin: '0px auto' }} /></TokenBN>
+        <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: '0px auto' }} /></TokenBC>
+        <TokenBCO id="soClone" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClone" size={30} style={{ margin: '0px auto' }} /></TokenBCO>
+        <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: '0px auto' }} /></TokenBW>
       </ButtonsDiv>
 
     </Container>

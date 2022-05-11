@@ -28,8 +28,10 @@ class Lobby {
   constructor(host, name) {
     this.name = name;
     this.host = host;
+    this.mayor = null;
     this.settings = {
-      timer: 0,
+      minutes: 5,
+      seconds: 0,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
@@ -53,6 +55,16 @@ class Lobby {
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
   }
+}
+
+const updateTimer = (settings, lobby) => {
+  //get specific lobby
+  const currLobby = lobbies.get(lobby);
+  //update settings to param
+  currLobby.settings = settings;
+  //update lobbies map
+  lobbies.set(lobby, currLobby);
+  return currLobby;
 }
 
 const addLobby = (host, name) => {
@@ -164,6 +176,7 @@ const startGame = (lobbyName) => {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
     if (!player.spectator) {
       lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
+      lobby.mayor = player;
       mayorSelected = true;
     }
   }
@@ -248,6 +261,7 @@ module.exports = {
   onMayorPick,
   afterQuestionRound,
   resetGame,
+  updateTimer,
   answerQuestion,
   VoteWerewolf,
   VoteSeer,

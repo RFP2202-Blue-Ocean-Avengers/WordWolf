@@ -31,6 +31,7 @@ function GameChat({ players, username, lobby }) {
     await socket.emit('newGameMessage', data, lobby);
     setMessage('');
   };
+
   return (
     <div style={{
       width: '542px', height: '181px', backgroundColor: 'white',
@@ -41,7 +42,7 @@ function GameChat({ players, username, lobby }) {
       </ReactScrollableFeed>
 
       {(!players || !players[username].spectator) ? (
-        <div style={{ display: 'flex', padding: '10px' }}>
+        <div style={{ display: 'flex', padding: '10px', backgroundColor: 'white' }}>
           {' '}
           <Input
             value={message}
