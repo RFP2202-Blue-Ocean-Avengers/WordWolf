@@ -56,8 +56,6 @@ function MayorQModal({ lobby }) {
     setCurrQuestion(lobby?.questions[0] || '---');
   };
 
-  console.log(lobby);
-
   return (
     <Container id="MayorQModal">
 
