@@ -79,12 +79,14 @@ io.on('connect', (socket) => {
     addMessage(data, false);
     const allmessages = getLobbyMessages(lobby);
     io.to(lobby).emit('allMessages', allmessages);
+    emitLobbyData(lobby);
   });
 
   socket.on('newGameMessage', async (data, lobby) => {
     addMessage(data, true);
     const allmessages = getGameMessages(lobby);
     io.to(lobby).emit('allGameMessages', allmessages);
+    emitLobbyData(lobby);
   });
 
   socket.on('disconnect', async () => {
@@ -112,9 +114,12 @@ nextApp.prepare()
     });
 
     app.get('/joinLobby', (req, res) => {
-      const { lobby } = JSON.parse(req.query.loginData);
-      if (!lobbies.get(lobby)) {
-        res.send('error');
+      const { name, lobby } = JSON.parse(req.query.loginData);
+      const currentLobby = lobbies.get(lobby);
+      if (!currentLobby) {
+        res.send('lobby name not found');
+      } else if (currentLobby.players[name]) {
+        res.send('name already in use');
       } else {
         res.send('ok');
       }

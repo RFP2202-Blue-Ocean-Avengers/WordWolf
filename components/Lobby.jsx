@@ -1,5 +1,6 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
+import Chat from './chat/Chat';
 
 function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
@@ -27,6 +28,7 @@ function Lobby({
         ) : null}
       <br />
       <Button onClick={(e) => toggleSpectate(e)}>Spectate</Button>
+      <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
       <h1>Spectators</h1>
       <UnorderedList>
         {lobby

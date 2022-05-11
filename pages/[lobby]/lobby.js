@@ -146,7 +146,6 @@ function Container() {
           onGameStart={onGameStart}
           loginData={loginData}
         />
-        <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
         <Game
           lobby={lobby}
           onMayorPick={onMayorPick}
@@ -154,7 +153,6 @@ function Container() {
           resetGame={resetGame}
           loginData={loginData}
         />
-        <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
       </>
       )}
 
