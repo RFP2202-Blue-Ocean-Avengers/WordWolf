@@ -193,7 +193,22 @@ const onMayorPick = (lobbyName, word) => {
   return lobby;
 };
 
-// implement logic and functions to allow for questions to be asked
+const answerQuestion = (answer, question, lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  const player = lobby.players[question.name];
+  player.tokens[answer].push(question);
+  lobby.questions.shift();
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
+const VoteWerewolf = (str) => {
+  // logic here
+};
+
+const VoteSeer = (str) => {
+  // logic here
+};
 
 const afterQuestionRound = (lobbyName, condition) => {
   const lobby = getLobby(lobbyName);
@@ -232,6 +247,9 @@ module.exports = {
   onMayorPick,
   afterQuestionRound,
   resetGame,
+  answerQuestion,
+  VoteWerewolf,
+  VoteSeer,
 };
 
 // addLobby('lobby');

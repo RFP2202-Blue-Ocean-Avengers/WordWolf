@@ -8,12 +8,17 @@ Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Ki
 Blue Ocean
 this is the mayor modal that shows the oldest question asked and the buttons to answer that question
 could be hidden if no questions are in the queue?
+i needed to too id twice to both the button and the react icon cause during the clicking
+the event reader would read either the id from button or the id from react icon
+needs the lobby object's questions array
+also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
 import io from 'socket.io-client';
 import { useState, useEffect, useContext } from 'react';
 import { Button, Input, UnorderedList, ListItem } from '@chakra-ui/react';
 import styled from 'styled-components';
+
 import { BiCheck } from 'react-icons/bi';
 import { BiQuestionMark } from 'react-icons/bi';
 import { ImCross } from 'react-icons/im';
@@ -25,38 +30,40 @@ import { socket } from '../pages/api/service/socket';
 
 
 
+function MayorQModal({ lobby }) {
 
+  const [currQuestion, setCurrQuestion] = useState(lobby.lobby.questions[0] || '---');
 
+  const clickedOnButton = (e) => {
+    if (currQuestion === '---' || currQuestion === undefined) {
+      return null;
+    }
 
+    if (e.target.id) {
+      // the gosh dangit react icon's <path> thingy has passed the id
+      // instead of the <button> or the icon's <svg> id
+      socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby.lobby.name });
+      lobby.lobby.questions.shift();
+    } else {
+      return null;
+    }
 
-
-function MayorQModal({ lobby, loginData }) {
-
-  const [currQuestion, setCurrQuestion] = useState(lobby.questions[0]);
-
-
-  const clickedOnButton = (e) => { // will handle the click types here through e.target.id
-
-    socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobby: lobby.name });
-
-    console.log(lobby);
-    console.log(currQuestion);
-
+    setCurrQuestion(lobby.lobby.questions[0] || '---');
   };
 
 
   return (
     <Container id="MayorQModal">
 
-      <QuestionP id="CurrQuestion">{currQuestion ? `Q: ${currQuestion}` : `Q: ---`}</QuestionP>
+      <QuestionP id="CurrQuestion">Q: {currQuestion.message || '---'}</QuestionP>
 
       <ButtonsDiv id="QuestionButtons">
-        <TokenBY id="AnsYes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="AnsYes" size={30} style={{ margin: "0px auto" }} /></TokenBY>
-        <TokenBM id="AnsMaybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="AnsMaybe" size={30} style={{ margin: "0px auto" }} /></TokenBM>
-        <TokenBN id="AnsNo" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="AnsNo" size={30} style={{ margin: "0px auto" }} /></TokenBN>
-        <TokenBC id="AnsCorrect" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="AnsCorrect" size={30} style={{ margin: "0px auto" }} /></TokenBC>
-        <TokenBCO id="AnsClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="AnsClose" size={30} style={{ margin: "0px auto" }} /></TokenBCO>
-        <TokenBW id="AnsWrong" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="AnsWrong" size={30} style={{ margin: "0px auto" }} /></TokenBW>
+        <TokenBY id="yes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="yes" size={30} style={{ margin: "0px auto" }} /></TokenBY>
+        <TokenBM id="maybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="maybe" size={30} style={{ margin: "0px auto" }} /></TokenBM>
+        <TokenBN id="no" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="no" size={30} style={{ margin: "0px auto" }} /></TokenBN>
+        <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: "0px auto" }} /></TokenBC>
+        <TokenBCO id="soClone" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClone" size={30} style={{ margin: "0px auto" }} /></TokenBCO>
+        <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: "0px auto" }} /></TokenBW>
       </ButtonsDiv>
 
     </Container>
@@ -87,7 +94,6 @@ const QuestionP = styled.p`
 padding-top: 15px;
 margin: 0px auto;
 width: fit-content;
-top: 55px;
 color: black;
 `;
 
@@ -142,3 +148,34 @@ margin: 10px;
 `;
 
 // {lobby.players[loginData.name].mayor === true && <MayorQModal />}
+
+// [{
+//   id: '98g9d-54gfd83-dsfds',
+//   name: 'Bogdan',
+//   lobby: 'lobby1',
+//   message: 'is it an animal?',
+//   question: true
+// },
+// {
+//   id: '0gnd-54tr2r-ds9g91s',
+//   name: 'Bogdan',
+//   lobby: 'lobby1',
+//   message: 'is it a cat?',
+//   question: true
+// },
+// {
+//   id: '98g21j-543283-9g9dfds',
+//   name: 'bogdan2',
+//   lobby: 'lobby1',
+//   message: 'is it a dog?',
+//   question: true
+// }]
+
+// import MayorQModal from './MayorQModal';
+// import VillagerVote from './VillagerVote';
+// import WerewolfVote from './WerewolfVote';
+
+
+// <MayorQModal lobby={lobby}/>
+//       <VillagerVote lobby={lobby}/>
+//       <WerewolfVote lobby={lobby}/>
