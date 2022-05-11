@@ -29,7 +29,8 @@ function Game({
           {spectators}
           &nbsp;SPECTATORS
         </Box>
-        <Box alignSelf="center">
+        <Box alignSelf="center"
+        zIndex="100">
           <GameChat
             players={lobby?.players}
             username={loginData?.name}
