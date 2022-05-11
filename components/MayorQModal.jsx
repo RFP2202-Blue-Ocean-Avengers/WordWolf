@@ -26,7 +26,6 @@ import { MdDoDisturb } from 'react-icons/md';
 import { socket } from '../pages/api/service/socket';
 
 
-
 function MayorQModal({ lobby }) {
 
   const [currQuestion, setCurrQuestion] = useState(lobby.lobby.questions[0] || '---');

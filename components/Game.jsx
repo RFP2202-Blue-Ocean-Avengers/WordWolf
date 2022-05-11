@@ -27,7 +27,7 @@ function Game({
         username={loginData?.name}
         lobby={loginData?.lobby}
       />
-      {lobby.mayor.name === loginData.name ? (
+      {lobby.mayor?.name === loginData.name ? (
         <MayorPickModal
           lobby={lobby}
           onMayorPick={onMayorPick}

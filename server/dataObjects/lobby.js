@@ -29,6 +29,8 @@ class Lobby {
     this.name = name;
     this.host = host;
     this.mayor = null;
+    this.werewolf = [];
+    this.seer = null;
     this.settings = {
       timer: 0,
     };
@@ -50,6 +52,9 @@ class Lobby {
     this.chosenWord = ''; // word chosen by the mayor for this round
     this.messages = []; // all messages store for chat?
     this.questions = []; // questions queue
+    this.soClose = null; // question object for given token
+    this.wayOff = null; // question object for given token
+    this.correct = null; // question object for given token
     this.tokens = 36; // if this runs out the game ends
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
@@ -155,6 +160,11 @@ const startGame = (lobbyName) => {
   playerKeys.forEach((player) => {
     if (!lobby.players[player].spectator) {
       lobby.players[player].role = roles[roleIndex];
+      if (roles[roleIndex] === 'werewolf') {
+        lobby.werewolf.push(lobby.players[player]);
+      } else if (roles[roleIndex] === 'seer') {
+        lobby.seer = lobby.players[player];
+      }
       roleIndex += 1;
     }
   });

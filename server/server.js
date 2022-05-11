@@ -64,7 +64,6 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
   socket.on('onMayorPick', async ({ lobby, word }) => {
-    console.log(lobby, word);
     await onMayorPick(lobby, word);
     emitLobbyData(lobby);
   });
@@ -138,6 +137,8 @@ nextApp.prepare()
         res.send('lobby name not found');
       } else if (currentLobby.players[name]) {
         res.send('name already in use');
+      } else if (Object.keys(currentLobby.players).length === 10) {
+        res.send('lobby is full');
       } else {
         res.send('ok');
       }

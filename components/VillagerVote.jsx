@@ -15,17 +15,12 @@ import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';
 
-
-
 function VillagerVote({ lobby }) {
-
   const [currVote, setCurrVote] = useState(undefined);
-
 
   const clickedOnButton = (e) => {
     socket.emit('VoteWerewolf', { name: currVote });
   };
-
 
   return (
     <Container id="VillagerVote">
@@ -48,7 +43,6 @@ function VillagerVote({ lobby }) {
 }
 
 export default VillagerVote;
-
 
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
