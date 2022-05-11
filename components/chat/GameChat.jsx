@@ -24,7 +24,9 @@ function GameChat({ players, username, lobby }) {
       alert('message can not be blank');
       return;
     }
-    const data = { id: uuid(), name: username, lobby, message };
+    const data = {
+      id: uuid(), name: username, lobby, message,
+    };
     if (isQuestion) { data.question = true; } else { data.question = false; }
     await socket.emit('newGameMessage', data, lobby);
     setMessage('');
