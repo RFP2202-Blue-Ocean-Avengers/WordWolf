@@ -216,12 +216,18 @@ const answerQuestion = (answer, question, lobbyName) => {
   return lobby;
 };
 
-const VoteWerewolf = (str) => {
-  // logic here
+const VoteWerewolf = (player, lobbyName) => { // the villagers are voting
+  const lobby = getLobby(lobbyName);
+  lobby.villagerVotes.push(player); // put who's werewolf here
+  lobbies.set(lobbyName, lobby);
+  return lobby;
 };
 
-const VoteSeer = (str) => {
-  // logic here
+const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
+  const lobby = getLobby(lobbyName);
+  lobby.werewolfVotes.push(player); // put who's a seer here
+  lobbies.set(lobbyName, lobby);
+  return lobby;
 };
 
 const afterQuestionRound = (lobbyName, condition) => {
