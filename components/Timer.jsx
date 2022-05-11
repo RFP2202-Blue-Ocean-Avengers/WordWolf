@@ -16,7 +16,7 @@ function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
   }, [seconds, minutes]);
 
   useEffect(() => {
-    if (lobby.gameState === 'questionsRound') {
+    if (lobby.gameState === 'questionRound') {
       // const time = new Date();
       // time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
       start();

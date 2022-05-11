@@ -13,9 +13,9 @@ import {
 
 function TokenModal({ player, setplayerObj, tokenType }) {
 
-  function onClick(currentToken) {
-    setTokenType(player?[currentToken]);
-  }
+  // function onClick(currentToken) {
+  //   setTokenType(player?[currentToken]);
+  // }
 
   function onCancel() {
     setplayerObj(null);

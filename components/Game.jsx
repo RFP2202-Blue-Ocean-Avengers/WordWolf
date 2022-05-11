@@ -1,14 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import { useState } from "react";
-import Image from "next/image";
-import GameTable from "./GameTable";
-import GameChat from "./chat/GameChat";
-import GameLogo from "../assets/GameLogo.svg";
-import UserRole from "./UserRole";
-import TokenModal from "./TokenModal";
-import MayorPickModal from "./MayorPickModal";
-import MayorQModal from "./MayorQModal";
-import Timer from "./Timer";
+import { Box } from '@chakra-ui/react';
+import { useState } from 'react';
+import Image from 'next/image';
+import GameTable from './GameTable';
+import GameChat from './chat/GameChat';
+import GameLogo from '../assets/GameLogo.svg';
+import UserRole from './UserRole';
+import TokenModal from './TokenModal';
+import MayorPickModal from './MayorPickModal';
+import MayorQModal from './MayorQModal';
+import Timer from './Timer';
+import DisplayQStatus from './DisplayQStatus';
 
 function Game({
   lobby,
@@ -20,7 +21,7 @@ function Game({
 }) {
   const spectators = Object.keys(lobby.players).reduce(
     (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
-    0
+    0,
   );
 
   const [playerObj, setplayerObj] = useState(null);
@@ -30,13 +31,14 @@ function Game({
     setplayerObj(lobby?.players[name]);
     setSelected(token);
   }
+  console.log(lobby);
 
-  //for timer
+  // for timer
   const time = new Date();
   time.setSeconds(
-    time.getSeconds() +
-      Math.floor(lobby.settings.minutes * 60) +
-      lobby.settings.seconds
+    time.getSeconds()
+      + Math.floor(lobby.settings.minutes * 60)
+      + lobby.settings.seconds,
   );
 
   return (
@@ -46,12 +48,12 @@ function Game({
       </Box>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-          left: "10px",
-          top: "575px",
-          transform: "scale(0.93)",
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          left: '10px',
+          top: '575px',
+          transform: 'scale(0.93)',
         }}
       >
         <Box fontWeight="extrabold" fontSize="30" color="#FFF">
