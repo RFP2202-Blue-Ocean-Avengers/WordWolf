@@ -2,6 +2,17 @@ import { Box, HStack } from "@chakra-ui/react";
 import Tokens from "./Tokens";
 
 function GameTable({ tokenSetter, loginData, lobby }) {
+  let currentPlay;
+  if (lobby.gameState !== "questionRound") {
+    currentPlay = lobby.gameState;
+  } else if (lobby.gameState === "questionRound") {
+    if (lobby.questions.length === 0) {
+      currentPlay = "question round";
+    } else {
+      currentPlay = lobby.questions[0]?.message;
+    }
+  }
+
   return (
     <Box
       w="900px"
@@ -338,9 +349,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         height="60px"
         background="#FFFFFF"
       >
-        {lobby.gameState !== "questionRound"
-          ? lobby.gameState
-          : lobby.questions[0]?.message}
+        {currentPlay}
       </Box>
       <Box
         marginTop="10px"
