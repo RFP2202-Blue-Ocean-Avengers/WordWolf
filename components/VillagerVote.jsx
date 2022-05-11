@@ -10,27 +10,40 @@ the vote is selected with a table select
 needs the loppy
 */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';
 
-function VillagerVote({ lobby }) {
-  const [currVote, setCurrVote] = useState(undefined);
+
+
+function VillagerVote({ lobby, loginData }) {
+
+  const [currVote, setCurrVote] = useState('---');
 
   const clickedOnButton = (e) => {
-    socket.emit('VoteWerewolf', { name: currVote });
+    if (currVote === '---') {
+      return null;
+    }
+    socket.emit('VoteWerewolf', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
   };
+
+  const pickedDrop = (e) => {
+    setCurrVote(e.target.value);
+  };
+
+  console.log(lobby);
 
   return (
     <Container id="VillagerVote">
       <WhoIsP>WHO IS THE WEREWOLF?</WhoIsP>
 
       <div>
-        <ChooseW id="PlayersDrop" name="players">
-          <option value="DEFAULT" disabled>---</option>
-          {/* {players.map((p) =>
-            <option value={p.username}>{p.username}</option>)} */}
+        <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
+          <option value="DEFAULT" selected disabled>---</option>
+          {Object.keys(lobby.players)
+            .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
 

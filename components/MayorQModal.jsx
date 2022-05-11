@@ -44,9 +44,16 @@ function MayorQModal({ lobby }) {
       return null;
     }
 
+    if (e.target.id === 'soClose') {
+      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    } else if (e.target.id === 'wayOff') {
+      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    } else if (e.target.id === 'correct') {
+      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    }
+
     setCurrQuestion(lobby?.questions[0] || '---');
   };
-
 
   return (
     <Container id="MayorQModal">
@@ -62,7 +69,7 @@ function MayorQModal({ lobby }) {
         <TokenBM id="maybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="maybe" size={30} style={{ margin: '0px auto' }} /></TokenBM>
         <TokenBN id="no" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="no" size={30} style={{ margin: '0px auto' }} /></TokenBN>
         <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: '0px auto' }} /></TokenBC>
-        <TokenBCO id="soClone" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClone" size={30} style={{ margin: '0px auto' }} /></TokenBCO>
+        <TokenBCO id="soClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClose" size={30} style={{ margin: '0px auto' }} /></TokenBCO>
         <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: '0px auto' }} /></TokenBW>
       </ButtonsDiv>
 

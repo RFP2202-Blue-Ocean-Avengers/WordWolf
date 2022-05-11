@@ -99,19 +99,18 @@ io.on('connect', (socket) => {
   });
 
   socket.on('AnsweredQuestion', async ({ answer, question, lobbyName }) => {
-    // adds the question to the appropriate player's array of that answer
     await answerQuestion(answer, question, lobbyName);
     emitLobbyData(lobbyName);
   });
 
-  socket.on('VoteWerewolf', async ({ name }) => {
-    // adds a player object to the provided name's werewolfVotes array
-    console.log('invoke werewolf votes');
+  socket.on('VoteWerewolf', async ({ player, lobbyName }) => {
+    await VoteWerewolf(player, lobbyName);
+    emitLobbyData(lobbyName);
   });
 
-  socket.on('VoteSeer', async ({ name }) => {
-    // adds a player object to the provided name's villagerVotes array
-    console.log('invoke seer votes');
+  socket.on('VoteSeer', async ({ player, lobbyName }) => {
+    await VoteSeer(player, lobbyName);
+    emitLobbyData(lobbyName);
   });
 
   socket.on('disconnect', async () => {
