@@ -24,7 +24,7 @@ function Game({
 
   function tokenSetter(name, token) {
     setplayerObj(lobby.players[name]);
-    setSelected(token);
+    setSelected(lobby.players[name].tokens[token]);
   }
 
   return (
