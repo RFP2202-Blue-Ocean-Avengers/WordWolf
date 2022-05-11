@@ -3,14 +3,12 @@ import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
 import Game from '../../components/Game';
-import Chat from '../../components/chat/Chat';
-import GameChat from '../../components/chat/GameChat';
 
 function Container() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
 
   const onInit = () => {
-    const emit = (loginData.create ? 'createLobby' : 'joinLobby');
+    const emit = loginData.create ? 'createLobby' : 'joinLobby';
     const payload = { name: loginData.name, lobby: loginData.lobby };
     socket.emit(emit, payload);
     socket.on('connectedToLobby', async (data) => {
@@ -35,17 +33,26 @@ function Container() {
     const color = e.target.id;
     if (lobby.seats[seat]) {
       if (lobby.seats[seat].name === loginData.name) {
-        socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+        socket.emit('toggleSpectate', {
+          name: loginData.name,
+          lobby: lobby.name,
+        });
       } else {
         alert('seat already taken');
       }
     } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
       socket.emit('swapSeats', {
-        name: loginData.name, lobby: lobby.name, seat, color,
+        name: loginData.name,
+        lobby: lobby.name,
+        seat,
+        color,
       });
     } else {
       socket.emit('toggleJoin', {
-        name: loginData.name, lobby: lobby.name, seat, color,
+        name: loginData.name,
+        lobby: lobby.name,
+        seat,
+        color,
       });
     }
   };
@@ -53,9 +60,12 @@ function Container() {
   const toggleSpectate = (e) => {
     e.preventDefault();
     if (!lobby.players[loginData.name].spectator) {
-      socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+      socket.emit('toggleSpectate', {
+        name: loginData.name,
+        lobby: lobby.name,
+      });
     } else {
-      alert("You\'re already a spectator");
+      alert("You're already a spectator");
     }
   };
 
@@ -89,7 +99,13 @@ function Container() {
   };
 
   const display = () => {
-    const gameArray = ['mayorPick', 'quetsionRound', 'wordGuessed', 'outOfTokens', 'outOfTime'];
+    const gameArray = [
+      'mayorPick',
+      'quetsionRound',
+      'wordGuessed',
+      'outOfTokens',
+      'outOfTime',
+    ];
     let gameState;
     if (gameArray.includes(lobby.gameState)) {
       gameState = 'game';
@@ -98,7 +114,7 @@ function Container() {
     }
 
     switch (gameState) {
-      case ('lobby'):
+      case 'lobby':
         return (
           <div>
             <Lobby
@@ -108,10 +124,9 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
             />
-            <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
           </div>
         );
-      case ('game'):
+      case 'game':
         return (
           <div>
             <Game
@@ -121,8 +136,6 @@ function Container() {
               resetGame={resetGame}
               loginData={loginData}
             />
-            <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
-
           </div>
         );
       default:
@@ -133,29 +146,26 @@ function Container() {
   return (
     <div>
       {/* {lobby && display()} */}
-
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      {lobby
-      && (
-      <>
-        <Lobby
-          lobby={lobby}
-          toggleJoin={toggleJoin}
-          toggleSpectate={toggleSpectate}
-          onGameStart={onGameStart}
-          loginData={loginData}
-        />
-        <Game
-          lobby={lobby}
-          onMayorPick={onMayorPick}
-          afterQuestionsRound={afterQuestionsRound}
-          resetGame={resetGame}
-          loginData={loginData}
-        />
-      </>
+      {lobby && (
+        <>
+          <Lobby
+            lobby={lobby}
+            toggleJoin={toggleJoin}
+            toggleSpectate={toggleSpectate}
+            onGameStart={onGameStart}
+            loginData={loginData}
+          />
+          <Game
+            lobby={lobby}
+            onMayorPick={onMayorPick}
+            afterQuestionsRound={afterQuestionsRound}
+            resetGame={resetGame}
+            loginData={loginData}
+          />
+        </>
       )}
-
     </div>
   );
 }

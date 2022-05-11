@@ -26,7 +26,9 @@ function Chat({ players, username, lobby }) {
     setMessage(input);
   };
   const handleSubmitOnClick = async () => {
-    const data = { name: username, lobby, message };
+    const data = {
+      name: username, lobby, message, id: uuid(),
+    };
     await socket.emit('newMessage', data, lobby);
     setMessage('');
   };
@@ -56,7 +58,7 @@ function Chat({ players, username, lobby }) {
       }}
       >
         <ReactScrollableFeed>
-          {allMessages?.map((msg) => <Message key={uuid()} players={players} message={msg} />)}
+          {allMessages?.map((msg) => <Message key={msg.id} players={players} message={msg} />)}
         </ReactScrollableFeed>
       </div>
       <div style={{ display: 'flex', padding: '20px' }}>

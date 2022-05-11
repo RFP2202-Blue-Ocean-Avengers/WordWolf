@@ -52,14 +52,11 @@ function Home() {
   };
 
   return (
-    <>
-      <h1>Word Wolf</h1>
-      <Login
-        handleFormChange={handleFormChange}
-        handleCreateLobby={handleCreateLobby}
-        handleJoinLobby={handleJoinLobby}
-      />
-    </>
+    <Login
+      handleFormChange={handleFormChange}
+      handleCreateLobby={handleCreateLobby}
+      handleJoinLobby={handleJoinLobby}
+    />
   );
 }
 

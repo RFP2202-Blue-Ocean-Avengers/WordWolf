@@ -6,7 +6,7 @@ function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
 }) {
   return (
-    <div>
+    <div className="background">
       <h1>
         Lobby name:
         {lobby?.name}
@@ -19,7 +19,8 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
-      <LobbyTable toggleJoin={toggleJoin} lobby={lobby} />
+      <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} />
+      <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
       {lobby.host === loginData.name
         ? (
           <Button size="sm" onClick={(e) => onGameStart(e)}>
