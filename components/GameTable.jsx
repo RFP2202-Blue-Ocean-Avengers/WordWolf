@@ -22,6 +22,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat1"
           id="#E6474E"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -39,6 +40,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat6"
           id="#164186"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -56,6 +58,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat2"
           id="#F18E35"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -75,6 +78,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat10"
           id="#333333"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -92,6 +96,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat8"
           id="#D564D8"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -111,6 +116,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat7"
           id="#582C71"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -128,6 +134,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat9"
           id="#71362E"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -147,6 +154,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat3"
           id="#F5D74C"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -164,6 +172,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat5"
           id="#55BFDB"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
@@ -181,6 +190,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         <Box
           name="seat4"
           id="#54B877"
+          as="button"
           w="70px"
           h="70px"
           borderRadius="full"
