@@ -54,7 +54,6 @@ function Chat({ players, username, lobby }) {
         width: '322px',
         backgroundColor: 'white',
         marginLeft: '13px',
-        overflow: 'auto',
       }}
       >
         <ReactScrollableFeed>
