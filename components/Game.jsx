@@ -100,23 +100,20 @@ function Game({
                 lobby={loginData?.lobby}
               />
             </Box>
-            <Box>
-
-            </Box>
-            <UserRole role={lobby.players[loginData.name].role} />
-            <Box>
-              <TokenModal
-                player={playerObj}
-                tokenType={selected}
-                setplayerObj={setplayerObj}
-              />
-            </Box>
-            {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
-              <Box pos="relative" right="160" top="400">
-                <MayorQModal lobby={lobby} />
-              </Box>
-            ) : null}
           </Box>
+          <UserRole role={lobby.players[loginData.name].role} />
+          <Box>
+            <TokenModal
+              player={playerObj}
+              tokenType={selected}
+              setplayerObj={setplayerObj}
+            />
+          </Box>
+          {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
+            <Box pos="relative" right="160" top="400">
+              <MayorQModal lobby={lobby} />
+            </Box>
+          ) : null}
         </Box>
       </Box>
       {lobby?.mayor?.name === loginData.name ? (
