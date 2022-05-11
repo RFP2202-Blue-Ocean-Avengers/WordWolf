@@ -86,7 +86,6 @@ function Container() {
   };
 
   const onMayorPick = (word) => {
-    console.log(word);
     socket.emit('onMayorPick', { lobby: lobby.name, word });
   };
 

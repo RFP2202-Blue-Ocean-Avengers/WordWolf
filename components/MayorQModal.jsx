@@ -14,11 +14,7 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import io from 'socket.io-client';
-import { useState, useEffect, useContext } from 'react';
-import {
-  Button, Input, UnorderedList, ListItem,
-} from '@chakra-ui/react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { BiCheck, BiQuestionMark } from 'react-icons/bi';
