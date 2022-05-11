@@ -64,6 +64,7 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
   socket.on('onMayorPick', async ({ lobby, word }) => {
+    console.log(lobby, word);
     await onMayorPick(lobby, word);
     emitLobbyData(lobby);
   });
@@ -90,7 +91,6 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
 
-
   socket.on('AnsweredQuestion', async ({ answer, question, lobbyName }) => {
     // adds the question to the appropriate player's array of that answer
     await answerQuestion(answer, question, lobbyName);
@@ -106,7 +106,6 @@ io.on('connect', (socket) => {
     // adds a player object to the provided name's villagerVotes array
     console.log('invoke seer votes');
   });
-
 
   socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting

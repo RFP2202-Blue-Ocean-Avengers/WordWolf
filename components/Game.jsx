@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import GameTable from './GameTable';
 import GameChat from './chat/GameChat';
+import MayorPickModal from './MayorPickModal';
 
 function Game({
   lobby,
@@ -26,6 +27,12 @@ function Game({
         username={loginData?.name}
         lobby={loginData?.lobby}
       />
+      {lobby.mayor.name === loginData.name ? (
+        <MayorPickModal
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+        />
+      ) : null}
     </div>
   );
 }

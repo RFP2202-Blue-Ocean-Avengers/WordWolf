@@ -22,7 +22,7 @@ function GameTable({ lobby }) {
       >
         <HStack>
           <Box
-            //red
+            // red
             name="seat1"
             w="70px"
             h="70px"
@@ -36,7 +36,7 @@ function GameTable({ lobby }) {
           />
           {players >= 6 ? (
             <Box
-              //blue
+              // blue
               name="seat6"
               w="70px"
               h="70px"
@@ -59,7 +59,7 @@ function GameTable({ lobby }) {
             />
           )}
           <Box
-            //orange
+            // orange
             name="seat2"
             w="70px"
             h="70px"
@@ -75,7 +75,7 @@ function GameTable({ lobby }) {
         <HStack>
           {players === 10 ? (
             <Box
-              //black
+              // black
               name="seat10"
               w="70px"
               h="70px"
@@ -99,7 +99,7 @@ function GameTable({ lobby }) {
           )}
           {players >= 8 ? (
             <Box
-              //pink
+              // pink
               name="seat8"
               w="70px"
               h="70px"
@@ -125,7 +125,7 @@ function GameTable({ lobby }) {
         <HStack>
           {players >= 7 ? (
             <Box
-              //purple
+              // purple
               name="seat7"
               w="70px"
               h="70px"
@@ -149,7 +149,7 @@ function GameTable({ lobby }) {
           )}
           {players >= 9 ? (
             <Box
-              //brown
+              // brown
               name="seat9"
               w="70px"
               h="70px"
@@ -174,7 +174,7 @@ function GameTable({ lobby }) {
         </HStack>
         <HStack>
           <Box
-            //yellow
+            // yellow
             name="seat3"
             w="70px"
             h="70px"
@@ -188,7 +188,7 @@ function GameTable({ lobby }) {
           />
           {players >= 5 ? (
             <Box
-              //lblue
+              // lblue
               name="seat5"
               w="70px"
               h="70px"
@@ -211,7 +211,7 @@ function GameTable({ lobby }) {
             />
           )}
           <Box
-            //green
+            // green
             name="seat4"
             w="70px"
             h="70px"
@@ -236,9 +236,9 @@ function GameTable({ lobby }) {
           height="60px"
           background="#FFFFFF"
         >
-          {lobby.gameState !== "questionRound"
+          {lobby.gameState !== 'questionRound'
             ? lobby.gameState
-            : lobby.questions[0]}
+            : lobby.questions[0]?.message}
         </Box>
         <Box
           marginTop="10px"

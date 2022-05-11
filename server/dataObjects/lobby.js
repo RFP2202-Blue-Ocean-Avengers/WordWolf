@@ -28,6 +28,7 @@ class Lobby {
   constructor(host, name) {
     this.name = name;
     this.host = host;
+    this.mayor = null;
     this.settings = {
       timer: 0,
     };
@@ -164,6 +165,7 @@ const startGame = (lobbyName) => {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
     if (!player.spectator) {
       lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
+      lobby.mayor = player;
       mayorSelected = true;
     }
   }
