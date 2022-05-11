@@ -98,6 +98,10 @@ function Container() {
     socket.emit('resetGame', lobby.name);
   };
 
+  const updateTimer = (settings) => {
+    socket.emit('updateTimer', { settings, lobby: lobby.name });
+  };
+
   const display = () => {
     const gameArray = [
       'mayorPick',
@@ -135,6 +139,7 @@ function Container() {
               afterQuestionsRound={afterQuestionsRound}
               resetGame={resetGame}
               loginData={loginData}
+              updateTimer={updateTimer}
             />
           </div>
         );
@@ -148,24 +153,27 @@ function Container() {
       {lobby && display()}
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      {/* {lobby && (
-        <>
-          <Lobby
-            lobby={lobby}
-            toggleJoin={toggleJoin}
-            toggleSpectate={toggleSpectate}
-            onGameStart={onGameStart}
-            loginData={loginData}
-          />
-          <Game
-            lobby={lobby}
-            onMayorPick={onMayorPick}
-            afterQuestionsRound={afterQuestionsRound}
-            resetGame={resetGame}
-            loginData={loginData}
-          />
-        </>
-      )} */}
+      {lobby
+      && (
+      <>
+        <Lobby
+          lobby={lobby}
+          toggleJoin={toggleJoin}
+          toggleSpectate={toggleSpectate}
+          onGameStart={onGameStart}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+        <Game
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+          afterQuestionsRound={afterQuestionsRound}
+          resetGame={resetGame}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+      </>
+      )}
     </div>
   );
 }
