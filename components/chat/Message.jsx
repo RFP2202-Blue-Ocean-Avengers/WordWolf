@@ -17,7 +17,7 @@ function Message({ message }) {
     <div style={{ fontSize: '24px' }}>
       {(!message.question)
         ? (
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', paddingLeft: '10px' }}>
             <p style={{ color }}>
               {message.name}
               :
@@ -27,17 +27,20 @@ function Message({ message }) {
           </div>
         )
         : (
-          <div style={{ display: 'flex', fontSize: '24px' }}>
+          <div style={{
+            display: 'flex', fontSize: '24px', padding: '10px', lineHeight: 'initial',
+          }}
+          >
             <p style={{ color }}>
               {message.name}
               :
               {'\u00A0'}
             </p>
             <div style={{
-              backgroundColor: color, color: 'white', width: '208px', height: '41px', fontSize: '24px', borderRadius: '20px', textAlign: 'center', marginTop: '3px',
+              backgroundColor: color, color: 'white', width: 'auto', height: 'auto', fontSize: '24px', borderRadius: '20px', textAlign: 'center', marginTop: '3px', lineHeight: '41px',
             }}
             >
-              {message.message}
+              <p style={{ padding: '0px 10px' }}>{message.message}</p>
             </div>
           </div>
         )}
