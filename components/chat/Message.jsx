@@ -14,12 +14,12 @@ function Message({ message }) {
   }, [socket]);
 
   return (
-    <div style={{ fontSize: '24px', color }}>
+    <div style={{ fontSize: '24px' }}>
       {(!message.question)
         ? (
-          <div>
-            {message.name}
-            {': '}
+          <div style={{display: 'flex'}}>
+            <p style={{color}}>{message.name}
+            {':'}{'\u00A0'}</p>
             {message.message}
           </div>
         )

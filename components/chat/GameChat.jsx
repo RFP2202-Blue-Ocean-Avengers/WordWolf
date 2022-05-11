@@ -24,7 +24,7 @@ function GameChat({ players, username, lobby }) {
       alert('message can not be blank');
       return;
     }
-    const data = { name: username, lobby, message };
+    const data = { id: uuid(), name: username, lobby, message };
     if (isQuestion) { data.question = true; } else { data.question = false; }
     await socket.emit('newGameMessage', data, lobby);
     setMessage('');
@@ -35,7 +35,7 @@ function GameChat({ players, username, lobby }) {
     }}
     >
       <ReactScrollableFeed>
-        {allMessages?.map((msg) => <Message key={uuid()} message={msg} players={players} />)}
+        {allMessages?.map((msg) => <Message key={msg.id} message={msg} players={players} />)}
       </ReactScrollableFeed>
 
       {(!players || !players[username].spectator) ? (
