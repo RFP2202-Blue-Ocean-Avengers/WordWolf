@@ -5,7 +5,7 @@ function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
 }) {
   return (
-    <div>
+    <div className="background">
       <h1>
         Lobby name:
         {lobby?.name}
