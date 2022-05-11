@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+
+* {
+  font-family: 'Koulen', cursive;
+}
+
+.background {
+  background-image: url("./../assets/Background.svg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.logo {
+  position: absolute;
+  margin-top: 20px;
+  left: 50%;
+}
