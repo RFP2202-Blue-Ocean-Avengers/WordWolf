@@ -18,3 +18,9 @@
   height: 100vh;
   display: flex;
 }
+
+.logo {
+  position: absolute;
+  margin-top: 20px;
+  left: 50%;
+}
