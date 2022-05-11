@@ -10,7 +10,10 @@ function UserRole({ role }) {
     <RoleContainer>
       <InnerRoleContainer>
         <Img src="" />
-        <Banner>{role.toUpperCase()}</Banner>
+        <div>
+          HELLO HELP
+        </div>
+        <Banner>{role?.toUpperCase()}</Banner>
       </InnerRoleContainer>
     </RoleContainer>
   );

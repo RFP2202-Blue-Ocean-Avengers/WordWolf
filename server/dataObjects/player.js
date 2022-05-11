@@ -38,13 +38,13 @@ const assignPlayerToLobby = (name, lobby, socketId) => {
 const removePlayerFromLobby = (player) => {
   const currentLobby = lobbies.get(player.lobby);
   if (currentLobby.players[player.name]) {
-    // removes player from lobby
-    delete currentLobby.players[player.name];
     // removes player from seat if they are in one
     if (currentLobby.players[player.name].seat) {
-      const { seat } = currentLobby.players[player.name].seat;
+      const { seat } = currentLobby.players[player.name];
       currentLobby.seats[seat] = null;
     }
+    // removes player from lobby
+    delete currentLobby.players[player.name];
     if (Object.keys(currentLobby.players).length === 0) {
       deleteLobby(player.lobby);
     }
