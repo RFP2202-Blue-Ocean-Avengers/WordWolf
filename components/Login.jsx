@@ -1,4 +1,5 @@
 import { Button, Input } from '@chakra-ui/react';
+import Rules from './Rules';
 import Image from 'next/image';
 import LoginLogo from '../assets/LoginLogo.svg';
 import LoginBanner from '../assets/LoginBanner.svg';
@@ -6,12 +7,12 @@ import LoginBanner from '../assets/LoginBanner.svg';
 function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
   return (
     <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#211E32', height: '100vh', paddingTop: '20px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#211E32', height: '120vh', paddingTop: '20px',
     }}
     >
       <Image src={LoginLogo} />
       <form style={{
-        width: '550px', height: '600px', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '10px 80px', marginTop: '10px',
+        width: '550px', height: '600px', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '10px 80px', marginTop: '10px', marginBottom: '40px',
       }}
       >
         <span style={{
@@ -53,6 +54,7 @@ function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
           Create
         </Button>
       </form>
+      <Rules />
     </div>
   );
 }

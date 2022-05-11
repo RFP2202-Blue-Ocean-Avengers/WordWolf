@@ -98,6 +98,10 @@ function Container() {
     socket.emit('resetGame', lobby.name);
   };
 
+  const updateTimer = (settings) => {
+    socket.emit('updateTimer', { settings, lobby: lobby.name });
+  };
+
   const display = () => {
     const gameArray = [
       'mayorPick',
@@ -124,6 +128,8 @@ function Container() {
               toggleSpectate={toggleSpectate}
               onGameStart={onGameStart}
               loginData={loginData}
+              updateTimer={updateTimer}
+              afterQuestionsRound={afterQuestionsRound}
             />
           </div>
         );
@@ -136,6 +142,7 @@ function Container() {
               afterQuestionsRound={afterQuestionsRound}
               resetGame={resetGame}
               loginData={loginData}
+              updateTimer={updateTimer}
             />
           </div>
         );

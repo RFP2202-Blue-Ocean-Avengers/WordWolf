@@ -28,7 +28,7 @@ import { socket } from '../pages/api/service/socket';
 
 function MayorQModal({ lobby }) {
 
-  const [currQuestion, setCurrQuestion] = useState(lobby.lobby.questions[0] || '---');
+  const [currQuestion, setCurrQuestion] = useState(lobby?.questions[0] || '---');
 
   const clickedOnButton = (e) => {
     if (currQuestion === '---' || currQuestion === undefined) {
@@ -38,13 +38,13 @@ function MayorQModal({ lobby }) {
     if (e.target.id) {
       // the gosh dangit react icon's <path> thingy has passed the id
       // instead of the <button> or the icon's <svg> id
-      socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby.lobby.name });
-      lobby.lobby.questions.shift();
+      socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
+      lobby?.questions.shift();
     } else {
       return null;
     }
 
-    setCurrQuestion(lobby.lobby.questions[0] || '---');
+    setCurrQuestion(lobby?.questions[0] || '---');
   };
 
 

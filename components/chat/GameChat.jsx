@@ -42,7 +42,7 @@ function GameChat({ players, username, lobby }) {
       </ReactScrollableFeed>
 
       {(!players || !players[username].spectator) ? (
-        <div style={{ display: 'flex', padding: '10px' }}>
+        <div style={{ display: 'flex', padding: '10px', backgroundColor: 'white' }}>
           {' '}
           <Input
             value={message}

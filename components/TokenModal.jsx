@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import IndividualQuestion from './IndividualQuestion';
+import IndividualQuestion from "./IndividualQuestion";
 import {
   TokenModalContainer,
   CloseButton,
@@ -8,45 +8,42 @@ import {
   NoButton,
   MaybeButton,
   TokenList,
-} from './ModalStyles/Tokens';
+} from "./ModalStyles/Tokens";
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
-function TokenModal({ player, selectedTokens }) {
-  const [currentTokenList, setTokenList] = useState(null);
+function TokenModal({ player, setplayerObj, tokenType }) {
+  const [tokenTypeSelected, setTokenType] = useState();
 
   useEffect(() => {
-    setTokenList(selectedTokens);
-  }, [selectedTokens]);
+    setTokenType(tokenType);
+  }, [tokenType]);
 
-  function onClick(tokenType) {
-    setTokenList(player.player.tokens[tokenType]);
+  function onClick(currentToken) {
+    setTokenType(currentToken);
   }
 
   function onCancel() {
-    setTokenList(null);
+    setplayerObj(null);
   }
 
   return (
-    <div>
-      { currentTokenList
-        ? (
-          <TokenModalContainer>
-            <CloseButton onClick={() => onCancel()}>x</CloseButton>
-            <ResponseContainer>
-              <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
-              <NoButton onClick={() => onClick('no')}>No</NoButton>
-              <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
-            </ResponseContainer>
-            <TokenList>
-              { currentTokenList.map((question) => (
-                <IndividualQuestion question={question} />
-              ))}
-            </TokenList>
-          </TokenModalContainer>
-        )
-        : null }
-    </div>
+    player
+      ? (
+        <TokenModalContainer>
+          <CloseButton onClick={() => onCancel()}>x</CloseButton>
+          <ResponseContainer>
+            <YesButton onClick={() => onClick("yes")}>Yes</YesButton>
+            <NoButton onClick={() => onClick("no")}>No</NoButton>
+            <MaybeButton onClick={() => onClick("maybe")}>Maybe</MaybeButton>
+          </ResponseContainer>
+          <TokenList>
+            {player.tokens[tokenTypeSelected]?.map((question) => (
+              <IndividualQuestion question={question.message} />
+            ))}
+          </TokenList>
+        </TokenModalContainer>
+      ) : null
   );
 }
 
