@@ -93,6 +93,10 @@ function Container() {
     socket.emit(condition, { lobby: lobby.name, condition });
   };
 
+  const afterVotingRound = () => {
+    socket.emit('afterVotingRound', { lobby: lobby.name });
+  };
+
   // resets the game state to be a clean state
   const resetGame = () => {
     socket.emit('resetGame', lobby.name);
@@ -130,6 +134,7 @@ function Container() {
               loginData={loginData}
               updateTimer={updateTimer}
               afterQuestionsRound={afterQuestionsRound}
+              afterVotingRound={afterVotingRound}
             />
           </div>
         );
@@ -140,6 +145,7 @@ function Container() {
               lobby={lobby}
               onMayorPick={onMayorPick}
               afterQuestionsRound={afterQuestionsRound}
+              afterVotingRound={afterVotingRound}
               resetGame={resetGame}
               loginData={loginData}
               updateTimer={updateTimer}
@@ -164,13 +170,18 @@ function Container() {
             toggleSpectate={toggleSpectate}
             onGameStart={onGameStart}
             loginData={loginData}
+            updateTimer={updateTimer}
+            afterQuestionsRound={afterQuestionsRound}
+            afterVotingRound={afterVotingRound}
           />
           <Game
             lobby={lobby}
             onMayorPick={onMayorPick}
             afterQuestionsRound={afterQuestionsRound}
+            afterVotingRound={afterVotingRound}
             resetGame={resetGame}
             loginData={loginData}
+            updateTimer={updateTimer}
           />
         </>
       )}

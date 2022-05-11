@@ -1,7 +1,9 @@
 import { useTimer } from 'react-timer-hook';
 import { useEffect } from 'react';
 
-function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
+function Timer({
+  expiryTimestamp, updateTimer, lobby, afterQuestionsRound, afterVotingRound,
+}) {
   const {
     seconds,
     minutes,
@@ -10,7 +12,18 @@ function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' || lobby.gameState==='lobby' ? false : true), onExpire: () => afterQuestionsRound('outOfTime') });
+  } = useTimer({
+    expiryTimestamp,
+    autoStart: (!(lobby.gameState === 'mayorPick' || lobby.gameState === 'lobby')),
+    onExpire: () => {
+      if (lobby.gameState === 'questionsRound') {
+        afterQuestionsRound('outOfTime');
+      } else {
+        afterVotingRound();
+      }
+    },
+  });
+
   useEffect(() => {
     updateTimer({ minutes, seconds }, lobby);
   }, [seconds, minutes]);
@@ -27,7 +40,7 @@ function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
       const time = new Date();
       time.setSeconds(time.getSeconds() + 30);
       restart(time);
-    } else if (lobby.gameState === 'wordGuess') {
+    } else if (lobby.gameState === 'wordGuessed') {
       // when werewolves vote
       const time = new Date();
       time.setSeconds(time.getSeconds() + 30);
@@ -40,7 +53,7 @@ function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
       <div id="timer">
         <span>{minutes}</span>
         :
-        <span>{seconds < 10 ? ('0' + seconds) : seconds}</span>
+        <span>{seconds < 10 ? (`0${seconds}`) : seconds}</span>
       </div>
       {/* <button type="submit" onClick={start}>Start</button>
       <button type="submit" onClick={pause}>Pause</button>

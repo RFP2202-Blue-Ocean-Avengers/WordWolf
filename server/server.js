@@ -5,7 +5,7 @@ const io = require('socket.io')(server);
 const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
-  toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
+  toggleSpectate, onMayorPick, afterQuestionRound, afterVotingRound, resetGame,
   updateTimer, answerQuestion, VoteWerewolf, VoteSeer,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
@@ -69,6 +69,10 @@ io.on('connect', (socket) => {
   });
   socket.on('afterQuestionRound', async ({ lobby, condition }) => {
     await afterQuestionRound(lobby, condition);
+    emitLobbyData(lobby);
+  });
+  socket.on('afterVotingRound', async ({ lobby }) => {
+    await afterVotingRound(lobby);
     emitLobbyData(lobby);
   });
   socket.on('resetGame', async (lobby) => {

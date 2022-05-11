@@ -1,3 +1,6 @@
+// display this screen only when the
+// lobby.gameState === ('outOfTime' || 'outOfTokens' || 'wordGuessed')
+
 import {
   useDisclosure, Button, Modal, ModalContent, ModalOverlay,
   ModalHeader, ModalBody, ModalFooter,
@@ -8,17 +11,26 @@ import { useEffect } from 'react';
 function EndScreen({ lobby, resetGame, loginData }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  useEffect(() => {
+    onOpen();
+  }, []);
+
+  // check winner of the game based on gameState
+  // if winners are wolves return true
+  // if winners are villagers return false
   const checkWinner = () => {
-    if (lobby.gameState === 'outOfTime' || lobby.gameState === 'outOfTokens') {
+    if (lobby.werewolfVote.length > 0) {
       // check who the werewoles voted on
       // check vs who lobby.seer really was
       lobby.werewolfVote.forEach((vote) => {
         if (vote.name === lobby.seer.name) {
-          return 'werewolf';
+          // wolves win
+          return true;
         }
-        return 'villager';
+        // villagers win
+        return false;
       });
-    } else if (lobby.gameState === 'wordGuessed') {
+    } else {
       // check array of villagerVotes to see who was voted the most
       // compare most voted to lobby.werewolf
       const voteCounts = {};
@@ -39,20 +51,39 @@ function EndScreen({ lobby, resetGame, loginData }) {
       });
 
       if (names.length === 1) {
-        return 'villager';
+        // villagers win
+        return false;
       }
-      return 'werewolf';
+      // wolves win
+      return true;
     }
     return null;
+  };
+
+  const backToLobby = () => {
+    onClose();
+    resetGame();
   };
 
   return (
     <Modal isOpen={isOpen}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Mayor! Choose a word!</ModalHeader>
+        <ModalHeader>
+          Winner:
+          {' '}
+          {checkWinner() ? <h1>Wolves!</h1> : <h1>Villagers!</h1>}
+        </ModalHeader>
         <ModalBody>
-          {lobby.host === loginData.name ? <Button name="resetGame" onClick={(e) => resetGame(e)}>RESET GAME</Button> : null }
+          <div>
+            {lobby.werewolf.length > 1 ? <h1>Wolves:</h1> : <h1>Wolf:</h1>}
+            {lobby.werewolf.map((wolf) => (<h2>{wolf.name}</h2>))}
+          </div>
+          <div>
+            <h1>Seer:</h1>
+            <h2>{lobby.seer}</h2>
+          </div>
+          {lobby.host === loginData.name ? <Button name="resetGame" onClick={backToLobby}>Reset Game</Button> : null }
         </ModalBody>
         <ModalFooter />
       </ModalContent>

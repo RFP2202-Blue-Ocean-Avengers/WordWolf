@@ -10,7 +10,8 @@ import GameLogo from '../assets/GameLogo.svg';
 import Timer from './Timer';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer, afterQuestionsRound,
+  lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
+  updateTimer, afterQuestionsRound, afterVotingRound,
 }) {
   const time = new Date();
   time.setSeconds(time.getSeconds()
@@ -31,6 +32,7 @@ function Lobby({
         lobby={lobby}
         expiryTimestamp={time}
         afterQuestionsRound={afterQuestionsRound}
+        afterVotingRound={afterVotingRound}
       />
       <HStack style={{ marginLeft: '30px', marginTop: '40px' }}>
         <Box style={{ transform: 'scale(0.9)', marginRight: '90px' }}>

@@ -15,6 +15,7 @@ function Game({
   lobby,
   onMayorPick,
   afterQuestionsRound,
+  afterVotingRound,
   resetGame,
   loginData,
   updateTimer,
@@ -61,6 +62,7 @@ function Game({
             lobby={lobby}
             expiryTimestamp={time}
             afterQuestionsRound={afterQuestionsRound}
+            afterVotingRound={afterVotingRound}
           />
           <Image src={GameLogo} />
           <Rules />

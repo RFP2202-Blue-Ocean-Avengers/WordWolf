@@ -244,16 +244,31 @@ const afterQuestionRound = (lobbyName, condition) => {
   return lobby;
 };
 
+const afterVotingRound = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  lobby.gameState = 'endGame';
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
 // implement logic and functions for the voting period
 
 const resetGame = (lobbyName) => {
   const lobby = getLobby(lobbyName);
 
+  lobby.mayor = null;
+  lobby.werewolf = [];
+  lobby.seer = null;
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
+  lobby.soClose = null;
+  lobby.wayOff = null;
+  lobby.correct = null;
   lobby.gameState = 'lobby';
   lobby.tokens = 36;
+  lobby.villagerVotes = [];
+  lobby.werewolfVotes = [];
 
   lobbies.set(lobbyName, lobby);
   return lobby;
@@ -270,6 +285,7 @@ module.exports = {
   toggleSpectate,
   onMayorPick,
   afterQuestionRound,
+  afterVotingRound,
   resetGame,
   updateTimer,
   answerQuestion,
