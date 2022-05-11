@@ -18,8 +18,10 @@ import {
 import { useState, useEffect } from 'react';
 
 function Settings({ updateTimer, lobby }) {
-  const { isOpen: isSettingsOpen, onOpen:
-     onSettingsOpen, onClose: onSettingsClose,
+  const {
+    isOpen: isSettingsOpen,
+    onOpen: onSettingsOpen,
+    onClose: onSettingsClose,
   } = useDisclosure();
   const [minuteValue, setMinuteValue] = useState(lobby.settings.minutes < 6
     ? 5 : lobby.settings.minutes);
