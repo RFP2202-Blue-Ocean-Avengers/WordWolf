@@ -1,4 +1,4 @@
-import IndividualQuestion from "./IndividualQuestion";
+import IndividualQuestion from './IndividualQuestion';
 import {
   TokenModalContainer,
   CloseButton,
@@ -7,15 +7,14 @@ import {
   NoButton,
   MaybeButton,
   TokenList,
-} from "./ModalStyles/Tokens";
+} from './ModalStyles/Tokens';
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
 function TokenModal({ player, setplayerObj, tokenType }) {
-
-  function onClick(currentToken) {
-    setTokenType(player?[currentToken]);
-  }
+  // function onClick(currentToken) {
+  //   setTokenType(player?[currentToken]);
+  // }
 
   function onCancel() {
     setplayerObj(null);
@@ -25,9 +24,9 @@ function TokenModal({ player, setplayerObj, tokenType }) {
     <TokenModalContainer>
       <CloseButton onClick={() => onCancel()}>x</CloseButton>
       <ResponseContainer>
-        <YesButton onClick={() => onClick("yes")}>Yes</YesButton>
-        <NoButton onClick={() => onClick("no")}>No</NoButton>
-        <MaybeButton onClick={() => onClick("maybe")}>Maybe</MaybeButton>
+        <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
+        <NoButton onClick={() => onClick('no')}>No</NoButton>
+        <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
       </ResponseContainer>
       <TokenList>
         {player?.tokens[tokenType].map((question) => (
