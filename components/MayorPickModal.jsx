@@ -20,11 +20,11 @@ function MayorPickModal({ lobby, onMayorPick }) {
   return (
     <Modal isOpen={isOpen}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Mayor! Choose a word!</ModalHeader>
-        <ModalBody>
-          <Button name={lobby.words[0]} onClick={(e) => onWordPick(e)}>{lobby.words[0]}</Button>
-          <Button name={lobby.words[1]} onClick={(e) => onWordPick(e)}>{lobby.words[1]}</Button>
+      <ModalContent display="flex" flexDirection="column">
+        <ModalHeader textAlign="center">Mayor! Choose a word!</ModalHeader>
+        <ModalBody display="flex" justifyContent="space-evenly">
+          <Button background="#D19E61" name={lobby.words[0]} onClick={(e) => onWordPick(e)}>{lobby.words[0]}</Button>
+          <Button background="#D19E61" name={lobby.words[1]} onClick={(e) => onWordPick(e)}>{lobby.words[1]}</Button>
         </ModalBody>
         <ModalFooter />
       </ModalContent>

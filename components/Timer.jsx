@@ -1,7 +1,7 @@
 import { useTimer } from 'react-timer-hook';
 import { useEffect } from 'react';
 
-function Timer({ expiryTimestamp, updateTimer, lobby, afterQuestionsRound }) {
+function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
   const {
     seconds,
     minutes,
