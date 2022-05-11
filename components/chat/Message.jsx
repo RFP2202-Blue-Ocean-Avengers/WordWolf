@@ -17,16 +17,22 @@ function Message({ message }) {
     <div style={{ fontSize: '24px' }}>
       {(!message.question)
         ? (
-          <div style={{display: 'flex'}}>
-            <p style={{color}}>{message.name}
-            {':'}{'\u00A0'}</p>
+          <div style={{ display: 'flex' }}>
+            <p style={{ color }}>
+              {message.name}
+              :
+              {'\u00A0'}
+            </p>
             {message.message}
           </div>
         )
         : (
           <div style={{ display: 'flex', fontSize: '24px' }}>
-            {message.name}
-            {': '}
+            <p style={{ color }}>
+              {message.name}
+              :
+              {'\u00A0'}
+            </p>
             <div style={{
               backgroundColor: color, color: 'white', width: '208px', height: '41px', fontSize: '24px', borderRadius: '20px', textAlign: 'center', marginTop: '3px',
             }}
