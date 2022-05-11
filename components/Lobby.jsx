@@ -16,6 +16,10 @@ function Lobby({
   time.setSeconds(time.getSeconds()
   + Math.floor(lobby.settings.minutes * 60)
   + lobby.settings.seconds);
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
   return (
     <div className="background">
       <Box className="logo">
@@ -32,8 +36,13 @@ function Lobby({
         expiryTimestamp={time}
         afterQuestionsRound={afterQuestionsRound}
       />
+<<<<<<< HEAD
       <HStack style={{ marginTop: '9vh' }}>
         <Box classname="chat" style={{ transform: 'scale(0.9)', marginRight: '90px' }}>
+=======
+      <HStack style={{ marginLeft: '30px', marginTop: '40px' }}>
+        <Box style={{ transform: 'scale(0.9)', marginRight: '90px' }}>
+>>>>>>> main
           <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
         </Box>
         <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} style={{ justifySelf: 'center' }} />

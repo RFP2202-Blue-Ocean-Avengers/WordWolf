@@ -1,6 +1,6 @@
 import { Button, Input } from '@chakra-ui/react';
-import Rules from './Rules';
 import Image from 'next/image';
+import Rules from './Rules';
 import LoginLogo from '../assets/LoginLogo.svg';
 import LoginBanner from '../assets/LoginBanner.svg';
 
