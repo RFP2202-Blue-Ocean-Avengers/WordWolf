@@ -10,3 +10,9 @@
   width: 100vw;
   height: 100vh;
 }
+
+.logo {
+  position: absolute;
+  margin-top: 20px;
+  left: 50%;
+}
