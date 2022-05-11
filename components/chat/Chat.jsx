@@ -26,7 +26,9 @@ function Chat({ players, username, lobby }) {
     setMessage(input);
   };
   const handleSubmitOnClick = async () => {
-    const data = { name: username, lobby, message, id:uuid() };
+    const data = {
+      name: username, lobby, message, id: uuid(),
+    };
     await socket.emit('newMessage', data, lobby);
     setMessage('');
   };
