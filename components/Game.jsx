@@ -9,7 +9,11 @@ import TokenModal from './TokenModal';
 import MayorPickModal from './MayorPickModal';
 import MayorQModal from './MayorQModal';
 import Timer from './Timer';
+<<<<<<< HEAD
 import DisplayQStatus from './DisplayQStatus';
+=======
+import Rules from './Rules';
+>>>>>>> main
 
 function Game({
   lobby,
@@ -27,22 +31,32 @@ function Game({
   const [playerObj, setplayerObj] = useState(null);
   const [selected, setSelected] = useState(null);
 
-  function tokenSetter(name, token) {
+  const tokenSetter = (name, token) => {
     setplayerObj(lobby?.players[name]);
     setSelected(token);
+<<<<<<< HEAD
   }
   console.log(lobby);
+=======
+  };
+>>>>>>> main
 
   // for timer
   const time = new Date();
   time.setSeconds(
     time.getSeconds()
+<<<<<<< HEAD
       + Math.floor(lobby.settings.minutes * 60)
       + lobby.settings.seconds,
+=======
+    + Math.floor(lobby.settings.minutes * 60)
+    + lobby.settings.seconds,
+>>>>>>> main
   );
 
   return (
     <div className="game-background">
+<<<<<<< HEAD
       <Box className="logo">
         <Image src={GameLogo} />
       </Box>
@@ -55,57 +69,85 @@ function Game({
           top: '575px',
           transform: 'scale(0.93)',
         }}
+=======
+      <Box
+        name="main-container"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="space-evenly"
+>>>>>>> main
       >
-        <Box fontWeight="extrabold" fontSize="30" color="#FFF">
-          {spectators}
-          &nbsp;SPECTATORS
+        <Box
+          name="top-row"
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-evenly"
+          w="100vw"
+        >
+          <Timer
+            updateTimer={updateTimer}
+            lobby={lobby}
+            expiryTimestamp={time}
+            afterQuestionsRound={afterQuestionsRound}
+          />
+          <Image src={GameLogo} />
+          <Rules />
         </Box>
-        <Box alignSelf="center">
-          <GameChat
-            players={lobby?.players}
-            username={loginData?.name}
-            lobby={loginData?.lobby}
+        <Box
+          className="middleContainer"
+          display="flex"
+          transform="scale(0.93)"
+          pos="relative"
+          left="95"
+        >
+          <GameTable
+            tokenSetter={tokenSetter}
+            loginData={loginData}
+            lobby={lobby}
           />
         </Box>
-      </div>
-      <Box
-        pos="relative"
-        top="125"
-        right="140"
-        w="fit-content"
-        h="fit-content"
-        transform="scale(0.93)"
-      >
-        <GameTable
-          tokenSetter={tokenSetter}
-          loginData={loginData}
-          lobby={lobby}
-        />
-      </Box>
-      {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
-        <Box pos="relative" right="160" top="400">
-          <MayorQModal lobby={lobby} />
+        <Box
+          className="bottom-container"
+          display="flex"
+          flexDirection="row"
+        >
+          <Box
+            className="chat"
+            display="flex"
+            flexDirection="column"
+            transform="scale(0.93)"
+          >
+            <Box fontWeight="extrabold" fontSize="30" color="#FFF">
+              {spectators}
+              &nbsp;SPECTATORS
+            </Box>
+            <Box alignSelf="center">
+              <GameChat
+                players={lobby?.players}
+                username={loginData?.name}
+                lobby={loginData?.lobby}
+              />
+            </Box>
+          </Box>
+          <UserRole role={lobby.players[loginData.name].role} />
+          <Box>
+            <TokenModal
+              player={playerObj}
+              tokenType={selected}
+              setplayerObj={setplayerObj}
+            />
+          </Box>
+          {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
+            <Box pos="relative" right="160" top="400">
+              <MayorQModal lobby={lobby} />
+            </Box>
+          ) : null}
         </Box>
-      ) : null}
-      <Box pos="absolute" bottom="250" right="25">
-        <UserRole role={lobby.players[loginData.name].role} />
-      </Box>
-      <Box>
-        <TokenModal
-          player={playerObj}
-          tokenType={selected}
-          setplayerObj={setplayerObj}
-        />
       </Box>
       {lobby?.mayor?.name === loginData.name ? (
         <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
       ) : null}
-      <Timer
-        updateTimer={updateTimer}
-        lobby={lobby}
-        expiryTimestamp={time}
-        afterQuestionsRound={afterQuestionsRound}
-      />
     </div>
   );
 }

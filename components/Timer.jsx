@@ -18,15 +18,17 @@ function Timer( { expiryTimestamp, updateTimer, lobby, afterQuestionsRound } ) {
   useEffect(() => {
     if (lobby.gameState === 'questionRound') {
       // const time = new Date();
-      // time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
+      // time.setSeconds(time.getSeconds()
+      // + Math.floor(lobby.settings.minutes * 60)
+      // + lobby.settings.seconds);
       start();
     } else if (lobby.gameState === 'outOfTokens' || lobby.gameState === 'outOfTime') {
-      //condition for when people vote
+      // condition for when people vote
       const time = new Date();
       time.setSeconds(time.getSeconds() + 30);
       restart(time);
     } else if (lobby.gameState === 'wordGuess') {
-      //when werewolves vote
+      // when werewolves vote
       const time = new Date();
       time.setSeconds(time.getSeconds() + 30);
       restart(time);

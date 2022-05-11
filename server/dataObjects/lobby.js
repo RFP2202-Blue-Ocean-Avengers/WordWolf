@@ -54,6 +54,9 @@ class Lobby {
     this.tokens = 36; // if this runs out the game ends
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
+    this.soClose = null; // question object for given token
+    this.wayOff = null; // question object for given token
+    this.correct = null; // question object for given token
   }
 }
 
@@ -211,17 +214,33 @@ const answerQuestion = (answer, question, lobbyName) => {
   const player = lobby.players[question.name];
   player.tokens[answer].push(question);
   lobby.questions.shift();
-  lobby.tokens -= 1;
+
+  if (answer === 'correct') {
+    lobby.correct = question;
+  } else if (answer === 'wayOff') {
+    lobby.wayOff = question;
+  } else if (answer === 'soClose') {
+    lobby.soClose = question;
+  } else {
+    lobby.tokens -= 1;
+  }
+
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
 
-const VoteWerewolf = (str) => {
-  // logic here
+const VoteWerewolf = (player, lobbyName) => { // the villagers are voting
+  const lobby = getLobby(lobbyName);
+  lobby.villagerVotes.push(player); // put who's werewolf here
+  lobbies.set(lobbyName, lobby);
+  return lobby;
 };
 
-const VoteSeer = (str) => {
-  // logic here
+const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
+  const lobby = getLobby(lobbyName);
+  lobby.werewolfVotes.push(player); // put who's a seer here
+  lobbies.set(lobbyName, lobby);
+  return lobby;
 };
 
 const afterQuestionRound = (lobbyName, condition) => {
