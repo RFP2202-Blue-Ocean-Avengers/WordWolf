@@ -32,7 +32,7 @@ class Lobby {
       timer: 0,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
-    this.players = {};
+    this.players = {}; // an object that contains players in the game
     this.seats = {
       seat1: null,
       seat2: null,
@@ -44,12 +44,14 @@ class Lobby {
       seat8: null,
       seat9: null,
       seat10: null,
-    };
-    this.words = [];
-    this.chosenWord = '';
-    this.messages = [];
-    this.questions = [];
+    }; // seats for the game
+    this.words = []; // two randomly chosen words
+    this.chosenWord = ''; // word chosen by the mayor for this round
+    this.messages = []; // all messages store for chat?
+    this.questions = []; // questions queue
     this.tokens = 36; // if this runs out the game ends
+    this.villagerVotes = []; // player objects will be stored in here as votes
+    this.werewolfVotes = []; // player objects will be stored in here as votes
   }
 }
 
@@ -76,10 +78,11 @@ const deleteLobby = (name) => {
   lobbies.delete(name);
 };
 
-const toggleJoin = (name, lobby, seat) => {
+const toggleJoin = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
   currentLobby.players[name].spectator = false;
   currentLobby.players[name].seat = seat;
+  currentLobby.players[name].color = color;
   if (!currentLobby.seats[seat]) {
     currentLobby.seats[seat] = currentLobby.players[name];
   }
@@ -87,9 +90,10 @@ const toggleJoin = (name, lobby, seat) => {
   return lobby;
 };
 
-const swapSeats = (name, lobby, seat) => {
+const swapSeats = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
   const prevSeat = currentLobby.players[name].seat;
+  currentLobby.players[name].color = color;
   currentLobby.players[name].seat = seat;
   currentLobby.seats[prevSeat] = null;
   currentLobby.seats[seat] = currentLobby.players[name];
@@ -97,8 +101,15 @@ const swapSeats = (name, lobby, seat) => {
   return lobby;
 };
 
-const toggleSpectate = (name, lobby, seat) => {
-
+const toggleSpectate = (name, lobby) => {
+  const currentLobby = lobbies.get(lobby);
+  const prevSeat = currentLobby.players[name].seat;
+  currentLobby.players[name].spectator = true;
+  currentLobby.players[name].seat = null;
+  currentLobby.seats[prevSeat] = null;
+  currentLobby.players[name].color = null;
+  lobbies.set(currentLobby.name, currentLobby);
+  return lobby;
 };
 
 const startGame = (lobbyName) => {
