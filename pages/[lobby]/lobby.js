@@ -127,7 +127,6 @@ function Container() {
               toggleSpectate={toggleSpectate}
               onGameStart={onGameStart}
               loginData={loginData}
-              updateTimer={updateTimer}
             />
           </div>
         );

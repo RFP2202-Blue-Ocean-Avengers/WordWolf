@@ -3,14 +3,14 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import LobbyTable from './LobbyTable';
-import Timer from './Timer';
 import Settings from './Settings';
 import Rules from './Rules';
 import Chat from './chat/Chat';
 import GameLogo from '../assets/GameLogo.svg';
+import Timer from './Timer';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData, updateTimer, toggleSpectate,
+  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer, afterQuestionsRound,
 }) {
   const time = new Date();
   time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
@@ -19,12 +19,11 @@ function Lobby({
       <Box className="logo">
         <Image src={GameLogo} />
       </Box>
-      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} />
       <h1 style={{ color: '#fff', marginLeft: '45px' }}>
         Lobby name:
         {lobby?.name}
       </h1>
-
+      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} afterQuestionsRound={afterQuestionsRound} />
       <HStack style={{ marginLeft: '30px', marginTop: '40px' }}>
         <Box style={{ transform: 'scale(0.9)', marginRight: '90px' }}>
           <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />

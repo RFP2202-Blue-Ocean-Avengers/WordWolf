@@ -1,7 +1,7 @@
 import { useTimer } from 'react-timer-hook';
 import { useEffect } from 'react';
 
-function Timer({ expiryTimestamp, updateTimer, lobby }) {
+function Timer({ expiryTimestamp, updateTimer, lobby, afterQuestionsRound }) {
   const {
     seconds,
     minutes,
@@ -10,7 +10,7 @@ function Timer({ expiryTimestamp, updateTimer, lobby }) {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' || lobby.gameState==='lobby' ? false : true), onExpire: () => console.warn('onExpire called') });
+  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' || lobby.gameState==='lobby' ? false : true), onExpire: () => afterQuestionsRound('outOfTime') });
   useEffect(() => {
     updateTimer({ minutes, seconds }, lobby);
   }, [seconds, minutes]);

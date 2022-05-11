@@ -7,6 +7,7 @@ import GameLogo from "../assets/GameLogo.svg";
 import UserRole from "./UserRole";
 import TokenModal from "./TokenModal";
 import MayorPickModal from './MayorPickModal';
+import Timer from './Timer';
 
 function Game({
   lobby,
@@ -14,6 +15,7 @@ function Game({
   afterQuestionsRound,
   resetGame,
   loginData,
+  updateTimer,
 }) {
   const spectators = Object.keys(lobby.players).reduce(
     (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
@@ -27,6 +29,9 @@ function Game({
     setplayerObj(lobby.players[name]);
     setSelected(lobby.players[name].tokens[token]);
   }
+  //for timer
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
 
   return (
     <div className="game-background">
@@ -81,6 +86,7 @@ function Game({
           onMayorPick={onMayorPick}
         />
       ) : null}
+      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} afterQuestionsRound={afterQuestionsRound} />
     </div>
   );
 }
