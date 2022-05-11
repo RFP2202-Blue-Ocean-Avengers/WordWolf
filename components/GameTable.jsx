@@ -2,9 +2,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import Tokens from "./Tokens";
 
 function GameTable({ tokenSetter, loginData, lobby }) {
-  // const players = Object.keys(lobby.players).length;
-  console.log(lobby);
-  const players = 10;
+  const players = Object.keys(lobby.players).length;
 
   return (
     <Box
@@ -326,15 +324,17 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat6" />
         </Box>
-      ) : <Box
-      // blue
-      name="tokens6"
-      pos="relative"
-      left="395"
-      bottom="370"
-      w="30px"
-      h="40px"
-    />}
+      ) : (
+        <Box
+          // blue
+          name="tokens6"
+          pos="relative"
+          left="395"
+          bottom="370"
+          w="30px"
+          h="40px"
+        />
+      )}
       <Box
         // orange
         name="tokens2"
