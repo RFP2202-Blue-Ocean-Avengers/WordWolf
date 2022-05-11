@@ -8,17 +8,26 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 
 function Settings({ updateTimer, lobby }) {
   const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
-  const [settings, setSettings] = useState({ minutes: 7 });
+  const [minuteValue, setMinuteValue] = useState(lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes);
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setSettings({ ...settings, [e.target.name]: value });
-    updateTimer({ minutes: settings.minutes }, lobby);
+  useEffect(() => {
+    updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
+  }, [minuteValue]);
+
+  const handleChange = (value) => {
+    // const { value } = e.target;
+    setMinuteValue(value);
   };
 
   return (
@@ -35,9 +44,14 @@ function Settings({ updateTimer, lobby }) {
             <ul>
               <li>
                 Game time (min)
-                {' '}
-                {' '}
-                <input type="number" placeholder="00" name="minutes" style={{ width: '40px' }} value={settings.minutes} onChange={handleChange} />
+                <NumberInput defaultValue={7} min={5} max={30} value={minuteValue} onChange={handleChange}>
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                {/* <input type="number" placeholder="00"  style={{ width: '40px' }}  /> */}
               </li>
             </ul>
           </ModalBody>

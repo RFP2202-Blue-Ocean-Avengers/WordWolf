@@ -10,20 +10,37 @@ function Timer({ expiryTimestamp, updateTimer, lobby }) {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, autoStart: false, onExpire: () => console.warn('onExpire called') });
+  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' ? false : true), onExpire: () => console.warn('onExpire called') });
   useEffect(() => {
     updateTimer({ minutes, seconds }, lobby);
   }, [seconds, minutes]);
 
+  useEffect(() => {
+    if (lobby.gameState === 'questionsRound') {
+      // const time = new Date();
+      // time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
+      start();
+    } else if (lobby.gameState === 'outOfTokens' || lobby.gameState === 'outOfTime') {
+      //condition for when people vote
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + 30);
+      restart(time);
+    } else if (lobby.gameState === 'wordGuess') {
+      //when werewolves vote
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + 30);
+      restart(time);
+    }
+  }, [lobby.gameState]);
+
   return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{ fontSize: '100px' }}>
+    <div id="timerBox">
+      <div id="timer">
         <span>{minutes}</span>
         :
-        <span>{seconds}</span>
+        <span>{seconds < 10 ? ('0' + seconds) : seconds}</span>
       </div>
-      <p>{isRunning ? 'Running' : 'Not running'}</p>
-      <button type="submit" onClick={start}>Start</button>
+      {/* <button type="submit" onClick={start}>Start</button>
       <button type="submit" onClick={pause}>Pause</button>
       <button type="submit" onClick={resume}>Resume</button>
       <button
@@ -36,7 +53,7 @@ function Timer({ expiryTimestamp, updateTimer, lobby }) {
         }}
       >
         Restart
-      </button>
+      </button> */}
     </div>
   );
 }

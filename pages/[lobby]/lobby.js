@@ -2,8 +2,11 @@ import { useEffect, useContext } from 'react';
 import { StoreContext } from '../api/contextStore';
 import { socket } from '../api/service/socket';
 import Lobby from '../../components/Lobby';
+import Game from '../../components/Game';
+import Chat from '../../components/chat/Chat';
+import GameChat from '../../components/chat/GameChat';
 
-function Game() {
+function Container() {
   const { lobby, setLobby, loginData } = useContext(StoreContext);
 
   const onInit = () => {
@@ -29,32 +32,36 @@ function Game() {
   const toggleJoin = (e) => {
     e.preventDefault();
     const seat = e.target.name;
+    const color = e.target.id;
     if (lobby.seats[seat]) {
-      alert('seat already taken');
-    } else if (false) {
-      // refactor this statement to check if the player has already taken a seat
-      alert('you are already joined');
+      if (lobby.seats[seat].name === loginData.name) {
+        socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+      } else {
+        alert('seat already taken');
+      }
+    } else if (lobby.players[loginData.name].seat && !lobby.seats[seat]) {
+      socket.emit('swapSeats', {
+        name: loginData.name, lobby: lobby.name, seat, color,
+      });
     } else {
-      socket.emit('toggleJoin', { name: loginData.name, lobby: lobby.name, seat });
+      socket.emit('toggleJoin', {
+        name: loginData.name, lobby: lobby.name, seat, color,
+      });
     }
   };
 
   const toggleSpectate = (e) => {
     e.preventDefault();
-    // make sure to check if the player is already a spectator
-    /*
-      emits to the server 'toggleSpectate' with
-        { lobby: name of lobby,
-          name: name of player,
-          seat: name of seat,
-        }
-    */
+    if (!lobby.players[loginData.name].spectator) {
+      socket.emit('toggleSpectate', { name: loginData.name, lobby: lobby.name });
+    } else {
+      alert("You\'re already a spectator");
+    }
   };
 
   // starts the game
-  const onGameStart = (e) => {
-    e.preventDefault();
-    // if less than 3 players are not spectators, do not let the game start
+  // if less than 4 players are joined do not let the game start
+  const onGameStart = () => {
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -68,32 +75,16 @@ function Game() {
     socket.emit('gameStart', lobby.name);
   };
 
-  const onMayorPick = (e) => {
-    e.preventDefault();
-    /*
-      emit to the server 'onMayorPick' with
-        { lobby: name of the lobby, word: word that is chosen }
-    */
+  const onMayorPick = (word) => {
+    socket.emit('onMayorPick', { lobby: lobby.name, word });
   };
 
-  const afterQuestionsRound = (e) => {
-    e.preventDefault();
-    /*
-      emit to the server based on a condition
-       if all tokens are handed out
-        will emit the phrase 'outOfTokens'
-          { lobby: name of the lobby, condition: 'outOfTokens'}
-       if timer runs out
-        will emit the phrase 'outOfTime'
-       if correct word is chosen
-        will emit the phrase 'wordGuessed'
-    */
+  const afterQuestionsRound = (condition) => {
+    socket.emit(condition, { lobby: lobby.name, condition });
   };
 
   // resets the game state to be a clean state
-  // allows for restart from the lobby
-  const resetGame = (e) => {
-    e.preventDefault();
+  const resetGame = () => {
     socket.emit('resetGame', lobby.name);
   };
 
@@ -102,37 +93,81 @@ function Game() {
   };
 
   const display = () => {
-    switch (lobby.gameState) {
+    const gameArray = ['mayorPick', 'quetsionRound', 'wordGuessed', 'outOfTokens', 'outOfTime'];
+    let gameState;
+    if (gameArray.includes(lobby.gameState)) {
+      gameState = 'game';
+    } else {
+      gameState = lobby.gameState;
+    }
+
+    switch (gameState) {
       case ('lobby'):
         return (
-          <Lobby
-            lobby={lobby}
-            toggleJoin={toggleJoin}
-            onGameStart={onGameStart}
-            loginData={loginData}
-            updateTimer={updateTimer}
-          />
+          <div>
+            <Lobby
+              lobby={lobby}
+              toggleJoin={toggleJoin}
+              toggleSpectate={toggleSpectate}
+              onGameStart={onGameStart}
+              loginData={loginData}
+              updateTimer={updateTimer}
+            />
+            <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
+          </div>
         );
-      case ('mayorPick'):
-        return <h1>Mayor Picking</h1>;
-      case ('questionRound'):
-        return <h1>Question Round</h1>;
-      case ('wordGuessed'):
-        return <h1>End Game: word guessed</h1>;
-      case ('outOfTokens'):
-        return <h1>End Game: out of tokens</h1>;
-      case ('outOfTime'):
-        return <h1>End Game: out of time</h1>;
+      case ('game'):
+        return (
+          <div>
+            <Game
+              lobby={lobby}
+              onMayorPick={onMayorPick}
+              afterQuestionsRound={afterQuestionsRound}
+              resetGame={resetGame}
+              loginData={loginData}
+              updateTimer={updateTimer}
+            />
+            <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
+
+          </div>
+        );
       default:
-        return <h1>No Game State</h1>;
+        return null;
     }
   };
 
   return (
     <div>
-      {lobby && display()}
+      {/* {lobby && display()} */}
+
+      {/* for testing purposes, I've displayed all the states of
+      the game out onto the lobby screen by default */}
+      {lobby
+      && (
+      <>
+        <Lobby
+          lobby={lobby}
+          toggleJoin={toggleJoin}
+          toggleSpectate={toggleSpectate}
+          onGameStart={onGameStart}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+        <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />
+        <Game
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+          afterQuestionsRound={afterQuestionsRound}
+          resetGame={resetGame}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+        <GameChat players={lobby?.players} username={loginData.name} lobby={loginData.lobby} />
+      </>
+      )}
+
     </div>
   );
 }
 
-export default Game;
+export default Container;

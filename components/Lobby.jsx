@@ -1,18 +1,17 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
-import JoinButtons from './lobby/JoinButtons';
 import Timer from './Timer';
 import Settings from './Settings';
 import Rules from './Rules';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData, updateTimer,
+  lobby, toggleJoin, onGameStart, loginData, updateTimer, toggleSpectate,
 }) {
   const time = new Date();
-  console.log(lobby.settings.minutes)
-  time.setSeconds(time.getSeconds() + lobby.settings.minutes*60);
+  time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
   return (
     <div>
+      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} />
       <h1>
         Lobby name:
         {lobby?.name}
@@ -25,9 +24,7 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
-      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} />
-      <LobbyTable toggleJoin={toggleJoin} loginData={loginData} />
-      <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
+      <LobbyTable toggleJoin={toggleJoin} lobby={lobby} />
       {lobby.host === loginData.name
         ? (
           <Button size="sm" onClick={(e) => onGameStart(e)}>
@@ -35,14 +32,7 @@ function Lobby({
           </Button>
         ) : null}
       <br />
-      <h1>Joined Players</h1>
-      <UnorderedList>
-        {lobby
-          ? Object.keys(lobby.players).map((player) => (lobby.players[player].spectator ? null : (
-            <ListItem key={player}>{lobby.players[player].name}</ListItem>
-          )))
-          : null}
-      </UnorderedList>
+      <Button onClick={(e) => toggleSpectate(e)}>Spectate</Button>
       <h1>Spectators</h1>
       <UnorderedList>
         {lobby
