@@ -6,7 +6,7 @@ const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
-  updateTimer,
+  updateTimer, answerQuestion, VoteWerewolf, VoteSeer,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
@@ -91,6 +91,24 @@ io.on('connect', (socket) => {
     const allmessages = getGameMessages(lobby);
     io.to(lobby).emit('allGameMessages', allmessages);
   });
+
+
+  socket.on('AnsweredQuestion', async ({ answer, question, lobbyName }) => {
+    // adds the question to the appropriate player's array of that answer
+    await answerQuestion(answer, question, lobbyName);
+    emitLobbyData(lobbyName);
+  });
+
+  socket.on('VoteWerewolf', async ({ name }) => {
+    // adds a player object to the provided name's werewolfVotes array
+    console.log('invoke werewolf votes');
+  });
+
+  socket.on('VoteSeer', async ({ name }) => {
+    // adds a player object to the provided name's villagerVotes array
+    console.log('invoke seer votes');
+  });
+
 
   socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting

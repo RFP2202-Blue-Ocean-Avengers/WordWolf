@@ -10,7 +10,7 @@ function Timer({ expiryTimestamp, updateTimer, lobby }) {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' ? false : true), onExpire: () => console.warn('onExpire called') });
+  } = useTimer({ expiryTimestamp, autoStart: (lobby.gameState==='mayorPick' || lobby.gameState==='lobby' ? false : true), onExpire: () => console.warn('onExpire called') });
   useEffect(() => {
     updateTimer({ minutes, seconds }, lobby);
   }, [seconds, minutes]);
