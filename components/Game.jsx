@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import GameTable from "./GameTable";
 import GameChat from "./chat/GameChat";
+import GameLogo from "../assets/GameLogo.svg";
 
 function Game({
   lobby,
@@ -18,19 +19,18 @@ function Game({
     <div className="game-background">
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          left: '20px',
-          top: '600px',
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          left: "20px",
+          top: "600px",
         }}
       >
         <Box fontWeight="extrabold" fontSize="20" color="#FFF">
           {spectators}
           &nbsp;SPECTATORS
         </Box>
-        <Box alignSelf="center"
-        zIndex="100">
+        <Box alignSelf="center">
           <GameChat
             players={lobby?.players}
             username={loginData?.name}
@@ -38,10 +38,7 @@ function Game({
           />
         </Box>
       </div>
-      <Box pos="relative"
-        right="50"
-        top="50"
-      >
+      <Box pos="relative" right="50" top="50" w="fit-content" h="fit-content">
         <GameTable loginData={loginData} lobby={lobby} />
       </Box>
     </div>
