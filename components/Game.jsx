@@ -1,14 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import { useState } from "react";
-import Image from "next/image";
-import GameTable from "./GameTable";
-import GameChat from "./chat/GameChat";
-import GameLogo from "../assets/GameLogo.svg";
-import UserRole from "./UserRole";
-import TokenModal from "./TokenModal";
-import MayorPickModal from "./MayorPickModal";
-import MayorQModal from "./MayorQModal";
-import Timer from "./Timer";
+import { Box } from '@chakra-ui/react';
+import { useState } from 'react';
+import Image from 'next/image';
+import GameTable from './GameTable';
+import GameChat from './chat/GameChat';
+import GameLogo from '../assets/GameLogo.svg';
+import UserRole from './UserRole';
+import TokenModal from './TokenModal';
+import MayorPickModal from './MayorPickModal';
+import MayorQModal from './MayorQModal';
+import Timer from './Timer';
+import Rules from './Rules';
 
 function Game({
   lobby,
@@ -20,90 +21,107 @@ function Game({
 }) {
   const spectators = Object.keys(lobby.players).reduce(
     (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
-    0
+    0,
   );
 
   const [playerObj, setplayerObj] = useState(null);
   const [selected, setSelected] = useState(null);
 
-  function tokenSetter(name, token) {
+  const tokenSetter = (name, token) => {
     setplayerObj(lobby?.players[name]);
     setSelected(token);
-  }
+  };
 
-  //for timer
+  // for timer
   const time = new Date();
   time.setSeconds(
-    time.getSeconds() +
-      Math.floor(lobby.settings.minutes * 60) +
-      lobby.settings.seconds
+    time.getSeconds()
+    + Math.floor(lobby.settings.minutes * 60)
+    + lobby.settings.seconds,
   );
 
   return (
     <div className="game-background">
-      <Box className="logo">
-        <Image src={GameLogo} />
-      </Box>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-          left: "10px",
-          top: "575px",
-          transform: "scale(0.93)",
-        }}
+      <Box
+        name="main-container"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="space-evenly"
       >
-        <Box fontWeight="extrabold" fontSize="30" color="#FFF">
-          {spectators}
-          &nbsp;SPECTATORS
+        <Box
+          name="top-row"
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-evenly"
+          w="100vw"
+        >
+          <Timer
+            updateTimer={updateTimer}
+            lobby={lobby}
+            expiryTimestamp={time}
+            afterQuestionsRound={afterQuestionsRound}
+          />
+          <Image src={GameLogo} />
+          <Rules />
         </Box>
-        <Box alignSelf="center">
-          <GameChat
-            players={lobby?.players}
-            username={loginData?.name}
-            lobby={loginData?.lobby}
+        <Box
+          className="middleContainer"
+          display="flex"
+          transform="scale(0.93)"
+          pos="relative"
+          left="95"
+        >
+          <GameTable
+            tokenSetter={tokenSetter}
+            loginData={loginData}
+            lobby={lobby}
           />
         </Box>
-      </div>
-      <Box
-        pos="relative"
-        top="125"
-        right="140"
-        w="fit-content"
-        h="fit-content"
-        transform="scale(0.93)"
-      >
-        <GameTable
-          tokenSetter={tokenSetter}
-          loginData={loginData}
-          lobby={lobby}
-        />
-      </Box>
-      {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
-        <Box pos="relative" right="160" top="400">
-          <MayorQModal lobby={lobby} />
+        <Box
+          className="bottom-container"
+          display="flex"
+          flexDirection="row"
+        >
+          <Box
+            className="chat"
+            display="flex"
+            flexDirection="column"
+            transform="scale(0.93)"
+          >
+            <Box fontWeight="extrabold" fontSize="30" color="#FFF">
+              {spectators}
+              &nbsp;SPECTATORS
+            </Box>
+            <Box alignSelf="center">
+              <GameChat
+                players={lobby?.players}
+                username={loginData?.name}
+                lobby={loginData?.lobby}
+              />
+            </Box>
+            <Box>
+
+            </Box>
+            <UserRole role={lobby.players[loginData.name].role} />
+            <Box>
+              <TokenModal
+                player={playerObj}
+                tokenType={selected}
+                setplayerObj={setplayerObj}
+              />
+            </Box>
+            {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
+              <Box pos="relative" right="160" top="400">
+                <MayorQModal lobby={lobby} />
+              </Box>
+            ) : null}
+          </Box>
         </Box>
-      ) : null}
-      <Box pos="absolute" bottom="250" right="25">
-        <UserRole role={lobby.players[loginData.name].role} />
-      </Box>
-      <Box>
-        <TokenModal
-          player={playerObj}
-          tokenType={selected}
-          setplayerObj={setplayerObj}
-        />
       </Box>
       {lobby?.mayor?.name === loginData.name ? (
         <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
       ) : null}
-      <Timer
-        updateTimer={updateTimer}
-        lobby={lobby}
-        expiryTimestamp={time}
-        afterQuestionsRound={afterQuestionsRound}
-      />
     </div>
   );
 }

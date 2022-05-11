@@ -1,4 +1,5 @@
 import IndividualQuestion from "./IndividualQuestion";
+
 import {
   TokenModalContainer,
   CloseButton,
@@ -12,9 +13,8 @@ import {
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
 function TokenModal({ player, setplayerObj, tokenType }) {
-
   function onClick(currentToken) {
-    setTokenType(player?[currentToken]);
+    // setTokenType(player?[currentToken]);
   }
 
   function onCancel() {

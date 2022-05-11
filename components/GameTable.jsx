@@ -1,13 +1,13 @@
-import { Box, HStack } from "@chakra-ui/react";
-import Tokens from "./Tokens";
+import { Box, HStack } from '@chakra-ui/react';
+import Tokens from './Tokens';
 
-function GameTable({ tokenSetter, loginData, lobby }) {
+function GameTable({ tokenSetter, lobby }) {
   let currentPlay;
-  if (lobby.gameState !== "questionRound") {
+  if (lobby.gameState !== 'questionRound') {
     currentPlay = lobby.gameState;
-  } else if (lobby.gameState === "questionRound") {
+  } else if (lobby.gameState === 'questionRound') {
     if (lobby.questions.length === 0) {
-      currentPlay = "question round";
+      currentPlay = 'question round';
     } else {
       currentPlay = lobby.questions[0]?.message;
     }
@@ -48,7 +48,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
           </Box>
         ) : (
           <Box
-            //red
+            // red
             name="seat1"
             id="#E6474E"
             as="button"
@@ -110,7 +110,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
           </Box>
         ) : (
           <Box
-            //orange
+            // orange
             name="seat2"
             id="#F18E35"
             as="button"
@@ -125,7 +125,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
       <HStack>
         {lobby?.seats?.seat10 ? (
           <Box
-            //black
+            // black
             name="seat10"
             id="#333333"
             as="button"
@@ -155,7 +155,7 @@ function GameTable({ tokenSetter, loginData, lobby }) {
         )}
         {lobby?.seats?.seat8 ? (
           <Box
-            //pink
+            // pink
             name="seat8"
             id="#D564D8"
             as="button"
