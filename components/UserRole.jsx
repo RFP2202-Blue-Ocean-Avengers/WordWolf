@@ -5,12 +5,12 @@ import {
   Banner,
 } from './ModalStyles/UserRoleCard';
 
-function UserRole({ player }) {
+function UserRole({ role }) {
   return (
     <RoleContainer>
       <InnerRoleContainer>
         <Img src="" />
-        <Banner>{player.role}</Banner>
+        <Banner>{role.toUpperCase()}</Banner>
       </InnerRoleContainer>
     </RoleContainer>
   );
