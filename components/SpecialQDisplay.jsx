@@ -1,42 +1,38 @@
 import styled from 'styled-components';
 import {
-  Box, Flex, Spacer, Text,
+  Box, Flex, Text,
 } from '@chakra-ui/react';
 import { GrStar } from 'react-icons/gr';
 import { BsExclamationLg } from 'react-icons/bs';
 import { MdDoDisturb } from 'react-icons/md';
-import MayorQModal from './MayorQModal';
 
-function DisplayQStatus({ lobby }) {
+function SpecialQDisplay({ lobby }) {
   console.log(lobby);
   return (
     <Box>
       <Flex alignItems="center" color="white">
         <CorrectToken><GrStar id="displayQCorrect" size={30} style={{ margin: '0px auto' }} /></CorrectToken>
         <Text fontSize="xl" color="black">
-          This is correct
-          {/* {lobby.correct.message} */}
+          {lobby.correct.message}
         </Text>
       </Flex>
       <Flex alignItems="center" color="white">
         <CloseToken><BsExclamationLg id="displayQClose" size={30} style={{ margin: '0px auto' }} /></CloseToken>
         <Text fontSize="xl" color="black">
-          This is close
-          {/* {lobby.soClose.message} */}
+          {lobby.soClose.message}
         </Text>
       </Flex>
       <Flex alignItems="center" color="white">
         <WayOffToken><MdDoDisturb id="displayQWayOff" size={30} style={{ margin: '0px auto' }} /></WayOffToken>
         <Text fontSize="xl" color="black">
-          This is wayoff
-          {/* {lobby.wayOff.message} */}
+          {lobby.wayOff.message}
         </Text>
       </Flex>
     </Box>
   );
 }
 
-export default DisplayQStatus;
+export default SpecialQDisplay;
 
 const CorrectToken = styled.button`
 width: 45px;

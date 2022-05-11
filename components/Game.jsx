@@ -9,11 +9,7 @@ import TokenModal from './TokenModal';
 import MayorPickModal from './MayorPickModal';
 import MayorQModal from './MayorQModal';
 import Timer from './Timer';
-<<<<<<< HEAD
-import DisplayQStatus from './DisplayQStatus';
-=======
 import Rules from './Rules';
->>>>>>> main
 
 function Game({
   lobby,
@@ -34,49 +30,24 @@ function Game({
   const tokenSetter = (name, token) => {
     setplayerObj(lobby?.players[name]);
     setSelected(token);
-<<<<<<< HEAD
-  }
-  console.log(lobby);
-=======
   };
->>>>>>> main
 
   // for timer
   const time = new Date();
   time.setSeconds(
     time.getSeconds()
-<<<<<<< HEAD
-      + Math.floor(lobby.settings.minutes * 60)
-      + lobby.settings.seconds,
-=======
     + Math.floor(lobby.settings.minutes * 60)
     + lobby.settings.seconds,
->>>>>>> main
   );
 
   return (
     <div className="game-background">
-<<<<<<< HEAD
-      <Box className="logo">
-        <Image src={GameLogo} />
-      </Box>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          left: '10px',
-          top: '575px',
-          transform: 'scale(0.93)',
-        }}
-=======
       <Box
         name="main-container"
         display="flex"
         alignItems="center"
         flexDirection="column"
         justifyContent="space-evenly"
->>>>>>> main
       >
         <Box
           name="top-row"
