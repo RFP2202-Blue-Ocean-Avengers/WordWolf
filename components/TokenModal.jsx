@@ -12,8 +12,9 @@ import {
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
 function TokenModal({ player, setplayerObj, tokenType }) {
+
   function onClick(currentToken) {
-    setTokenType(currentToken);
+    setTokenType(player?[currentToken]);
   }
 
   function onCancel() {
