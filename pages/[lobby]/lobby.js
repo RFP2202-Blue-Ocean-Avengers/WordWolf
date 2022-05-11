@@ -150,13 +150,13 @@ function Container() {
       the game out onto the lobby screen by default */}
       {lobby && (
         <>
-          {/* <Lobby
+          <Lobby
             lobby={lobby}
             toggleJoin={toggleJoin}
             toggleSpectate={toggleSpectate}
             onGameStart={onGameStart}
             loginData={loginData}
-          /> */}
+          />
           <Game
             lobby={lobby}
             onMayorPick={onMayorPick}
