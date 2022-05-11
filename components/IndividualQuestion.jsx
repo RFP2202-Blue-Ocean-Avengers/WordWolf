@@ -1,5 +1,4 @@
-import React from 'react';
-import { Question } from './modalStyles/Tokens.js';
+import { Question } from './ModalStyles/Tokens';
 
 function IndividualQuestion({ question }) {
   return (

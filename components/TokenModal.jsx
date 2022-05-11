@@ -1,5 +1,5 @@
-import { useState, useEffect, React } from 'react';
-import IndividualQuestion from './IndividualQuestion.jsx';
+import { useState, useEffect } from 'react';
+import IndividualQuestion from './IndividualQuestion';
 import {
   TokenModalContainer,
   CloseButton,
@@ -8,7 +8,7 @@ import {
   NoButton,
   MaybeButton,
   TokenList,
-} from './modalStyles/Tokens.js';
+} from './ModalStyles/Tokens';
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
@@ -20,24 +20,33 @@ function TokenModal({ player, selectedTokens }) {
   }, [selectedTokens]);
 
   function onClick(tokenType) {
-    setTokenList(player.tokens[tokenType]);
+    setTokenList(player.player.tokens[tokenType]);
   }
+
+  function onCancel() {
+    setTokenList(null);
+  }
+
   return (
-    <TokenModalContainer>
-      <CloseButton>x</CloseButton>
-      <ResponseContainer>
-        <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
-        <NoButton onClick={() => onClick('no')}>No</NoButton>
-        <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
-      </ResponseContainer>
-      <TokenList>
-        { currentTokenList
-          ? currentTokenList.map((question) => (
-            <IndividualQuestion question={question} />
-          ))
-          : null }
-      </TokenList>
-    </TokenModalContainer>
+    <div>
+      { currentTokenList
+        ? (
+          <TokenModalContainer>
+            <CloseButton onClick={() => onCancel()}>x</CloseButton>
+            <ResponseContainer>
+              <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
+              <NoButton onClick={() => onClick('no')}>No</NoButton>
+              <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
+            </ResponseContainer>
+            <TokenList>
+              { currentTokenList.map((question) => (
+                <IndividualQuestion question={question} />
+              ))}
+            </TokenList>
+          </TokenModalContainer>
+        )
+        : null }
+    </div>
   );
 }
 

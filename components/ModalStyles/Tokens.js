@@ -28,6 +28,6 @@ export const TokenList = styled.div`
 
 `;
 
-export const QuestionContainer = styled.div`
+export const Question = styled.div`
 
 `;
