@@ -29,7 +29,7 @@ class Lobby {
     this.name = name;
     this.host = host;
     this.settings = {
-      timer: 0,
+      minutes: 5,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {};
@@ -51,6 +51,16 @@ class Lobby {
     this.questions = [];
     this.tokens = 36; // if this runs out the game ends
   }
+}
+
+const updateTimer = (settings, lobby) => {
+  //get specific lobby
+  const currLobby = lobbies.get(lobby);
+  //update settings to param
+  currLobby.settings = settings;
+  //update lobbies map
+  lobbies.set(lobby, currLobby);
+  return currLobby;
 }
 
 const addLobby = (host, name) => {
@@ -209,6 +219,7 @@ module.exports = {
   onMayorPick,
   afterQuestionRound,
   resetGame,
+  updateTimer,
 };
 
 // addLobby('lobby');

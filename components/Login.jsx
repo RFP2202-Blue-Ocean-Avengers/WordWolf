@@ -1,5 +1,5 @@
 import { Button, Input } from '@chakra-ui/react';
-import Settings from './Settings.jsx';
+import Rules from './Rules';
 
 function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
   return (
@@ -31,7 +31,7 @@ function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
           Join Lobby
         </Button>
       </form>
-      <Settings> </Settings>
+      <Rules />
     </div>
   );
 }

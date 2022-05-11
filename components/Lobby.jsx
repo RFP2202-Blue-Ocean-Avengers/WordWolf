@@ -1,10 +1,16 @@
 import { Button, UnorderedList, ListItem } from '@chakra-ui/react';
 import LobbyTable from './LobbyTable';
 import JoinButtons from './lobby/JoinButtons';
+import Timer from './Timer';
+import Settings from './Settings';
+import Rules from './Rules';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData,
+  lobby, toggleJoin, onGameStart, loginData, updateTimer,
 }) {
+  const time = new Date();
+  console.log(lobby.settings.minutes)
+  time.setSeconds(time.getSeconds() + lobby.settings.minutes*60);
   return (
     <div>
       <h1>
@@ -19,6 +25,7 @@ function Lobby({
           ))
           : null}
       </UnorderedList>
+      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} />
       <LobbyTable toggleJoin={toggleJoin} loginData={loginData} />
       <JoinButtons lobby={lobby} toggleJoin={toggleJoin} />
       {lobby.host === loginData.name
@@ -44,6 +51,8 @@ function Lobby({
           )))
           : null}
       </UnorderedList>
+      <Settings updateTimer={updateTimer} lobby={lobby} />
+      <Rules />
     </div>
   );
 }

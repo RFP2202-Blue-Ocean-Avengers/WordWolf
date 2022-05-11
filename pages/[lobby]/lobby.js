@@ -97,6 +97,10 @@ function Game() {
     socket.emit('resetGame', lobby.name);
   };
 
+  const updateTimer = (settings) => {
+    socket.emit('updateTimer', { settings, lobby: lobby.name });
+  };
+
   const display = () => {
     switch (lobby.gameState) {
       case ('lobby'):
@@ -106,6 +110,7 @@ function Game() {
             toggleJoin={toggleJoin}
             onGameStart={onGameStart}
             loginData={loginData}
+            updateTimer={updateTimer}
           />
         );
       case ('mayorPick'):
