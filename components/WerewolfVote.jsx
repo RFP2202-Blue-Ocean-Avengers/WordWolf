@@ -25,7 +25,6 @@ function WerewolfVote({ lobby, loginData }) {
       return null;
     }
     socket.emit('VoteSeer', { player: lobby.players[currVote], lobbyName: lobby?.name });
-    console.log(e.target.id);
     document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
   };
 
