@@ -7,6 +7,7 @@ import GameLogo from "../assets/GameLogo.svg";
 import UserRole from "./UserRole";
 import TokenModal from "./TokenModal";
 import MayorPickModal from './MayorPickModal';
+import MayorQModal from './MayorQModal';
 
 function Game({
   lobby,
@@ -24,8 +25,8 @@ function Game({
   const [selected, setSelected] = useState(null);
 
   function tokenSetter(name, token) {
-    setplayerObj(lobby.players[name]);
-    setSelected(lobby.players[name].tokens[token]);
+    setplayerObj(lobby?.players[name]);
+    setSelected(lobby?.players[name].tokens[token]);
   }
 
   return (
@@ -38,7 +39,7 @@ function Game({
           display: "flex",
           flexDirection: "column",
           position: "relative",
-          left: "20px",
+          left: "10px",
           top: "575px",
           transform: "scale(0.93)",
         }}
@@ -69,11 +70,14 @@ function Game({
           lobby={lobby}
         />
       </Box>
-      <Box pos="absolute" bottom="250" right="20">
+      {(lobby?.mayor?.name === loginData.name) && (lobby?.questions.length > 0) ? (
+        <Box pos="relative" right="160" top="400"><MayorQModal lobby={lobby} /></Box>
+      ) : null}
+      <Box pos="absolute" bottom="250" right="25">
         <UserRole role={lobby.players[loginData.name].role} />
       </Box>
       <Box>
-        <TokenModal player={playerObj} selectedTokens={selected} />
+        <TokenModal player={playerObj} selectedTokens={selected} lobby={lobby} />
       </Box>
       {lobby?.mayor?.name === loginData.name ? (
         <MayorPickModal

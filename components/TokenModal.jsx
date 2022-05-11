@@ -12,7 +12,7 @@ import {
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
-function TokenModal({ player, selectedTokens }) {
+function TokenModal({ player, selectedTokens, lobby }) {
   const [currentTokenList, setTokenList] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function TokenModal({ player, selectedTokens }) {
   }, [selectedTokens]);
 
   function onClick(tokenType) {
-    setTokenList(player.player.tokens[tokenType]);
+    setTokenList(player?.tokens[tokenType]);
   }
 
   function onCancel() {
