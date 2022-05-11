@@ -8,6 +8,7 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
+  Box,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ function Rules() {
   };
   return (
     <div>
-      <Button size="sm" onClick={onRulesOpen}> How To Play </Button>
+      <Box className="rules" as="button" size="sm" onClick={onRulesOpen}> How To Play </Box>
       <Modal isOpen={isRulesOpen} onClose={() => { onRulesClose(); setShowRoles(false); }}>
         <ModalOverlay />
         <ModalContent maxW="75rem">
