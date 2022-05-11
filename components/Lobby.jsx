@@ -1,14 +1,19 @@
 import {
   Button, UnorderedList, ListItem, HStack, Box,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import LobbyTable from './LobbyTable';
 import Chat from './chat/Chat';
+import GameLogo from '../assets/GameLogo.svg';
 
 function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
 }) {
   return (
     <div className="background">
+      <Box className="logo">
+        <Image src={GameLogo} />
+      </Box>
       <h1 style={{ color: '#fff' }}>
         Lobby name:
         {lobby?.name}
