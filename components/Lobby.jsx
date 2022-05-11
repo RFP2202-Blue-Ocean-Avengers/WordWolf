@@ -13,7 +13,10 @@ function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer, afterQuestionsRound,
 }) {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + Math.floor(lobby.settings.minutes * 60) + lobby.settings.seconds);
+  time.setSeconds(time.getSeconds()
+  + Math.floor(lobby.settings.minutes * 60)
+  + lobby.settings.seconds);
+
   return (
     <div className="background">
       <Box className="logo">
@@ -23,7 +26,12 @@ function Lobby({
         Lobby name:
         {lobby?.name}
       </h1>
-      <Timer updateTimer={updateTimer} lobby={lobby} expiryTimestamp={time} afterQuestionsRound={afterQuestionsRound} />
+      <Timer
+        updateTimer={updateTimer}
+        lobby={lobby}
+        expiryTimestamp={time}
+        afterQuestionsRound={afterQuestionsRound}
+      />
       <HStack style={{ marginLeft: '30px', marginTop: '40px' }}>
         <Box style={{ transform: 'scale(0.9)', marginRight: '90px' }}>
           <Chat players={lobby.players} username={loginData.name} lobby={loginData.lobby} />

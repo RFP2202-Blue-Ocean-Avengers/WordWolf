@@ -18,8 +18,11 @@ import {
 import { useState, useEffect } from 'react';
 
 function Settings({ updateTimer, lobby }) {
-  const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
-  const [minuteValue, setMinuteValue] = useState(lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes);
+  const { isOpen: isSettingsOpen, onOpen:
+     onSettingsOpen, onClose: onSettingsClose,
+  } = useDisclosure();
+  const [minuteValue, setMinuteValue] = useState(lobby.settings.minutes < 6
+    ? 5 : lobby.settings.minutes);
 
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
@@ -44,7 +47,13 @@ function Settings({ updateTimer, lobby }) {
             <ul>
               <li>
                 Game time (min)
-                <NumberInput defaultValue={7} min={5} max={30} value={minuteValue} onChange={handleChange}>
+                <NumberInput
+                  defaultValue={7}
+                  min={5}
+                  max={30}
+                  value={minuteValue}
+                  onChange={handleChange}
+                >
                   <NumberInputField />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
