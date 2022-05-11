@@ -41,8 +41,8 @@ function Chat({ players, username, lobby }) {
     >
       <h2 style={{
         position: 'relative',
-        left: '25%',
-        fontSize: '50px',
+        textAlign: 'center',
+        fontSize: '32px',
         padding: '10px',
         fontWeight: 'bold',
       }}
@@ -50,7 +50,7 @@ function Chat({ players, username, lobby }) {
         CHAT
       </h2>
       <div style={{
-        height: '488px',
+        height: '540px',
         width: '322px',
         backgroundColor: 'white',
         marginLeft: '13px',
@@ -60,11 +60,11 @@ function Chat({ players, username, lobby }) {
           {allMessages?.map((msg) => <Message key={msg.id} players={players} message={msg} />)}
         </ReactScrollableFeed>
       </div>
-      <div style={{ display: 'flex', padding: '20px' }}>
+      <div style={{ display: 'flex', padding: '15px' }}>
         <Input
           value={message}
           style={{
-            backgroundColor: 'white', width: '246px', height: '85px', marginRight: '13px',
+            backgroundColor: 'white', width: '255px', height: '60px', marginRight: '13px', borderRadius: '0px',
           }}
           onChange={(e) => handleMessageOnChange(e.target.value)}
         />
@@ -73,7 +73,9 @@ function Chat({ players, username, lobby }) {
             backgroundColor: 'black',
             color: 'white',
             width: '65px',
-            height: '85px',
+            height: '60px',
+            fontSize: '18px',
+            borderRadius: '0px',
           }}
           onClick={() => handleSubmitOnClick()}
         >
