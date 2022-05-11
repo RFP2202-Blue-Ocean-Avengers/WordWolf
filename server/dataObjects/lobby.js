@@ -198,6 +198,7 @@ const answerQuestion = (answer, question, lobbyName) => {
   const player = lobby.players[question.name];
   player.tokens[answer].push(question);
   lobby.questions.shift();
+  lobby.tokens -= 1;
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
