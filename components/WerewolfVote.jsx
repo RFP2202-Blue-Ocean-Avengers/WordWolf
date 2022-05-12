@@ -34,7 +34,6 @@ function WerewolfVote({ lobby, loginData }) {
   return (
     <Container id="WerewolfVote">
       <WhoIsP>WHO IS THE SEER?</WhoIsP>
-
       <div>
         <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
@@ -42,11 +41,9 @@ function WerewolfVote({ lobby, loginData }) {
             .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseS>
       </div>
-
       <div>
         {voted ? null : <button id="SubmitWeVote" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>}
       </div>
-
     </Container>
   );
 }
@@ -57,10 +54,10 @@ export default WerewolfVote;
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const Container = styled.section`
-width: 220px;
+width: 180px;
 height: 105px;
 text-align: center;
-border-radius: 50px;
+border-radius: 30px;
 background-color: #F8F8F8;
 `;
 

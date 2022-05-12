@@ -24,7 +24,7 @@ function VillagerVote({ lobby, loginData }) {
     if (currVote === '---') {
       return null;
     }
-    socket.emit('VoteWerewolf', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    socket.emit('VoteWerewolf', { player: lobby?.players[currVote], lobbyName: lobby?.name });
     setVoted(true);
   };
 
@@ -39,7 +39,7 @@ function VillagerVote({ lobby, loginData }) {
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {lobby && Object.keys(lobby.players)
+          {lobby && Object.keys(lobby?.players)
             .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
@@ -57,10 +57,10 @@ export default VillagerVote;
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const Container = styled.section`
-width: 220px;
+width: 180px;
 height: 105px;
 text-align: center;
-border-radius: 50px;
+border-radius: 30px;
 background-color: #F8F8F8;
 `;
 

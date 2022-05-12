@@ -1,13 +1,13 @@
 const { getLobby } = require('./lobby');
 
-const messages = [];
-const gameMesages = [];
+let messages = [];
+let gameMessages = [];
 
 const addMessage = (data, gameStart) => {
   const { lobby } = data;
   const theLobby = getLobby(lobby);
   if (gameStart) {
-    gameMesages.push(data);
+    gameMessages.push(data);
     if (data.question) {
       theLobby.questions.push(data);
     }
@@ -20,6 +20,20 @@ const addMessage = (data, gameStart) => {
 
 const getLobbyMessages = (lobby) => messages.filter((message) => message.lobby === lobby);
 
-const getGameMessages = (lobby) => gameMesages.filter((message) => message.lobby === lobby);
+const getGameMessages = (lobby) => gameMessages.filter((message) => message.lobby === lobby);
 
-module.exports = { addMessage, getLobbyMessages, getGameMessages };
+const deleteLobbyMessages = (lobby) => {
+  messages = messages.filter((message) => message.lobby !== lobby);
+};
+
+const deleteGameMessages = (lobby) => {
+  gameMessages = gameMessages.filter((message) => message.lobby !== lobby);
+};
+
+module.exports = {
+  addMessage,
+  getLobbyMessages,
+  getGameMessages,
+  deleteLobbyMessages,
+  deleteGameMessages,
+};

@@ -44,7 +44,10 @@ function GameChat({ players, username }) {
       </ReactScrollableFeed>
 
       {(!players || !players[username].spectator) ? (
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: 'white' }}>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: 'white',
+        }}
+        >
           {' '}
           <Input
             value={message}
@@ -53,6 +56,7 @@ function GameChat({ players, username }) {
             }}
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
+
           {(lobby.mayor?.name === username || lobby.gameState !== 'questionRound') ? '' : (
             <Button
               style={{
