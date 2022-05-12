@@ -55,8 +55,8 @@ function Chat({ players, username, lobby }) {
         CHAT
       </h2>
       <div style={{
-        height: '80%',
-        width: '90%',
+        height: '70vh',
+        width: '19.8vw',
         backgroundColor: 'white',
       }}
       >
