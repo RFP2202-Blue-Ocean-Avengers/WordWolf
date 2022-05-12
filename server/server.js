@@ -128,11 +128,11 @@ io.on('connect', (socket) => {
       if (player.role !== 'villager') {
         if (player.role === 'werewolf') {
           if (lobbyData.werewolf.length === 1) {
-            afterVotingRound(player.lobby);
+            resetGame(player.lobby);
           }
           return;
         }
-        afterVotingRound(player.lobby);
+        resetGame(player.lobby);
       }
       if (lobbyData.host === player.name) {
         switchHost(player.lobby);
