@@ -6,7 +6,7 @@
 /* * {
   transform: translate(-50%, 0);
 } */
-.background {
+/* .background {
   background-image: url("./../assets/Background.svg");
   background-size: cover;
   width: 100vw;
@@ -19,36 +19,46 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-}
+} */
 
 .logo {
   position: absolute;
   margin-top: 20px;
   left: 50%;
 }
+
 #timerBox {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 200px;
   height: 62px;
-  left: 57px;
-  top: 21px;
-
   background: #C4C4C4;
 }
 
 #timer {
-  position: absolute;
   width: 70px;
   height: 54px;
-  left: 67px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   font-family: 'Koulen';
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
-  line-height: 54px;
-
+  line-height: 30px;
   color: #000000;
 }
 
+.rules {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 62px;
+  background: #C4C4C4;
+  font-size: 30px;
+}

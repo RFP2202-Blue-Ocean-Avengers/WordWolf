@@ -8,6 +8,7 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
+  Box,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ function Rules() {
   };
   return (
     <div>
-      <Button size="sm" onClick={onRulesOpen}> How To Play </Button>
+      <Box className="rules" as="button" size="sm" onClick={onRulesOpen}> How To Play </Box>
       <Modal isOpen={isRulesOpen} onClose={() => { onRulesClose(); setShowRoles(false); }}>
         <ModalOverlay />
         <ModalContent maxW="75rem">
@@ -49,7 +50,7 @@ function Rules() {
                     The Seer plays on the village team. They know the magic word. They do not know each other. If the magic word is guessed and the wolves guess one of the seers, the village team loses.
                   </li>
                   <li>
-                    <strong>Werewolf:</strong>
+                    <strong>Wolf:</strong>
                     {' '}
                     {' '}
                     Wolves play on the wolf team. They know the magic word. They also know each other. If the magic word is not guessed and the villagers guess one of the wolves, the wolf team loses.

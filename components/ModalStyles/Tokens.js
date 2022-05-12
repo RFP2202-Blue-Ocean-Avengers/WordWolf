@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 export const TokenModalContainer = styled.div`
-  position: absolute;
   width: 276px;
   height: 440px;
-  left: 954px;
-  top: 140px;
 `;
 
 export const CloseButton = styled.button`

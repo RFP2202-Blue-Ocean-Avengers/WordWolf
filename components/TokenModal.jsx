@@ -33,9 +33,9 @@ function TokenModal({ player, setplayerObj, tokenType }) {
         <TokenModalContainer>
           <CloseButton onClick={() => onCancel()}>x</CloseButton>
           <ResponseContainer>
-            <YesButton onClick={() => onClick("yes")}>Yes</YesButton>
-            <NoButton onClick={() => onClick("no")}>No</NoButton>
-            <MaybeButton onClick={() => onClick("maybe")}>Maybe</MaybeButton>
+            <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
+            <NoButton onClick={() => onClick('no')}>No</NoButton>
+            <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
           </ResponseContainer>
           <TokenList>
             {player.tokens[tokenTypeSelected]?.map((question) => (
