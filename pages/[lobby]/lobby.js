@@ -96,8 +96,8 @@ function Container() {
     socket.emit('onMayorPick', { lobby: lobby.name, word });
   };
 
-  const afterQuestionsRound = (condition) => {
-    socket.emit(condition, { lobby: lobby.name, condition });
+  const onTimeout = () => {
+    socket.emit('onTimeout', { lobby: lobby.name });
   };
 
   const afterVotingRound = () => {
@@ -140,8 +140,6 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
               updateTimer={updateTimer}
-              afterQuestionsRound={afterQuestionsRound}
-              afterVotingRound={afterVotingRound}
             />
           </div>
         );
@@ -151,7 +149,7 @@ function Container() {
             <Game
               lobby={lobby}
               onMayorPick={onMayorPick}
-              afterQuestionsRound={afterQuestionsRound}
+              onTimeout={onTimeout}
               afterVotingRound={afterVotingRound}
               resetGame={resetGame}
               loginData={loginData}

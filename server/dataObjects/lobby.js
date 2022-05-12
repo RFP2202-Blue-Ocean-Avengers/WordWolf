@@ -32,8 +32,8 @@ class Lobby {
     this.werewolf = [];
     this.seer = null;
     this.settings = {
-      minutes: 5,
-      seconds: 0,
+      minutes: 0,
+      seconds: 30,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
@@ -74,7 +74,6 @@ const updateTimer = (settings, lobby) => {
   lobbies.set(lobby, currLobby);
   return currLobby;
 };
-
 
 const addLobby = (host, name) => {
   const existingLobby = lobbies.get(name);
@@ -259,12 +258,9 @@ const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
   return lobby;
 };
 
-const afterQuestionRound = (lobbyName, condition) => {
+const onTimeout = (lobbyName) => {
   const lobby = getLobby(lobbyName);
-
-  // changes the game state to be one of three options
-  // 'outOfTime' || 'outOfTokens' || 'wordGuessed'
-  lobby.gameState = condition;
+  lobby.gameState = 'outOfTime';
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
@@ -310,7 +306,7 @@ module.exports = {
   swapSeats,
   toggleSpectate,
   onMayorPick,
-  afterQuestionRound,
+  onTimeout,
   afterVotingRound,
   resetGame,
   updateTimer,

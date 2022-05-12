@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import GameTable from './GameTable';
 import GameChat from './chat/GameChat';
@@ -14,7 +14,7 @@ import Rules from './Rules';
 function Game({
   lobby,
   onMayorPick,
-  afterQuestionsRound,
+  onTimeout,
   afterVotingRound,
   resetGame,
   loginData,
@@ -61,7 +61,7 @@ function Game({
             updateTimer={updateTimer}
             lobby={lobby}
             expiryTimestamp={time}
-            afterQuestionsRound={afterQuestionsRound}
+            onTimeout={onTimeout}
             afterVotingRound={afterVotingRound}
           />
           <Image src={GameLogo} />

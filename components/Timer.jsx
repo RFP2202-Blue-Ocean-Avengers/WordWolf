@@ -2,7 +2,7 @@ import { useTimer } from 'react-timer-hook';
 import { useEffect } from 'react';
 
 function Timer({
-  expiryTimestamp, updateTimer, lobby, afterQuestionsRound, afterVotingRound,
+  expiryTimestamp, updateTimer, lobby, onTimeout, afterVotingRound,
 }) {
   const {
     seconds,
@@ -14,7 +14,7 @@ function Timer({
     autoStart: (!(lobby.gameState === 'mayorPick' || lobby.gameState === 'lobby')),
     onExpire: () => {
       if (lobby.gameState === 'questionRound') {
-        afterQuestionsRound('outOfTime');
+        onTimeout();
       } else {
         afterVotingRound();
       }
