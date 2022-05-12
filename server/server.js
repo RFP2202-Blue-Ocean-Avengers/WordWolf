@@ -129,13 +129,7 @@ io.on('connect', (socket) => {
       socket.leave(player.lobby);
       emitLobbyData(player.lobby);
       const lobbyData = await getLobby(player.lobby);
-      if (player.role !== 'villager') {
-        if (player.role === 'werewolf') {
-          if (lobbyData.werewolf.length === 1) {
-            resetGame(player.lobby);
-          }
-          return;
-        }
+      if (player.mayor || (player.role === 'werewolf' && lobbyData.werewolf.length === 1)) {
         resetGame(player.lobby);
       }
       if (lobbyData.host === player.name) {
