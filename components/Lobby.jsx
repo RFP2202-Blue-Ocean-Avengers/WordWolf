@@ -8,7 +8,6 @@ import Rules from './Rules';
 import Chat from './chat/Chat';
 import GameLogo from '../assets/GameLogo.svg';
 import Timer from './LobbyTimerDisplay';
-import SpecialQDisplay from './SpecialQDisplay';
 
 function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer,
@@ -58,7 +57,6 @@ function Lobby({
       </Box>
       <Box className="settings">
         <Settings updateTimer={updateTimer} lobby={lobby} />
-        <SpecialQDisplay lobby={lobby} />
       </Box>
 
     </div>
