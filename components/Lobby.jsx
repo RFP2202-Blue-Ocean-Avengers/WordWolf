@@ -7,10 +7,10 @@ import Settings from './Settings';
 import Rules from './Rules';
 import Chat from './chat/Chat';
 import GameLogo from '../assets/GameLogo.svg';
-import Timer from './Timer';
+import Timer from './LobbyTimerDisplay';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer, afterQuestionsRound,
+  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer,
 }) {
   const time = new Date();
   time.setSeconds(time.getSeconds()
@@ -24,12 +24,7 @@ function Lobby({
         w="100vw"
         style={{ paddingTop: '10px' }}
       >
-        <Timer
-          updateTimer={updateTimer}
-          lobby={lobby}
-          expiryTimestamp={time}
-          afterQuestionsRound={afterQuestionsRound}
-        />
+        <Timer lobby={lobby} />
         <Image src={GameLogo} />
         <Rules />
       </HStack>

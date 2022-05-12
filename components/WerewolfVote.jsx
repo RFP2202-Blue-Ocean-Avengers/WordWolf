@@ -9,23 +9,22 @@ modal for the werewolf and any other special role to vote on the seer if the tim
 the choice for vote is done with the table select
 */
 
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';
-
-
+import { StoreContext } from '../pages/api/contextStore';
 
 function WerewolfVote({ lobby, loginData }) {
-
   const [currVote, setCurrVote] = useState('---');
+  const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
     if (currVote === '---') {
       return null;
     }
-    socket.emit('VoteSeer', { player: lobby?.players[currVote], lobbyName: lobby?.name });
-    document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    socket.emit('VoteSeer', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    setVoted(true);
   };
 
   const pickedDrop = (e) => {
@@ -39,13 +38,13 @@ function WerewolfVote({ lobby, loginData }) {
       <div>
         <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {lobby && Object.keys(lobby?.players).map((p) =>
-            loginData.name !== p && <option value={p}>{p}</option>)}
+          {lobby && Object.keys(lobby?.players)
+            .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseS>
       </div>
 
       <div>
-        <button id="SubmitWeVote" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
+        {voted ? null : <button id="SubmitWeVote" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>}
       </div>
 
     </Container>

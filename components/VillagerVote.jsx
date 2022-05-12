@@ -10,20 +10,22 @@ the vote is selected with a table select
 needs the loppy
 */
 
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { socket } from '../pages/api/service/socket';
+import { StoreContext } from '../pages/api/contextStore';
+
 
 function VillagerVote({ lobby, loginData }) {
-
   const [currVote, setCurrVote] = useState('---');
+  const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
     if (currVote === '---') {
       return null;
     }
-    socket.emit('VoteWerewolf', { player: lobby?.players[currVote], lobbyName: lobby?.name });
-    document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    socket.emit('VoteWerewolf', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    setVoted(true);
   };
 
   const pickedDrop = (e) => {
@@ -37,13 +39,13 @@ function VillagerVote({ lobby, loginData }) {
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {lobby && Object.keys(lobby?.players).map((p) => loginData.name !== p
-          && <option value={p}>{p}</option>)}
+          {lobby && Object.keys(lobby.players)
+            .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
 
       <div>
-        <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
+        {voted ? null : <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button> }
       </div>
 
     </Container>
@@ -51,7 +53,6 @@ function VillagerVote({ lobby, loginData }) {
 }
 
 export default VillagerVote;
-
 
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 

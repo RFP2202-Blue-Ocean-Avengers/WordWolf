@@ -5,7 +5,7 @@ const io = require('socket.io')(server);
 const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
-  toggleSpectate, onMayorPick, afterQuestionRound, resetGame,
+  toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
   updateTimer, answerQuestion, VoteWerewolf, VoteSeer,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
@@ -64,12 +64,15 @@ io.on('connect', (socket) => {
     emitLobbyData(lobby);
   });
   socket.on('onMayorPick', async ({ lobby, word }) => {
-    console.log(lobby, word);
     await onMayorPick(lobby, word);
     emitLobbyData(lobby);
   });
-  socket.on('afterQuestionRound', async ({ lobby, condition }) => {
-    await afterQuestionRound(lobby, condition);
+  socket.on('onTimeout', async ({ lobby }) => {
+    await onTimeout(lobby);
+    emitLobbyData(lobby);
+  });
+  socket.on('afterVotingRound', async ({ lobby }) => {
+    await afterVotingRound(lobby);
     emitLobbyData(lobby);
   });
   socket.on('resetGame', async (lobby) => {
@@ -141,6 +144,8 @@ nextApp.prepare()
         res.send('lobby name not found');
       } else if (currentLobby.players[name]) {
         res.send('name already in use');
+      } else if (Object.keys(currentLobby.players).length === 10) {
+        res.send('lobby is full');
       } else {
         res.send('ok');
       }

@@ -29,9 +29,11 @@ class Lobby {
     this.name = name;
     this.host = host;
     this.mayor = null;
+    this.werewolf = [];
+    this.seer = null;
     this.settings = {
-      minutes: 5,
-      seconds: 0,
+      minutes: 0,
+      seconds: 30,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
@@ -51,6 +53,9 @@ class Lobby {
     this.chosenWord = ''; // word chosen by the mayor for this round
     this.messages = []; // all messages store for chat?
     this.questions = []; // questions queue
+    this.soClose = null; // question object for given token
+    this.wayOff = null; // question object for given token
+    this.correct = null; // question object for given token
     this.tokens = 36; // if this runs out the game ends
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
@@ -68,7 +73,7 @@ const updateTimer = (settings, lobby) => {
   //update lobbies map
   lobbies.set(lobby, currLobby);
   return currLobby;
-}
+};
 
 const addLobby = (host, name) => {
   const existingLobby = lobbies.get(name);
@@ -169,6 +174,11 @@ const startGame = (lobbyName) => {
   playerKeys.forEach((player) => {
     if (!lobby.players[player].spectator) {
       lobby.players[player].role = roles[roleIndex];
+      if (roles[roleIndex] === 'werewolf') {
+        lobby.werewolf.push(lobby.players[player]);
+      } else if (roles[roleIndex] === 'seer') {
+        lobby.seer = lobby.players[player];
+      }
       roleIndex += 1;
     }
   });
@@ -217,12 +227,17 @@ const answerQuestion = (answer, question, lobbyName) => {
 
   if (answer === 'correct') {
     lobby.correct = question;
+    lobby.gameState = 'wordGuessed';
   } else if (answer === 'wayOff') {
     lobby.wayOff = question;
   } else if (answer === 'soClose') {
     lobby.soClose = question;
   } else {
     lobby.tokens -= 1;
+  }
+
+  if (lobby.tokens === 0) {
+    lobby.gameState = 'outOfTokens';
   }
 
   lobbies.set(lobbyName, lobby);
@@ -243,12 +258,16 @@ const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
   return lobby;
 };
 
-const afterQuestionRound = (lobbyName, condition) => {
+const onTimeout = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  lobby.gameState = 'outOfTime';
+  lobbies.set(lobbyName, lobby);
+  return lobby;
+};
 
-  // changes the game state to be one of three options
-  // 'outOfTime' || 'outOfTokens' || 'wordGuessed'
-  lobby.gameState = condition;
+const afterVotingRound = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  lobby.gameState = 'endGame';
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
@@ -258,11 +277,20 @@ const afterQuestionRound = (lobbyName, condition) => {
 const resetGame = (lobbyName) => {
   const lobby = getLobby(lobbyName);
 
+  lobby.mayor = null;
+  lobby.werewolf = [];
+  lobby.seer = null;
+  lobby.settings = { minutes: 5, seconds: 0 };
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
+  lobby.soClose = null;
+  lobby.wayOff = null;
+  lobby.correct = null;
   lobby.gameState = 'lobby';
   lobby.tokens = 36;
+  lobby.villagerVotes = [];
+  lobby.werewolfVotes = [];
 
   lobbies.set(lobbyName, lobby);
   return lobby;
@@ -278,13 +306,11 @@ module.exports = {
   swapSeats,
   toggleSpectate,
   onMayorPick,
-  afterQuestionRound,
+  onTimeout,
+  afterVotingRound,
   resetGame,
   updateTimer,
   answerQuestion,
   VoteWerewolf,
   VoteSeer,
 };
-
-// addLobby('lobby');
-// startGame('lobby');
