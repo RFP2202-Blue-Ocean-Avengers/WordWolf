@@ -7,7 +7,8 @@ Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Ki
 Blue Ocean
 modal for the villager, mayor and seer roles to vote on the werewolf if the word has been gussed
 the vote is selected with a table select
-needs the loppy
+needs the lobby
+the key={`key-${p}`} inside of the <option> is so to remove the warning errors in the chrome dev log
 */
 
 import { useState, useContext } from 'react';
@@ -35,19 +36,16 @@ function VillagerVote({ lobby, loginData }) {
   return (
     <Container id="VillagerVote">
       <WhoIsP>WHO IS THE WEREWOLF?</WhoIsP>
-
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
           {lobby && Object.keys(lobby?.players)
-            .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
+            .map((p) => loginData.name !== p && <option key={`key-${p}`} value={p}>{p}</option>)}
         </ChooseW>
       </div>
-
       <div>
         {voted ? null : <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button> }
       </div>
-
     </Container>
   );
 }

@@ -42,28 +42,26 @@ function MayorQModal({ lobby }) {
     }
 
     if (e.target.id) {
-      // the gosh dangit react icon's <path> thingy has passed the id
-      // instead of the <button> or the icon's <svg> id
       socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
       lobby?.questions.shift();
-    } else {
+    } else { // in case undefined gets passed to the server
       return null;
     }
 
     if (e.target.id === 'soClose') {
       setSoClose(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     } else if (e.target.id === 'wayOff') {
       setWayOff(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     } else if (e.target.id === 'correct') {
       setCorrect(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     }
 
+    setCurrQuestion(lobby?.questions[0] || '---');
+  };
+
+  const clickedOnButtonDiscard = (e) => {
+    socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
+    lobby?.questions.shift();
     setCurrQuestion(lobby?.questions[0] || '---');
   };
 
@@ -71,10 +69,13 @@ function MayorQModal({ lobby }) {
     <Container id="MayorQModal">
 
       <QuestionP id="CurrQuestion" style={{ marginBottom: '5px' }}>
+        <button id="discard" type="button" onClick={(e) => { clickedOnButtonDiscard(e); }} style={{ color: 'red' }}>[ X ]</button>
+        {' '}
         Q:
         {' '}
         {currQuestion.message || '---'}
       </QuestionP>
+
       <ButtonsDiv id="QuestionButtons">
         <VStack spacing="10px">
           <HStack spacing="10px">

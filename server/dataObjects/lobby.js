@@ -57,7 +57,8 @@ class Lobby {
     this.soClose = null; // question object for given token
     this.wayOff = null; // question object for given token
     this.correct = null; // question object for given token
-    this.tokens = 36; // if this runs out the game ends
+    this.tokens = 36; // if this runs out the game ends, yes no tokens
+    this.maybeTokens = 12; // 12 maybe tokens, cannot give if have no more left, button disppears?
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
     this.soClose = null; // question object for given token
@@ -222,10 +223,14 @@ const onMayorPick = (lobbyName, word) => {
 
 const answerQuestion = (answer, question, lobbyName) => {
   const lobby = getLobby(lobbyName);
+
+  if (answer === 'discard') {
+    lobby.questions.shift();
+    lobbies.set(lobbyName, lobby);
+    return lobby;
+  }
+
   const player = lobby.players[question.name];
-  player.tokens[answer].push(question);
-  lobby.answeredQuestions.push({ ...question, answer });
-  lobby.questions.shift();
 
   if (answer === 'correct') {
     lobby.correct = question;
@@ -234,9 +239,17 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobby.wayOff = question;
   } else if (answer === 'soClose') {
     lobby.soClose = question;
-  } else {
+  } else if (answer === 'maybe') {
+    lobby.maybeTokens -= 1;
+  } else if (answer === 'yes' || answer === 'no') {
     lobby.tokens -= 1;
+  } else { // in case answer is undefined or somethin else, although front end solves that
+    lobbies.set(lobbyName, lobby);
+    return lobby;
   }
+
+  player.tokens[answer].push(question);
+  lobby.answeredQuestions.push({ ...question, answer });
 
   if (lobby.tokens === 0) {
     lobby.gameState = 'outOfTokens';
@@ -304,6 +317,7 @@ const resetGame = (lobbyName) => {
   lobby.correct = null;
   lobby.gameState = 'lobby';
   lobby.tokens = 36;
+  lobby.maybeTokens = 12;
   lobby.villagerVotes = [];
   lobby.werewolfVotes = [];
 
