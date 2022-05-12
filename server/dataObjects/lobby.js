@@ -195,9 +195,12 @@ const startGame = (lobbyName) => {
     }
   }
 
-  // add a function to randomly select two words for the mayor to choose from
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // add a function to randomly select x number of words for the mayor to choose from
+  for (let i = 0; i < lobby.pickcount; i += 1) {
+    lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  }
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
 
   // changes the game state so the front end can change the display accordingly
   lobby.gameState = 'mayorPick';
