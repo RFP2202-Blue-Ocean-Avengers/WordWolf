@@ -37,7 +37,7 @@ function VillagerVote({ lobby, loginData }) {
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {Object.keys(lobby?.players).map((p) => loginData.name !== p
+          {lobby && Object.keys(lobby?.players).map((p) => loginData.name !== p
           && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
