@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 export const RoleContainer = styled.div`
-  background-color: white;
+  background-color: #D19E61;
+  border-radius: 5%;
   width: 220px;
   height: 250px;
 `;
 
 export const InnerRoleContainer = styled.div`
-  background-color: #3A4171;
+  background-color: white;
   display: flex;
   margin: 5%;
+  padding-top: 23px;
   height: 90%;
   width: 90%;
   display: flex;
@@ -31,15 +33,14 @@ export const Img = styled.div`
   width: 90px;
   border-radius: 50%;
   overflow: hidden;
-  border-width: 5px;
-  border-color: rgb(36, 16, 56);
 `;
 
 export const Banner = styled.div`
   font-size: 23px;
-  color: black;
-  margin-top: 5px;
+  color: white;
+  margin-top: 8px;
   width: 90px;
   text-align: center;
-  background-color: #D19E61;
+  background-color: black;
+  border-radius: 5px;
 `;
