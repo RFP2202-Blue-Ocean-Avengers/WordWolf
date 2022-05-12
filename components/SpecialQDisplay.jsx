@@ -13,19 +13,19 @@ function SpecialQDisplay({ lobby }) {
       <Flex alignItems="center" color="white">
         <CorrectToken><GrStar id="displayQCorrect" size={30} style={{ margin: '0px auto' }} /></CorrectToken>
         <Text fontSize="xl" color="black">
-          {lobby.correct.message}
+          {lobby.correct && lobby.correct.message}
         </Text>
       </Flex>
       <Flex alignItems="center" color="white">
         <CloseToken><BsExclamationLg id="displayQClose" size={30} style={{ margin: '0px auto' }} /></CloseToken>
         <Text fontSize="xl" color="black">
-          {lobby.soClose.message}
+          {lobby.soClose && lobby.soClose.message}
         </Text>
       </Flex>
       <Flex alignItems="center" color="white">
         <WayOffToken><MdDoDisturb id="displayQWayOff" size={30} style={{ margin: '0px auto' }} /></WayOffToken>
         <Text fontSize="xl" color="black">
-          {lobby.wayOff.message}
+          {lobby.wayOff && lobby.wayOff.message}
         </Text>
       </Flex>
     </Box>

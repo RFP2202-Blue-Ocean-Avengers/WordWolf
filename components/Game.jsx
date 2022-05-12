@@ -13,6 +13,7 @@ import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
 
+
 function Game({
   lobby,
   onMayorPick,
