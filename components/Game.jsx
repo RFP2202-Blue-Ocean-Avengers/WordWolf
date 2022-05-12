@@ -46,6 +46,7 @@ function Game({
 
   return (
     <div className="game-background">
+      <AnsweredQuestions lobby={lobby} />
       <VStack
         name="main-container"
         alignItems="center"
@@ -152,7 +153,6 @@ function Game({
           setplayerObj={setplayerObj}
         />
       </Box>
-      <AnsweredQuestions lobby={lobby} />
     </div>
   );
 }

@@ -83,9 +83,9 @@ function MayorQModal({ lobby }) {
             <Button id="no" bg="#BB1F1F" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#851717' }} onClick={(e) => { clickedOnButton(e); }}><Image id="no" src={NoIcon} /></Button>
           </HStack>
           <HStack spacing="10px">
-            <Button id="correct" bg="#F1CB00" borderRadius="full" w="50px" h="50px" padding="0" _hover={{ bg: '#c5af34' }} onClick={(e) => { clickedOnButton(e); }}><Image id="correct" src={CorrectIcon} /></Button>
-            <Button id="soClose" bg="#C3E600" borderRadius="full" w="50px" h="50px" padding="1" _hover={{ bg: '#abc903' }} onClick={(e) => { clickedOnButton(e); }}><Image id="soClose" src={SoCloseIcon} /></Button>
-            <Button id="wayOff" bg="#714124" borderRadius="full" w="50px" h="50px" padding="2" _hover={{ bg: '#56321c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="wayOff" src={FarOffIcon} /></Button>
+            {correct ? null : <Button id="correct" bg="#F1CB00" borderRadius="full" w="50px" h="50px" padding="0" _hover={{ bg: '#c5af34' }} onClick={(e) => { clickedOnButton(e); }}><Image id="correct" src={CorrectIcon} /></Button>}
+            {soClose ? null : <Button id="soClose" bg="#C3E600" borderRadius="full" w="50px" h="50px" padding="1" _hover={{ bg: '#abc903' }} onClick={(e) => { clickedOnButton(e); }}><Image id="soClose" src={SoCloseIcon} /></Button>}
+            {wayOff ? null : <Button id="wayOff" bg="#714124" borderRadius="full" w="50px" h="50px" padding="2" _hover={{ bg: '#56321c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="wayOff" src={FarOffIcon} /></Button>}
           </HStack>
         </VStack>
       </ButtonsDiv>

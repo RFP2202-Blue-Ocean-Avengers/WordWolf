@@ -2,26 +2,25 @@
 import {
   Box, List, ListIcon, ListItem,
 } from '@chakra-ui/react';
-import YesIcon from '../assets/Yes.svg';
-import NoIcon from '../assets/No.svg';
-import CloseIcon from '../assets/Close.svg';
-import CorrectIcon from '../assets/Correct.svg';
-import FarOffIcon from '../assets/FarOff.svg';
-import SoCloseIcon from '../assets/SoClose.svg';
+import { BiCheck, BiQuestionMark } from 'react-icons/bi';
+import { ImCross } from 'react-icons/im';
+import { GrStar } from 'react-icons/gr';
+import { BsExclamationLg } from 'react-icons/bs';
+import { MdDoDisturb } from 'react-icons/md';
 
 function AnsweredQuestions({ lobby }) {
   const icons = {
-    yes: <ListIcon as={YesIcon} color="green.500" />,
-    no: <ListIcon as={NoIcon} color="red.500" />,
-    maybe: <ListIcon as={CloseIcon} color="blue.500" />,
-    wayOff: <ListIcon as={FarOffIcon} color="orange.500" />,
-    correct: <ListIcon as={CorrectIcon} color="yellow.500" />,
-    soClose: <ListIcon as={SoCloseIcon} color="green.200" />,
+    yes: <ListIcon as={BiCheck} color="green.500" />,
+    no: <ListIcon as={ImCross} color="red.500" />,
+    maybe: <ListIcon as={BiQuestionMark} color="blue.500" />,
+    wayOff: <ListIcon as={MdDoDisturb} color="orange.500" />,
+    correct: <ListIcon as={GrStar} color="yellow.500" />,
+    soClose: <ListIcon as={BsExclamationLg} color="green.200" />,
   };
 
   return (
-    <Box overflow="scroll">
-      <List spacing={3}>
+    <Box background-color="white" height="500">
+      <List spacing={1} width="250px" style={{ 'background-color': 'white', height: '300px', overflow: 'scroll' }}>
         {lobby.answeredQuestions
           .map((question) => (
             <ListItem key={question.id}>
