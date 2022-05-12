@@ -10,30 +10,28 @@ the vote is selected with a table select
 needs the loppy
 */
 
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import { socket } from '../pages/api/service/socket';
-
+import { StoreContext } from '../pages/api/contextStore';
 
 
 function VillagerVote({ lobby, loginData }) {
-
   const [currVote, setCurrVote] = useState('---');
+  const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
     if (currVote === '---') {
       return null;
     }
     socket.emit('VoteWerewolf', { player: lobby.players[currVote], lobbyName: lobby?.name });
-    document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+    setVoted(true);
   };
 
   const pickedDrop = (e) => {
     setCurrVote(e.target.value);
   };
-
-  console.log(lobby);
 
   return (
     <Container id="VillagerVote">
@@ -48,7 +46,7 @@ function VillagerVote({ lobby, loginData }) {
       </div>
 
       <div>
-        <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>
+        {voted ? null : <button id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button> }
       </div>
 
     </Container>

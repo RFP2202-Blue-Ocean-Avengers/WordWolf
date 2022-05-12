@@ -8,12 +8,24 @@ function StoreProvider({ children }) {
     name: null,
     lobby: null,
   });
+  const [soClose, setSoClose] = useState(false);
+  const [wayOff, setWayOff] = useState(false);
+  const [correct, setCorrect] = useState(false);
+  const [voted, setVoted] = useState(false);
 
   const store = {
     lobby,
     setLobby,
     loginData,
     setLoginData,
+    soClose,
+    setSoClose,
+    wayOff,
+    setWayOff,
+    correct,
+    setCorrect,
+    voted,
+    setVoted,
   };
 
   return (

@@ -73,7 +73,8 @@ const updateTimer = (settings, lobby) => {
   //update lobbies map
   lobbies.set(lobby, currLobby);
   return currLobby;
-}
+};
+
 
 const addLobby = (host, name) => {
   const existingLobby = lobbies.get(name);
@@ -227,6 +228,7 @@ const answerQuestion = (answer, question, lobbyName) => {
 
   if (answer === 'correct') {
     lobby.correct = question;
+    lobby.gameState = 'wordGuessed';
   } else if (answer === 'wayOff') {
     lobby.wayOff = question;
   } else if (answer === 'soClose') {
@@ -278,6 +280,7 @@ const resetGame = (lobbyName) => {
   lobby.mayor = null;
   lobby.werewolf = [];
   lobby.seer = null;
+  lobby.settings = { minutes: 5, seconds: 0 };
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
@@ -311,6 +314,3 @@ module.exports = {
   VoteWerewolf,
   VoteSeer,
 };
-
-// addLobby('lobby');
-// startGame('lobby');

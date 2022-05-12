@@ -5,7 +5,10 @@ import Lobby from '../../components/Lobby';
 import Game from '../../components/Game';
 
 function Container() {
-  const { lobby, setLobby, loginData } = useContext(StoreContext);
+  const {
+    lobby, setLobby, loginData,
+    setSoClose, setWayOff, setCorrect, setVoted,
+  } = useContext(StoreContext);
 
   const onInit = () => {
     const emit = loginData.create ? 'createLobby' : 'joinLobby';
@@ -72,6 +75,10 @@ function Container() {
   // starts the game
   // if less than 4 players are joined do not let the game start
   const onGameStart = () => {
+    setSoClose(false);
+    setWayOff(false);
+    setCorrect(false);
+    setVoted(false);
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -159,10 +166,10 @@ function Container() {
 
   return (
     <div>
-      {/* {lobby && display()} */}
+      {lobby && display()}
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      {lobby && (
+      {/* {lobby && (
         <>
           <Lobby
             lobby={lobby}
@@ -171,6 +178,7 @@ function Container() {
             onGameStart={onGameStart}
             loginData={loginData}
             updateTimer={updateTimer}
+            updateSettings={updateSettings}
             afterQuestionsRound={afterQuestionsRound}
             afterVotingRound={afterVotingRound}
           />
@@ -184,7 +192,7 @@ function Container() {
             updateTimer={updateTimer}
           />
         </>
-      )}
+      )} */}
     </div>
   );
 }

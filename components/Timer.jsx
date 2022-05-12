@@ -7,16 +7,13 @@ function Timer({
   const {
     seconds,
     minutes,
-    isRunning,
     start,
-    pause,
-    resume,
     restart,
   } = useTimer({
     expiryTimestamp,
     autoStart: (!(lobby.gameState === 'mayorPick' || lobby.gameState === 'lobby')),
     onExpire: () => {
-      if (lobby.gameState === 'questionsRound') {
+      if (lobby.gameState === 'questionRound') {
         afterQuestionsRound('outOfTime');
       } else {
         afterVotingRound();
@@ -29,11 +26,7 @@ function Timer({
   }, [seconds, minutes]);
 
   useEffect(() => {
-    if (lobby.gameState === 'questionsRound') {
-      // const time = new Date();
-      // time.setSeconds(time.getSeconds()
-      // + Math.floor(lobby.settings.minutes * 60)
-      // + lobby.settings.seconds);
+    if (lobby.gameState === 'questionRound') {
       start();
     } else if (lobby.gameState === 'outOfTokens' || lobby.gameState === 'outOfTime') {
       // condition for when people vote
