@@ -16,14 +16,19 @@ import {
 } from '@chakra-ui/react';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import SettingsIcon from '../assets/SettingsIcon.svg';
 
 function Settings({ updateTimer, lobby }) {
-  const { isOpen: isSettingsOpen, onOpen:
-     onSettingsOpen, onClose: onSettingsClose,
+  const {
+    isOpen: isSettingsOpen,
+    onOpen: onSettingsOpen,
+    onClose: onSettingsClose,
   } = useDisclosure();
-  const [minuteValue, setMinuteValue] = useState(lobby.settings.minutes < 6
-    ? 5 : lobby.settings.minutes);
+  const [minuteValue,
+    setMinuteValue] = useState(lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes);
 
+  // lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
   }, [minuteValue]);
@@ -35,7 +40,12 @@ function Settings({ updateTimer, lobby }) {
 
   return (
     <div>
-      <Button size="sm" onClick={onSettingsOpen}> Settings </Button>
+      <Button size="lg" bg="none" color="#fff" onClick={onSettingsOpen}>
+        <Image src={SettingsIcon} width={25} />
+        <span style={{ marginLeft: '10px' }}>
+          Settings
+        </span>
+      </Button>
       <Modal isOpen={isSettingsOpen} onClose={onSettingsClose}>
         <ModalOverlay />
         <ModalContent>

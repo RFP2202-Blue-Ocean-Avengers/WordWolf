@@ -14,7 +14,7 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import { BiCheck, BiQuestionMark } from 'react-icons/bi';
@@ -24,12 +24,14 @@ import { BsExclamationLg } from 'react-icons/bs';
 import { MdDoDisturb } from 'react-icons/md';
 
 import { socket } from '../pages/api/service/socket';
-
+import { StoreContext } from '../pages/api/contextStore';
 
 
 function MayorQModal({ lobby }) {
-
   const [currQuestion, setCurrQuestion] = useState(lobby?.questions[0] || '---');
+  const {
+    soClose, setSoClose, wayOff, setWayOff, correct, setCorrect,
+  } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
     if (currQuestion === '---' || currQuestion === undefined) {
@@ -46,11 +48,17 @@ function MayorQModal({ lobby }) {
     }
 
     if (e.target.id === 'soClose') {
-      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+      setSoClose(true);
+      // document.getElementById(e.target.id).style.display = 'none';
+      // might not re-appear with new game???
     } else if (e.target.id === 'wayOff') {
-      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+      setWayOff(true);
+      // document.getElementById(e.target.id).style.display = 'none';
+      // might not re-appear with new game???
     } else if (e.target.id === 'correct') {
-      document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
+      setCorrect(true);
+      // document.getElementById(e.target.id).style.display = 'none';
+      // might not re-appear with new game???
     }
 
     setCurrQuestion(lobby?.questions[0] || '---');
@@ -69,9 +77,9 @@ function MayorQModal({ lobby }) {
         <TokenBY id="yes" type="button" onClick={(e) => { clickedOnButton(e); }}><BiCheck id="yes" size={30} style={{ margin: '0px auto' }} /></TokenBY>
         <TokenBM id="maybe" type="button" onClick={(e) => { clickedOnButton(e); }}><BiQuestionMark id="maybe" size={30} style={{ margin: '0px auto' }} /></TokenBM>
         <TokenBN id="no" type="button" onClick={(e) => { clickedOnButton(e); }}><ImCross id="no" size={30} style={{ margin: '0px auto' }} /></TokenBN>
-        <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: '0px auto' }} /></TokenBC>
-        <TokenBCO id="soClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClose" size={30} style={{ margin: '0px auto' }} /></TokenBCO>
-        <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: '0px auto' }} /></TokenBW>
+        {correct ? null : <TokenBC id="correct" type="button" onClick={(e) => { clickedOnButton(e); }}><GrStar id="correct" size={30} style={{ margin: '0px auto' }} /></TokenBC>}
+        {soClose ? null : <TokenBCO id="soClose" type="button" onClick={(e) => { clickedOnButton(e); }}><BsExclamationLg id="soClose" size={30} style={{ margin: '0px auto' }} /></TokenBCO>}
+        {wayOff ? null : <TokenBW id="wayOff" type="button" onClick={(e) => { clickedOnButton(e); }}><MdDoDisturb id="wayOff" size={30} style={{ margin: '0px auto' }} /></TokenBW>}
       </ButtonsDiv>
 
     </Container>
@@ -79,7 +87,6 @@ function MayorQModal({ lobby }) {
 }
 
 export default MayorQModal;
-
 
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 

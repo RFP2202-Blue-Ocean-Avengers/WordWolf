@@ -5,7 +5,10 @@ import Lobby from '../../components/Lobby';
 import Game from '../../components/Game';
 
 function Container() {
-  const { lobby, setLobby, loginData } = useContext(StoreContext);
+  const {
+    lobby, setLobby, loginData,
+    setSoClose, setWayOff, setCorrect, setVoted,
+  } = useContext(StoreContext);
 
   const onInit = () => {
     const emit = loginData.create ? 'createLobby' : 'joinLobby';
@@ -72,6 +75,10 @@ function Container() {
   // starts the game
   // if less than 4 players are joined do not let the game start
   const onGameStart = () => {
+    setSoClose(false);
+    setWayOff(false);
+    setCorrect(false);
+    setVoted(false);
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -89,8 +96,12 @@ function Container() {
     socket.emit('onMayorPick', { lobby: lobby.name, word });
   };
 
-  const afterQuestionsRound = (condition) => {
-    socket.emit(condition, { lobby: lobby.name, condition });
+  const onTimeout = () => {
+    socket.emit('onTimeout', { lobby: lobby.name });
+  };
+
+  const afterVotingRound = () => {
+    socket.emit('afterVotingRound', { lobby: lobby.name });
   };
 
   // resets the game state to be a clean state
@@ -109,6 +120,7 @@ function Container() {
       'wordGuessed',
       'outOfTokens',
       'outOfTime',
+      'endGame',
     ];
     let gameState;
     if (gameArray.includes(lobby.gameState)) {
@@ -128,7 +140,6 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
               updateTimer={updateTimer}
-              afterQuestionsRound={afterQuestionsRound}
             />
           </div>
         );
@@ -138,7 +149,8 @@ function Container() {
             <Game
               lobby={lobby}
               onMayorPick={onMayorPick}
-              afterQuestionsRound={afterQuestionsRound}
+              onTimeout={onTimeout}
+              afterVotingRound={afterVotingRound}
               resetGame={resetGame}
               loginData={loginData}
               updateTimer={updateTimer}
@@ -169,7 +181,8 @@ function Container() {
         <Game
           lobby={lobby}
           onMayorPick={onMayorPick}
-          afterQuestionsRound={afterQuestionsRound}
+          onTimeout={onTimeout}
+          afterVotingRound={afterVotingRound}
           resetGame={resetGame}
           loginData={loginData}
           updateTimer={updateTimer}

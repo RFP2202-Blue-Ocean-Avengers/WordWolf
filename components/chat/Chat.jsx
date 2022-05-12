@@ -33,11 +33,16 @@ function Chat({ players, username, lobby }) {
     setMessage('');
   };
   return (
-    <div style={{
-      width: '350px',
-      height: '700px',
-      backgroundColor: '#C4C4C4',
-    }}
+    <div
+      style={{
+        width: '22vw',
+        height: '90vh',
+        backgroundColor: '#C4C4C4',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingBottom: '15px',
+      }}
     >
       <h2 style={{
         position: 'relative',
@@ -50,21 +55,20 @@ function Chat({ players, username, lobby }) {
         CHAT
       </h2>
       <div style={{
-        height: '540px',
-        width: '322px',
+        height: '80%',
+        width: '90%',
         backgroundColor: 'white',
-        marginLeft: '13px',
       }}
       >
         <ReactScrollableFeed>
           {allMessages?.map((msg) => <Message key={msg.id} players={players} message={msg} />)}
         </ReactScrollableFeed>
       </div>
-      <div style={{ display: 'flex', padding: '15px' }}>
+      <div style={{ display: 'flex', marginTop: '15px', width: '90%' }}>
         <Input
           value={message}
           style={{
-            backgroundColor: 'white', width: '255px', height: '60px', marginRight: '13px', borderRadius: '0px',
+            backgroundColor: 'white', height: '60px', borderRadius: '0px', marginRight: '10px',
           }}
           onChange={(e) => handleMessageOnChange(e.target.value)}
         />
@@ -72,7 +76,7 @@ function Chat({ players, username, lobby }) {
           style={{
             backgroundColor: 'black',
             color: 'white',
-            width: '65px',
+            width: '25%',
             height: '60px',
             fontSize: '18px',
             borderRadius: '0px',

@@ -16,7 +16,8 @@ import WerewolfVote from './WerewolfVote';
 function Game({
   lobby,
   onMayorPick,
-  afterQuestionsRound,
+  onTimeout,
+  afterVotingRound,
   resetGame,
   loginData,
   updateTimer,
@@ -58,7 +59,8 @@ function Game({
             updateTimer={updateTimer}
             lobby={lobby}
             expiryTimestamp={time}
-            afterQuestionsRound={afterQuestionsRound}
+            onTimeout={onTimeout}
+            afterVotingRound={afterVotingRound}
           />
           <Image src={GameLogo} />
           <Rules />
