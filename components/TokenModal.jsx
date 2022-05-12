@@ -4,7 +4,6 @@ import {
   ModalHeader, ModalBody, ModalFooter,
 } from '@chakra-ui/react';
 import IndividualQuestion from './IndividualQuestion';
-
 import {
   TokenModalContainer,
   CloseButton,

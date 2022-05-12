@@ -85,7 +85,7 @@ function Game({
             display="flex"
             flexDirection="column"
             transform="scale(0.98)"
-            h="300"
+            h="295"
             marginLeft="20px"
           >
             <Box fontWeight="extrabold" fontSize="30" color="#FFF">
@@ -109,7 +109,7 @@ function Game({
             {lobby?.mayor?.name === loginData.name
               ? (
                 <Box
-                  w="250px"
+                  w="220px"
                   h="50px"
                   backgroundColor="#9D373B"
                   as="button"
@@ -124,7 +124,7 @@ function Game({
       </VStack>
       {
         lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
-          <Box pos="relative" right="235" top="410" transform="scale(0.90)">
+          <Box pos="relative" right="220" top="400" transform="scale(0.83)">
             <MayorQModal lobby={lobby} />
           </Box>
         ) : null
