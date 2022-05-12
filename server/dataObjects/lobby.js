@@ -35,6 +35,7 @@ class Lobby {
       minutes: 1,
       seconds: 0,
     };
+    this.pickCount = 2;
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
     this.seats = {
@@ -65,6 +66,13 @@ class Lobby {
     this.correct = null; // question object for given token
   }
 }
+
+const updatePickCount = (pickCount, lobby) => {
+  const currLobby = lobby.get(lobby);
+  currLobby.pickCount = pickCount;
+  lobbies.set(lobby, currLobby);
+  return currLobby;
+};
 
 const updateTimer = (settings, lobby) => {
   //get specific lobby
@@ -328,6 +336,7 @@ module.exports = {
   afterVotingRound,
   resetGame,
   updateTimer,
+  updatePickCount,
   answerQuestion,
   VoteWerewolf,
   VoteSeer,
