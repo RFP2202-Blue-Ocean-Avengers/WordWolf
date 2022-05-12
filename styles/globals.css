@@ -4,14 +4,14 @@
   font-family: 'Koulen', cursive;
 }
 .background {
-  background-image: url("./../assets/Background.svg");
+  background-image: url("/Background.svg");
   background-size: cover;
   width: 100vw;
   height: 100vh;
 }
 
 .game-background {
-  background-image: url("./../assets/Background.svg");
+  background-image: url("/Background.svg");
   background-size: cover;
   width: 100vw;
   height: 100vh;
