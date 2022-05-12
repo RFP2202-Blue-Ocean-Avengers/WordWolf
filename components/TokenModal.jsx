@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import IndividualQuestion from "./IndividualQuestion";
+import IndividualQuestion from './IndividualQuestion';
 import {
   TokenModalContainer,
   CloseButton,
@@ -8,7 +8,7 @@ import {
   NoButton,
   MaybeButton,
   TokenList,
-} from "./ModalStyles/Tokens";
+} from './ModalStyles/Tokens';
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
 
