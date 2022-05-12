@@ -58,6 +58,7 @@ function Lobby({
       <Box className="settings">
         <Settings updateTimer={updateTimer} lobby={lobby} />
       </Box>
+
     </div>
   );
 }

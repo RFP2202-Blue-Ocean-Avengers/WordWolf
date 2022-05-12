@@ -14,6 +14,7 @@ import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
 import SpecialQDisplay from './SpecialQDisplay';
 import EndScreen from './EndScreen';
+import AnsweredQuestions from './AnsweredQuestions';
 
 function Game({
   lobby,
@@ -57,7 +58,6 @@ function Game({
 
   return (
     <div className="game-background">
-      {console.log(lobby)}
       <VStack
         name="main-container"
         alignItems="center"
@@ -80,15 +80,21 @@ function Game({
         </HStack>
         <HStack
           className="middleContainer"
-          transform="scale(0.93)"
           pos="relative"
-          left="90"
+          top="5"
+          justifyContent="space-between"
+          w="100vw"
         >
-          <GameTable
-            tokenSetter={tokenSetter}
-            loginData={loginData}
-            lobby={lobby}
-          />
+          <Box pos="relative" marginLeft="25px">
+            <AnsweredQuestions lobby={lobby} />
+          </Box>
+          <Box transform="scale(0.93)" pos="relative" right="223">
+            <GameTable
+              tokenSetter={tokenSetter}
+              loginData={loginData}
+              lobby={lobby}
+            />
+          </Box>
         </HStack>
         <HStack
           className="bottom-row"
@@ -144,10 +150,10 @@ function Game({
       {
         (lobby?.mayor?.name === loginData.name
           && lobby?.questions.length > 0 && lobby?.tokens > 0) ? (
-            <Box pos="relative" right="220" top="400" transform="scale(0.83)">
-              <MayorQModal lobby={lobby} />
-            </Box>
-          ) : null
+          <Box pos="relative" right="220" top="400" transform="scale(0.83)">
+            <MayorQModal lobby={lobby} />
+          </Box>
+        ) : null
       }
       <Box pos="relative" right="200" top="515">
         {winnerState}

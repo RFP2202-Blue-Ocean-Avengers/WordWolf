@@ -89,14 +89,31 @@ function EndScreen({ lobby, resetGame, loginData }) {
             justifyContent="space-evenly"
             alignItems="center"
           >
-            <Box backgroundColor="#9D373B" color="#FFF"
-            borderRadius="25px" display="flex" w="200px" h="25px" textAlign="center" justifyContent="center" marginBottom="10px">
+            <Box
+              backgroundColor="#9D373B"
+              color="#FFF"
+              borderRadius="25px"
+              display="flex"
+              w="200px"
+              h="25px"
+              textAlign="center"
+              justifyContent="center"
+              marginBottom="10px"
+            >
               {lobby?.werewolf.length > 1 ? <div>Wolves:</div> : <div>Wolf:</div>}
               &nbsp;
               {lobby?.werewolf.map((wolf) => (<div>{wolf.name}</div>))}
             </Box>
-            <Box backgroundColor="#D19E61"
-            borderRadius="25px" display="flex" w="200px" h="25px" textAlign="center" justifyContent="center" marginBottom="10px">
+            <Box
+              backgroundColor="#D19E61"
+              borderRadius="25px"
+              display="flex"
+              w="200px"
+              h="25px"
+              textAlign="center"
+              justifyContent="center"
+              marginBottom="10px"
+            >
               Seer:
               &nbsp;
               {lobby?.seer.name}

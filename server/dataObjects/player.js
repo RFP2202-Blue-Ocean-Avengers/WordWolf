@@ -1,4 +1,5 @@
 const { lobbies, deleteLobby } = require('./lobby');
+const { deleteLobbyMessages, deleteGameMessages } = require('./chat');
 
 const players = new Map();
 
@@ -46,6 +47,8 @@ const removePlayerFromLobby = (player) => {
     // removes player from lobby
     delete currentLobby.players[player.name];
     if (Object.keys(currentLobby.players).length === 0) {
+      deleteLobbyMessages(player.lobby);
+      deleteGameMessages(player.lobby);
       deleteLobby(player.lobby);
     }
   }

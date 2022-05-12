@@ -2,6 +2,18 @@ import { Box, HStack, VStack } from '@chakra-ui/react';
 import Tokens from './Tokens';
 
 function GameTable({ tokenSetter, lobby, loginData }) {
+  let viewWord;
+
+  if (lobby?.players[loginData.name].role !== 'villager') {
+    viewWord = true;
+  } else if (lobby?.players[loginData.name].role === 'villager') {
+    if (loginData.name === lobby?.mayor.name) {
+      viewWord = true;
+    }
+  } else if (lobby?.players[loginData.name] === lobby?.mayor.name) {
+    viewWord = true;
+  }
+
   let currentPlay;
   if (lobby.gameState === 'mayorPick') {
     currentPlay = 'Mayor is choosing a word...';
@@ -371,7 +383,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           // blue
           name="tokens6"
           pos="relative"
-          left="395"
+          left="392"
           bottom="260"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat6" />
@@ -381,7 +393,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           // blue
           name="tokens6"
           pos="relative"
-          left="395"
+          left="392"
           bottom="260"
           w="30px"
           h="40px"
@@ -518,7 +530,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           // lblue
           name="tokens5"
           pos="relative"
-          left="395"
+          left="392"
           bottom="275"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat5" />
@@ -528,7 +540,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           // lblue
           name="tokens5"
           pos="relative"
-          left="395"
+          left="392"
           bottom="275"
           w="30px"
           h="40px"
@@ -560,8 +572,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
         bottom="425"
         left="2"
       >
-        {((lobby?.players[loginData.name].role !== 'villager') || (lobby?.players[loginData.name] === lobby?.mayor.name))
-          && (lobby?.chosenWord)
+        {viewWord && lobby?.chosenWord
           ? (
             <Box
               pos="relative"
