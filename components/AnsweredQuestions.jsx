@@ -19,11 +19,12 @@ function AnsweredQuestions({ lobby }) {
   };
 
   return (
-    <Box>
+    <Box borderColor="#D19E61" borderWidth="10px" borderRadius="10px">
+      <Box backgroundColor="white" padding="10px" display="flex" justifyContent="center" textDecoration="underline" >ANSWERED QUESTIONS</Box>
       <List spacing={1} width="250px" style={{ 'background-color': 'white', height: '300px', overflow: 'scroll' }}>
         {lobby.answeredQuestions
           .map((question) => (
-            <ListItem key={question.id}>
+            <ListItem display="flex" alignItems="center" paddingLeft="10px" key={question.id}>
               {icons[question.answer]}
               {question.message}
             </ListItem>

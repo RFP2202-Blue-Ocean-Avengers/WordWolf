@@ -167,26 +167,27 @@ function Container() {
       {lobby && display()}
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      {/* {lobby && (
-        <>
-          <Lobby
-            lobby={lobby}
-            toggleJoin={toggleJoin}
-            toggleSpectate={toggleSpectate}
-            onGameStart={onGameStart}
-            loginData={loginData}
-            updateTimer={updateTimer}
-          />
-          <Game
-            lobby={lobby}
-            onMayorPick={onMayorPick}
-            onTimeout={onTimeout}
-            afterVotingRound={afterVotingRound}
-            resetGame={resetGame}
-            loginData={loginData}
-            updateTimer={updateTimer}
-          />
-        </>
+      {/* {lobby
+      && (
+      <>
+        <Lobby
+          lobby={lobby}
+          toggleJoin={toggleJoin}
+          toggleSpectate={toggleSpectate}
+          onGameStart={onGameStart}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+        <Game
+          lobby={lobby}
+          onMayorPick={onMayorPick}
+          onTimeout={onTimeout}
+          afterVotingRound={afterVotingRound}
+          resetGame={resetGame}
+          loginData={loginData}
+          updateTimer={updateTimer}
+        />
+      </>
       )} */}
     </div>
   );

@@ -1,7 +1,19 @@
-import { Box, HStack } from '@chakra-ui/react';
+import { Box, HStack, VStack } from '@chakra-ui/react';
 import Tokens from './Tokens';
 
-function GameTable({ tokenSetter, lobby }) {
+function GameTable({ tokenSetter, lobby, loginData }) {
+  let viewWord;
+
+  if (lobby?.players[loginData.name].role !== 'villager') {
+    viewWord = true;
+  } else if (lobby?.players[loginData.name].role === 'villager') {
+    if (loginData.name === lobby?.mayor.name) {
+      viewWord = true;
+    }
+  } else if (lobby?.players[loginData.name] === lobby?.mayor.name) {
+    viewWord = true;
+  }
+
   let currentPlay;
   if (lobby.gameState === 'mayorPick') {
     currentPlay = 'Mayor is choosing a word...';
@@ -17,6 +29,8 @@ function GameTable({ tokenSetter, lobby }) {
     currentPlay = 'You ran out of time...';
   } else if (lobby.gameState === 'outOfTokens') {
     currentPlay = 'You ran out of tokens...';
+  } else if (lobby.gameState === 'endGame') {
+    currentPlay = 'Game Over!';
   }
 
   return (
@@ -343,43 +357,13 @@ function GameTable({ tokenSetter, lobby }) {
           />
         )}
       </HStack>
-      <Box
-        pos="relative"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        bottom="90"
-        left="225"
-        width="460px"
-        height="60px"
-        background="#FFFFFF"
-        fontSize="20px"
-      >
-        {currentPlay}
-      </Box>
-      <Box
-        marginTop="10px"
-        pos="relative"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        bottom="95"
-        left="15"
-        color="white"
-        fontWeight="bold"
-      >
-        Tokens remaining: &nbsp;
-        {lobby.tokens}
-      </Box>
       {lobby?.seats?.seat1 ? (
         <Box
           // red
           name="tokens1"
           pos="relative"
           left="185"
-          bottom="330"
+          bottom="220"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat1" />
         </Box>
@@ -389,7 +373,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens1"
           pos="relative"
           left="185"
-          bottom="330"
+          bottom="220"
           w="30px"
           h="40px"
         />
@@ -399,8 +383,8 @@ function GameTable({ tokenSetter, lobby }) {
           // blue
           name="tokens6"
           pos="relative"
-          left="395"
-          bottom="370"
+          left="392"
+          bottom="260"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat6" />
         </Box>
@@ -409,8 +393,8 @@ function GameTable({ tokenSetter, lobby }) {
           // blue
           name="tokens6"
           pos="relative"
-          left="395"
-          bottom="370"
+          left="392"
+          bottom="260"
           w="30px"
           h="40px"
         />
@@ -421,7 +405,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens2"
           pos="relative"
           left="605"
-          bottom="410"
+          bottom="300"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat2" />
         </Box>
@@ -431,7 +415,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens2"
           pos="relative"
           left="605"
-          bottom="410"
+          bottom="300"
           w="30px"
           h="40px"
         />
@@ -442,7 +426,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens10"
           pos="relative"
           left="50"
-          bottom="370"
+          bottom="265"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat10" />
         </Box>
@@ -452,7 +436,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens10"
           pos="relative"
           left="50"
-          bottom="370"
+          bottom="265"
           w="30px"
           h="40px"
         />
@@ -463,7 +447,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens8"
           pos="relative"
           left="710"
-          bottom="410"
+          bottom="305"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat8" />
         </Box>
@@ -473,7 +457,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens8"
           pos="relative"
           left="710"
-          bottom="410"
+          bottom="305"
           w="30px"
           h="40px"
         />
@@ -484,7 +468,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens7"
           pos="relative"
           left="50"
-          bottom="330"
+          bottom="230"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat7" />
         </Box>
@@ -494,7 +478,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens7"
           pos="relative"
           left="50"
-          bottom="330"
+          bottom="230"
           w="30px"
           h="40px"
         />
@@ -505,7 +489,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens9"
           pos="relative"
           left="710"
-          bottom="370"
+          bottom="270"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat9" />
         </Box>
@@ -515,7 +499,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens9"
           pos="relative"
           left="710"
-          bottom="370"
+          bottom="270"
           w="30px"
           h="40px"
         />
@@ -526,7 +510,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens3"
           pos="relative"
           left="185"
-          bottom="330"
+          bottom="235"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat3" />
         </Box>
@@ -536,7 +520,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens3"
           pos="relative"
           left="185"
-          bottom="330"
+          bottom="335"
           w="30px"
           h="40px"
         />
@@ -546,8 +530,8 @@ function GameTable({ tokenSetter, lobby }) {
           // lblue
           name="tokens5"
           pos="relative"
-          left="395"
-          bottom="370"
+          left="392"
+          bottom="275"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat5" />
         </Box>
@@ -556,8 +540,8 @@ function GameTable({ tokenSetter, lobby }) {
           // lblue
           name="tokens5"
           pos="relative"
-          left="395"
-          bottom="370"
+          left="392"
+          bottom="275"
           w="30px"
           h="40px"
         />
@@ -568,7 +552,7 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens4"
           pos="relative"
           left="605"
-          bottom="410"
+          bottom="315"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat4" />
         </Box>
@@ -578,11 +562,74 @@ function GameTable({ tokenSetter, lobby }) {
           name="tokens4"
           pos="relative"
           left="605"
-          bottom="410"
+          bottom="315"
           w="30px"
           h="40px"
         />
       )}
+      <VStack
+        pos="relative"
+        bottom="425"
+        left="2"
+      >
+        {viewWord && lobby?.chosenWord
+          ? (
+            <Box
+              pos="relative"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="center"
+              color="white"
+              fontWeight="bold"
+              bottom="90"
+              fontSize="18px"
+            >
+              {`The word is ${lobby?.chosenWord}`}
+            </Box>
+          )
+          : (
+            <Box
+              pos="relative"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="center"
+              fontWeight="bold"
+              bottom="90"
+              height="27px"
+            />
+          )}
+        <Box
+          pos="relative"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          bottom="90"
+          width="460px"
+          height="60px"
+          background="#FFFFFF"
+          fontSize="20px"
+        >
+          {currentPlay}
+        </Box>
+        <Box
+          marginTop="10px"
+          pos="relative"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          bottom="95"
+          left="15"
+          color="white"
+          fontWeight="bold"
+        >
+          Tokens remaining: &nbsp;
+          {lobby.tokens}
+        </Box>
+      </VStack>
     </Box>
   );
 }

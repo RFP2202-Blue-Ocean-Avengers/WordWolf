@@ -59,7 +59,6 @@ function GameChat({ players, username, lobby }) {
           >
             ASK
           </Button>
-
           <Button
             style={{
               backgroundColor: 'black', color: 'white', width: '97px', height: '46px',
