@@ -237,6 +237,10 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobby.tokens -= 1;
   }
 
+  if (lobby.tokens === 0) {
+    lobby.gameState = 'outOfTokens';
+  }
+
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
