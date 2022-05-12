@@ -152,10 +152,10 @@ function Container() {
 
   return (
     <div>
-      {lobby && display()}
+      {/* {lobby && display()} */}
       {/* for testing purposes, I've displayed all the states of
       the game out onto the lobby screen by default */}
-      {/* {lobby
+      {lobby
       && (
       <>
         <Lobby
@@ -175,7 +175,7 @@ function Container() {
           updateTimer={updateTimer}
         />
       </>
-      )} */}
+      )}
     </div>
   );
 }

@@ -7,7 +7,6 @@ import { BsExclamationLg } from 'react-icons/bs';
 import { MdDoDisturb } from 'react-icons/md';
 
 function SpecialQDisplay({ lobby }) {
-  console.log(lobby);
   return (
     <Box>
       <Flex alignItems="center" color="white">
