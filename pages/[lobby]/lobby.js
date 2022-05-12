@@ -118,6 +118,10 @@ function Container() {
     socket.emit('updateTimer', { settings, lobby: lobby.name });
   };
 
+  const updatePickCount = (pickCount) => {
+    socket.emit('updatePickCount', { pickCount, lobby: lobby.name });
+  };
+
   const display = () => {
     const gameArray = [
       'mayorPick',
@@ -145,6 +149,7 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
               updateTimer={updateTimer}
+              updatePickCount={updatePickCount}
             />
           </div>
         );

@@ -6,7 +6,7 @@ const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
-  updateTimer, answerQuestion, VoteWerewolf, VoteSeer,
+  updateTimer, updatePickCount, answerQuestion, VoteWerewolf, VoteSeer,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
@@ -81,6 +81,10 @@ io.on('connect', (socket) => {
   });
   socket.on('updateTimer', async ({ settings, lobby }) => {
     await updateTimer(settings, lobby);
+    emitLobbyData(lobby);
+  });
+  socket.on('updatePickCount', async ({ pickCount, lobby }) => {
+    await updatePickCount(pickCount, lobby);
     emitLobbyData(lobby);
   });
 
