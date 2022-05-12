@@ -16,7 +16,6 @@ function Lobby({
   time.setSeconds(time.getSeconds()
   + Math.floor(lobby.settings.minutes * 60)
   + lobby.settings.seconds);
-  console.log(window.innerWidth);
   return (
     <div className="background">
       <HStack
