@@ -35,6 +35,7 @@ class Lobby {
       minutes: 1,
       seconds: 0,
     };
+    this.pickCount = 2;
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
     this.seats = {
@@ -66,6 +67,13 @@ class Lobby {
     this.correct = null; // question object for given token
   }
 }
+
+const updatePickCount = (pickCount, lobby) => {
+  const currLobby = lobbies.get(lobby);
+  currLobby.pickCount = Number(pickCount);
+  lobbies.set(lobby, currLobby);
+  return currLobby;
+};
 
 const updateTimer = (settings, lobby) => {
   //get specific lobby
@@ -190,15 +198,18 @@ const startGame = (lobbyName) => {
   while (!mayorSelected) {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
     if (!player.spectator) {
-      lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
+      lobby.players[player.name].mayor = true;
       lobby.mayor = player;
       mayorSelected = true;
     }
   }
 
-  // add a function to randomly select two words for the mayor to choose from
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // add a function to randomly select x number of words for the mayor to choose from
+  for (let i = 0; i < lobby.pickCount; i += 1) {
+    lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  }
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
 
   // changes the game state so the front end can change the display accordingly
   lobby.gameState = 'mayorPick';
@@ -339,6 +350,7 @@ module.exports = {
   afterVotingRound,
   resetGame,
   updateTimer,
+  updatePickCount,
   answerQuestion,
   VoteWerewolf,
   VoteSeer,
