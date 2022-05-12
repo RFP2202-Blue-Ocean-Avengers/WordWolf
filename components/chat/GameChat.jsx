@@ -51,14 +51,16 @@ function GameChat({ players, username, lobby }) {
             }}
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
-          <Button
-            style={{
-              backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px',
-            }}
-            onClick={() => handleSubmitOnClick(true)}
-          >
-            ASK
-          </Button>
+          {(players[username].mayor === true || lobby.gameState === 'questionRound') ? '' : (
+            <Button
+              style={{
+                backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px',
+              }}
+              onClick={() => handleSubmitOnClick(true)}
+            >
+              ASK
+            </Button>
+          )}
 
           <Button
             style={{
