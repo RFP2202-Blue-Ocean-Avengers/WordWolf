@@ -18,11 +18,6 @@ import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Button, HStack, VStack } from '@chakra-ui/react';
 
-import { BiCheck, BiQuestionMark } from 'react-icons/bi';
-import { ImCross } from 'react-icons/im';
-import { GrStar } from 'react-icons/gr';
-import { BsExclamationLg } from 'react-icons/bs';
-import { MdDoDisturb } from 'react-icons/md';
 import Image from 'next/image';
 import YesIcon from '../assets/Yes.svg';
 import NoIcon from '../assets/No.svg';
@@ -83,14 +78,14 @@ function MayorQModal({ lobby }) {
       <ButtonsDiv id="QuestionButtons">
         <VStack spacing="10px">
           <HStack spacing="10px">
-            <Button id="yes" bg="#3C8F45" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#2b5e30' }} onClick={(e) => { clickedOnButton(e); }}><Image src={YesIcon} h={30} /></Button>
-            <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image src={CloseIcon} h={30} /></Button>
-            <Button id="no" bg="#BB1F1F" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#851717' }} onClick={(e) => { clickedOnButton(e); }}><Image src={NoIcon} h={30} /></Button>
+            <Button id="yes" bg="#3C8F45" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#2b5e30' }} onClick={(e) => { clickedOnButton(e); }}><Image id="yes" src={YesIcon} /></Button>
+            <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="maybe" src={CloseIcon} /></Button>
+            <Button id="no" bg="#BB1F1F" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#851717' }} onClick={(e) => { clickedOnButton(e); }}><Image id="no" src={NoIcon} /></Button>
           </HStack>
           <HStack spacing="10px">
-            <Button id="correct" bg="#F1CB00" borderRadius="full" w="50px" h="50px" padding="0" _hover={{ bg: '#c5af34' }} onClick={(e) => { clickedOnButton(e); }}><Image src={CorrectIcon} h={30} /></Button>
-            <Button id="soClose" bg="#C3E600" borderRadius="full" w="50px" h="50px" padding="1" _hover={{ bg: '#abc903' }} onClick={(e) => { clickedOnButton(e); }}><Image src={SoCloseIcon} h={30} /></Button>
-            <Button id="wayOff" bg="#714124" borderRadius="full" w="50px" h="50px" padding="2" _hover={{ bg: '#56321c' }} onClick={(e) => { clickedOnButton(e); }}><Image src={FarOffIcon} h={30} /></Button>
+            <Button id="correct" bg="#F1CB00" borderRadius="full" w="50px" h="50px" padding="0" _hover={{ bg: '#c5af34' }} onClick={(e) => { clickedOnButton(e); }}><Image id="correct" src={CorrectIcon} /></Button>
+            <Button id="soClose" bg="#C3E600" borderRadius="full" w="50px" h="50px" padding="1" _hover={{ bg: '#abc903' }} onClick={(e) => { clickedOnButton(e); }}><Image id="soClose" src={SoCloseIcon} /></Button>
+            <Button id="wayOff" bg="#714124" borderRadius="full" w="50px" h="50px" padding="2" _hover={{ bg: '#56321c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="wayOff" src={FarOffIcon} /></Button>
           </HStack>
         </VStack>
       </ButtonsDiv>
@@ -123,56 +118,6 @@ padding-top: 15px;
 margin: 0px auto;
 width: fit-content;
 color: black;
-`;
-
-
-const TokenBY = styled.button`
-width: 45px;
-height: 45px;
-border-radius: 45px;
-background-color: #3C8F45;
-margin: 10px;
-`;
-
-const TokenBM = styled.button`
-width: 45px;
-height: 45px;
-background-color: #3A5DB6;
-border-radius: 45px;
-margin: 10px;
-`;
-
-const TokenBN = styled.button`
-width: 45px;
-height: 45px;
-background-color: #BB1F1F;
-border-radius: 45px;
-margin: 10px;
-`;
-
-
-const TokenBC = styled.button`
-width: 45px;
-height: 45px;
-background-color: #F1CB00;
-border-radius: 45px;
-margin: 10px;
-`;
-
-const TokenBCO = styled.button`
-width: 45px;
-height: 45px;
-background-color: #C3E600;
-border-radius: 45px;
-margin: 10px;
-`;
-
-const TokenBW = styled.button`
-width: 45px;
-height: 45px;
-background-color: #714124;
-border-radius: 45px;
-margin: 10px;
 `;
 
 // {lobby.players[loginData.name].mayor === true && <MayorQModal />}
