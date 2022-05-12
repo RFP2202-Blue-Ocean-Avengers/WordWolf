@@ -1,5 +1,5 @@
 import {
-  Button, UnorderedList, ListItem, HStack, VStack, Box,
+  Button, UnorderedList, ListItem, HStack, Box,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import LobbyTable from './LobbyTable';
@@ -58,7 +58,6 @@ function Lobby({
       <Box className="settings">
         <Settings updateTimer={updateTimer} lobby={lobby} updatePickCount={updatePickCount} />
       </Box>
-
     </div>
   );
 }
