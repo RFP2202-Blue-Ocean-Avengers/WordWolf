@@ -278,14 +278,27 @@ const afterVotingRound = (lobbyName) => {
 
 const resetGame = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  const tokens = {
+    yes: [],
+    no: [],
+    maybe: [],
+    wayOff: [],
+    soClose: [],
+    correct: [],
+  };
+
+  Object.keys(lobby.players).forEach((player) => {
+    lobby.players[player].tokens = tokens;
+  });
 
   lobby.mayor = null;
   lobby.werewolf = [];
   lobby.seer = null;
-  lobby.settings = { minutes: 5, seconds: 0 };
+  lobby.settings = { minutes: 4, seconds: 0 };
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
+  lobby.answeredQuestions = [];
   lobby.soClose = null;
   lobby.wayOff = null;
   lobby.correct = null;

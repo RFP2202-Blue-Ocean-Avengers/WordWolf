@@ -19,7 +19,7 @@ function AnsweredQuestions({ lobby }) {
   };
 
   return (
-    <Box background-color="white" height="500">
+    <Box>
       <List spacing={1} width="250px" style={{ 'background-color': 'white', height: '300px', overflow: 'scroll' }}>
         {lobby.answeredQuestions
           .map((question) => (
