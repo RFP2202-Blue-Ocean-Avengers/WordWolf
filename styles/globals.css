@@ -56,7 +56,7 @@ text-align: center;
   color: #000000;
 }
 
-.lobby-btns {
+.lobby-btn {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -78,31 +78,21 @@ text-align: center;
 }
 
 .chat {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
-  right: 0px;
+  left: 0px;
 }
 
 .spectators-list {
   position: absolute;
   top: 0px;
   right: 0px;
-  margin-top: 12vh;
+  margin-top: 10vh;
   color: #fff;
-  margin-right: 20px;
+  margin-right: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-#h2p {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  margin-top: 7vh;
-  margin-right: 20px;
-  line-height: 30px;
-  color: #000000;
 }
 
 .rules {
@@ -115,3 +105,4 @@ text-align: center;
   background: #C4C4C4;
   font-size: 30px;
 }
+

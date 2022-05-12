@@ -41,6 +41,7 @@ function Chat({ players, username, lobby }) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        paddingBottom: '15px',
       }}
     >
       <h2 style={{
@@ -54,7 +55,7 @@ function Chat({ players, username, lobby }) {
         CHAT
       </h2>
       <div style={{
-        height: '78%',
+        height: '80%',
         width: '90%',
         backgroundColor: 'white',
       }}
