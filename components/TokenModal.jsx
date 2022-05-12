@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import IndividualQuestion from './IndividualQuestion';
-
 import {
   TokenModalContainer,
   CloseButton,
