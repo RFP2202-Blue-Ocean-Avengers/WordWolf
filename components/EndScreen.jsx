@@ -4,6 +4,7 @@
 import {
   useDisclosure, Button, Modal, ModalContent, ModalOverlay,
   ModalHeader, ModalBody, ModalFooter,
+  Box,
 } from '@chakra-ui/react';
 
 import { useEffect } from 'react';
@@ -19,11 +20,11 @@ function EndScreen({ lobby, resetGame, loginData }) {
   // if winners are wolves return true
   // if winners are villagers return false
   const checkWinner = () => {
-    if (lobby.werewolfVote.length > 0) {
+    if (lobby?.werewolfVote?.length > 0) {
       // check who the werewoles voted on
       // check vs who lobby.seer really was
-      lobby.werewolfVote.forEach((vote) => {
-        if (vote.name === lobby.seer.name) {
+      lobby?.werewolfVote.forEach((vote) => {
+        if (vote.name === lobby?.seer.name) {
           // wolves win
           return true;
         }
@@ -34,7 +35,7 @@ function EndScreen({ lobby, resetGame, loginData }) {
       // check array of villagerVotes to see who was voted the most
       // compare most voted to lobby.werewolf
       const voteCounts = {};
-      lobby.villagerVotes.forEach((vote) => {
+      lobby?.villagerVotes?.forEach((vote) => {
         if (voteCounts[vote.name]) {
           voteCounts[vote.name] += 1;
         } else {
@@ -60,30 +61,65 @@ function EndScreen({ lobby, resetGame, loginData }) {
     return null;
   };
 
-  const backToLobby = () => {
+  const backToLobby = (e) => {
+    e.preventDefault();
     onClose();
     resetGame();
   };
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal
+      isOpen={isOpen}
+    >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>
-          Winner:
-          {' '}
-          {checkWinner() ? <h1>Wolves!</h1> : <h1>Villagers!</h1>}
+      <ModalContent display="flex" alignItems="center">
+        <ModalHeader display="flex" flexDirection="column" alignItems="center">
+          <Box fontSize="30px" textDecoration="underline">Winners</Box>
+          {checkWinner() ? <Box fontSize="25px">Wolves</Box> : <Box fontSize="25px">Villagers</Box>}
         </ModalHeader>
-        <ModalBody>
-          <div>
-            {lobby.werewolf.length > 1 ? <h1>Wolves:</h1> : <h1>Wolf:</h1>}
-            {lobby.werewolf.map((wolf) => (<h2>{wolf.name}</h2>))}
-          </div>
-          <div>
-            <h1>Seer:</h1>
-            <h2>{lobby.seer}</h2>
-          </div>
-          {lobby.host === loginData.name ? <Button name="resetGame" onClick={backToLobby}>Reset Game</Button> : null }
+        <ModalBody
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
+            <Box
+              backgroundColor="#9D373B"
+              color="#FFF"
+              borderRadius="25px"
+              display="flex"
+              w="200px"
+              h="25px"
+              textAlign="center"
+              justifyContent="center"
+              marginBottom="10px"
+            >
+              {lobby?.werewolf.length > 1 ? <div>Wolves:</div> : <div>Wolf:</div>}
+              &nbsp;
+              {lobby?.werewolf.map((wolf) => (<div>{wolf.name}</div>))}
+            </Box>
+            <Box
+              backgroundColor="#D19E61"
+              borderRadius="25px"
+              display="flex"
+              w="200px"
+              h="25px"
+              textAlign="center"
+              justifyContent="center"
+              marginBottom="10px"
+            >
+              Seer:
+              &nbsp;
+              {lobby?.seer.name}
+            </Box>
+          </Box>
+          {lobby?.host === loginData?.name ? <Button name="resetGame" onClick={(e) => backToLobby(e)}>Reset Game</Button> : null}
         </ModalBody>
         <ModalFooter />
       </ModalContent>

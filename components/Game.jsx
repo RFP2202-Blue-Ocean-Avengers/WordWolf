@@ -12,6 +12,9 @@ import Timer from './Timer';
 import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
+import SpecialQDisplay from './SpecialQDisplay';
+import EndScreen from './EndScreen';
+import AnsweredQuestions from './AnsweredQuestions';
 
 function Game({
   lobby,
@@ -34,6 +37,16 @@ function Game({
     setplayerObj(lobby?.players[name]);
     setSelected(token);
   };
+
+  let winnerState;
+
+  if (lobby?.players[loginData.name].role !== 'werewolf') {
+    if (lobby.gameState === 'outOfTokens' || lobby.gameState === 'outOfTime') {
+      winnerState = <Box><VillagerVote lobby={lobby} loginData={loginData} /></Box>;
+    }
+  } else if (lobby?.players[loginData.name].role === 'werewolf' && lobby.gameState === 'wordGuessed') {
+    winnerState = <Box pos="absolute" top="7"><WerewolfVote lobby={lobby} loginData={loginData} /></Box>;
+  }
 
   // for timer
   const time = new Date();
@@ -67,15 +80,21 @@ function Game({
         </HStack>
         <HStack
           className="middleContainer"
-          transform="scale(0.93)"
           pos="relative"
-          left="90"
+          top="5"
+          justifyContent="space-between"
+          w="100vw"
         >
-          <GameTable
-            tokenSetter={tokenSetter}
-            loginData={loginData}
-            lobby={lobby}
-          />
+          <Box pos="relative" marginLeft="25px">
+            <AnsweredQuestions lobby={lobby} />
+          </Box>
+          <Box transform="scale(0.93)" pos="relative" right="223">
+            <GameTable
+              tokenSetter={tokenSetter}
+              loginData={loginData}
+              lobby={lobby}
+            />
+          </Box>
         </HStack>
         <HStack
           className="bottom-row"
@@ -83,7 +102,7 @@ function Game({
           w="100vw"
         >
           <Box
-            className="chat"
+            className="gamechat"
             display="flex"
             flexDirection="column"
             transform="scale(0.98)"
@@ -99,6 +118,9 @@ function Game({
               username={loginData?.name}
               lobby={loginData?.lobby}
             />
+          </Box>
+          <Box pos="relative" transform="scale(0.97)" top="20px">
+            <SpecialQDisplay lobby={lobby} />
           </Box>
           <VStack
             display="flex"
@@ -117,6 +139,7 @@ function Game({
                   as="button"
                   color="#FFF"
                   fontSize="30px"
+                  onClick={() => resetGame()}
                 >
                   END
                 </Box>
@@ -125,19 +148,22 @@ function Game({
         </HStack>
       </VStack>
       {
-        lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
+        (lobby?.mayor?.name === loginData.name
+          && lobby?.questions.length > 0 && lobby?.tokens > 0) ? (
           <Box pos="relative" right="220" top="400" transform="scale(0.83)">
             <MayorQModal lobby={lobby} />
           </Box>
         ) : null
       }
-      {(lobby?.players[loginData.name].role !== 'werewolf') && ((lobby.gameState === 'outOfTokens') || (lobby.gameState === 'outOfTime')) ? <VillagerVote /> : <VillagerVote />}
-      {(lobby?.players[loginData.name].role === 'werewolf') && (lobby.gameState === 'wordGuessed') ? <WerewolfVote /> : <WerewolfVote />}
+      <Box pos="relative" right="200" top="515">
+        {winnerState}
+      </Box>
       {
         lobby?.mayor?.name === loginData.name ? (
           <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
         ) : null
       }
+      {lobby?.gameState === 'endGame' ? <EndScreen lobby={lobby} resetGame={resetGame} loginData={loginData} /> : null}
       <Box
         pos="absolute"
         display="flex"

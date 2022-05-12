@@ -1,59 +1,37 @@
-import styled from 'styled-components';
 import {
-  Box, Flex, Text,
+  Flex, Text,
+  Button, Stack,
 } from '@chakra-ui/react';
-import { GrStar } from 'react-icons/gr';
-import { BsExclamationLg } from 'react-icons/bs';
-import { MdDoDisturb } from 'react-icons/md';
+import Image from 'next/image';
+import FarOffIcon from '../assets/FarOff.svg';
+import SoCloseIcon from '../assets/SoClose.svg';
+import CorrectIcon from '../assets/Correct.svg';
 
 function SpecialQDisplay({ lobby }) {
-  console.log(lobby);
   return (
-    <Box>
-      <Flex alignItems="center" color="white">
-        <CorrectToken><GrStar id="displayQCorrect" size={30} style={{ margin: '0px auto' }} /></CorrectToken>
-        <Text fontSize="xl" color="black">
-          {lobby.correct.message}
+    <Stack w="500px" h="250px" backgroundColor="white"
+    justifyContent="space-evenly" paddingLeft="10">
+      <Flex alignItems="center">
+        <Button id="correct" bg="#F1CB00" borderRadius="full" w="45px" h="45px" padding="0" _hover={{ bg: '#c5af34' }}><Image id="correct" src={CorrectIcon} /></Button>
+        <Image src={CorrectIcon} />
+        <Text fontSize="30" color="black">
+          {lobby.correct && lobby.correct.message}
         </Text>
       </Flex>
-      <Flex alignItems="center" color="white">
-        <CloseToken><BsExclamationLg id="displayQClose" size={30} style={{ margin: '0px auto' }} /></CloseToken>
-        <Text fontSize="xl" color="black">
-          {lobby.soClose.message}
+      <Flex alignItems="center">
+        <Button id="soClose" bg="#C3E600" borderRadius="full" w="45px" h="45px" padding="1" _hover={{ bg: '#abc903' }}><Image id="soClose" src={SoCloseIcon} /></Button>
+        <Text fontSize="30" color="black">
+          {lobby.soClose && lobby.soClose.message}
         </Text>
       </Flex>
-      <Flex alignItems="center" color="white">
-        <WayOffToken><MdDoDisturb id="displayQWayOff" size={30} style={{ margin: '0px auto' }} /></WayOffToken>
-        <Text fontSize="xl" color="black">
-          {lobby.wayOff.message}
+      <Flex alignItems="center">
+        <Button id="wayOff" bg="#714124" borderRadius="full" w="45px" h="45px" padding="2" _hover={{ bg: '#56321c' }}><Image id="wayOff" src={FarOffIcon} /></Button>
+        <Text fontSize="30" color="black">
+          {lobby.wayOff && lobby.wayOff.message}
         </Text>
       </Flex>
-    </Box>
+    </Stack>
   );
 }
 
 export default SpecialQDisplay;
-
-const CorrectToken = styled.button`
-width: 45px;
-height: 45px;
-background-color: #F1CB00;
-border-radius: 45px;
-margin: 10px;
-`;
-
-const CloseToken = styled.button`
-width: 45px;
-height: 45px;
-background-color: #C3E600;
-border-radius: 45px;
-margin: 10px;
-`;
-
-const WayOffToken = styled.button`
-width: 45px;
-height: 45px;
-background-color: #714124;
-border-radius: 45px;
-margin: 10px;
-`;

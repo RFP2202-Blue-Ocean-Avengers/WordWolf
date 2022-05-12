@@ -1,8 +1,4 @@
 import styled from 'styled-components';
-import { Mayor } from '../../assets/mayor.jpeg';
-import { Seer } from '../../assets/seer.jpeg';
-import { Villager } from '../../assets/villager.jpeg';
-import { Wolf } from '../../assets/wolf.jpeg';
 
 export const RoleContainer = styled.div`
   background-color: #D19E61;
@@ -12,16 +8,19 @@ export const RoleContainer = styled.div`
 `;
 
 export const InnerRoleContainer = styled.div`
-  background-color: #3A4171;
+  background-color: white;
+  display: flex;
   margin: 5%;
+  padding-top: 23px;
   height: 90%;
   width: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  font-size: 30px;
+  border-width: 1px;
+  border-color: black;
 `;
 
 export const UserRolePhotoContainer = styled.div`
@@ -36,15 +35,14 @@ export const Img = styled.div`
   width: 90px;
   border-radius: 50%;
   overflow: hidden;
-  border-width: 5px;
-  border-color: rgb(36, 16, 56);
 `;
 
 export const Banner = styled.div`
   font-size: 23px;
-  color: black;
-  margin-top: 5px;
+  color: white;
+  margin-top: 8px;
   width: 90px;
   text-align: center;
-  background-color: white;
+  background-color: black;
+  border-radius: 5px;
 `;

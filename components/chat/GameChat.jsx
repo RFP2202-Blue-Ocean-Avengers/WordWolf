@@ -51,6 +51,7 @@ function GameChat({ players, username, lobby }) {
             }}
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
+
           {(players[username].mayor === true || lobby.gameState === 'questionRound') ? '' : (
             <Button
               style={{
