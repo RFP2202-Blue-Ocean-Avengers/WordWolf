@@ -23,8 +23,8 @@ function MayorPickModal({ lobby, onMayorPick }) {
       <ModalContent display="flex" flexDirection="column">
         <ModalHeader textAlign="center">Mayor! Choose a word!</ModalHeader>
         <ModalBody display="flex" justifyContent="space-evenly">
-          <Button background="#D19E61" name={lobby.words[0]} onClick={(e) => onWordPick(e)}>{lobby.words[0]}</Button>
-          <Button background="#D19E61" name={lobby.words[1]} onClick={(e) => onWordPick(e)}>{lobby.words[1]}</Button>
+          {lobby.words.map((word) => (
+            <Button key={word} background="#D19E61" name={word} onClick={(e) => onWordPick(e)}>{word}</Button>))}
         </ModalBody>
         <ModalFooter />
       </ModalContent>
