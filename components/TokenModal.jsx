@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import {
-  useDisclosure, Button, Modal, ModalContent, ModalOverlay,
-  ModalHeader, ModalBody, ModalFooter,
+  Modal,
+  ModalContent,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import IndividualQuestion from './IndividualQuestion';
 import {
@@ -11,7 +12,9 @@ import {
   YesButton,
   NoButton,
   MaybeButton,
-  TokenList,
+  TokenListYes,
+  TokenListNo,
+  TokenListMaybe,
 } from './ModalStyles/Tokens';
 
 // props: player object as "player" & list of default tokens as "selectedTokens"
@@ -35,8 +38,8 @@ function TokenModal({ player, setplayerObj, tokenType }) {
     <Modal isOpen={player}>
       <ModalOverlay />
       <ModalContent
-      background="none"
-      w="fit-content"
+        background="none"
+        w="fit-content"
       >
         <TokenModalContainer>
           <CloseButton onClick={() => onCancel()}>x</CloseButton>
@@ -45,11 +48,30 @@ function TokenModal({ player, setplayerObj, tokenType }) {
             <NoButton onClick={() => onClick('no')}>No</NoButton>
             <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
           </ResponseContainer>
-          <TokenList>
-            {player?.tokens[tokenTypeSelected]?.map((question) => (
-              <IndividualQuestion question={question.message} />
-            ))}
-          </TokenList>
+          {tokenTypeSelected === 'yes'
+            ? (
+              <TokenListYes>
+                {player?.tokens[tokenTypeSelected]?.map((question) => (
+                  <IndividualQuestion question={question.message} />
+                ))}
+              </TokenListYes>
+            ) : null}
+          {tokenTypeSelected === 'no'
+            ? (
+              <TokenListNo>
+                {player?.tokens[tokenTypeSelected]?.map((question) => (
+                  <IndividualQuestion question={question.message} />
+                ))}
+              </TokenListNo>
+            ) : null}
+          {tokenTypeSelected === 'maybe'
+            ? (
+              <TokenListMaybe>
+                {player?.tokens[tokenTypeSelected]?.map((question) => (
+                  <IndividualQuestion question={question.message} />
+                ))}
+              </TokenListMaybe>
+            ) : null}
         </TokenModalContainer>
       </ModalContent>
     </Modal>

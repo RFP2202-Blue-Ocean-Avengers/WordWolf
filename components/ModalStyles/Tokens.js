@@ -9,6 +9,7 @@ export const CloseButton = styled.button`
   color: white;
   width: 10%;
   float: right;
+  font-size: 20px;
 `;
 
 export const ResponseContainer = styled.div`
@@ -36,10 +37,22 @@ export const MaybeButton = styled.button`
   border-radius: 40% 40% 0 0;
 `;
 
-export const TokenList = styled.div`
-  background-color: white;
-  border-width: 2px;
-  border-color: rgb(196, 196, 196);
+export const TokenListYes = styled.div`
+  background-color: #9DBCA0;
+  box-sizing: border-box;
+  height: 89%;
+  overflow: scroll;
+`;
+
+export const TokenListNo = styled.div`
+  background-color: #D88989;
+  box-sizing: border-box;
+  height: 89%;
+  overflow: scroll;
+`;
+
+export const TokenListMaybe = styled.div`
+  background-color: #A5C2D7;
   box-sizing: border-box;
   height: 89%;
   overflow: scroll;
