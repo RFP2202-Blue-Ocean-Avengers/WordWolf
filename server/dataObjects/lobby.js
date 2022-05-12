@@ -67,11 +67,11 @@ class Lobby {
 }
 
 const updateTimer = (settings, lobby) => {
-  //get specific lobby
+  // get specific lobby
   const currLobby = lobbies.get(lobby);
-  //update settings to param
+  // update settings to param
   currLobby.settings = settings;
-  //update lobbies map
+  // update lobbies map
   lobbies.set(lobby, currLobby);
   return currLobby;
 };
@@ -311,6 +311,15 @@ const resetGame = (lobbyName) => {
   return lobby;
 };
 
+// pass the host if the host leaves
+
+const switchHost = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  const playerName = Object.keys(lobby.players)[0];
+  lobby.host = playerName;
+  return lobby;
+};
+
 module.exports = {
   lobbies,
   addLobby,
@@ -328,4 +337,5 @@ module.exports = {
   answerQuestion,
   VoteWerewolf,
   VoteSeer,
+  switchHost,
 };
