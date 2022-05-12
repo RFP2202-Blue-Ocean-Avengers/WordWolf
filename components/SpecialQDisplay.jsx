@@ -9,8 +9,13 @@ import CorrectIcon from '../assets/Correct.svg';
 
 function SpecialQDisplay({ lobby }) {
   return (
-    <Stack w="500px" h="250px" backgroundColor="white"
-    justifyContent="space-evenly" paddingLeft="10">
+    <Stack
+      w="500px"
+      h="250px"
+      backgroundColor="white"
+      justifyContent="space-evenly"
+      paddingLeft="10"
+    >
       <Flex alignItems="center">
         <Button id="correct" bg="#F1CB00" borderRadius="full" w="45px" h="45px" padding="0" _hover={{ bg: '#c5af34' }}><Image id="correct" src={CorrectIcon} /></Button>
         <Image src={CorrectIcon} />

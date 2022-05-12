@@ -21,8 +21,9 @@ function WerewolfVote({ lobby, loginData }) {
   const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
+    e.preventDefault();
     if (currVote === '---') {
-      return null;
+      return;
     }
     socket.emit('VoteSeer', { player: lobby.players[currVote], lobbyName: lobby?.name });
     setVoted(true);

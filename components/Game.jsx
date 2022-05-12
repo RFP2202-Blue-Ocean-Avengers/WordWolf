@@ -150,10 +150,10 @@ function Game({
       {
         (lobby?.mayor?.name === loginData.name
           && lobby?.questions.length > 0 && lobby?.tokens > 0) ? (
-          <Box pos="relative" right="220" top="400" transform="scale(0.83)">
-            <MayorQModal lobby={lobby} />
-          </Box>
-        ) : null
+            <Box pos="relative" right="220" top="400" transform="scale(0.83)">
+              <MayorQModal lobby={lobby} />
+            </Box>
+          ) : null
       }
       <Box pos="relative" right="200" top="515">
         {winnerState}

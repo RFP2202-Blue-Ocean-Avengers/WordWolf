@@ -76,11 +76,11 @@ const updatePickCount = (pickCount, lobby) => {
 };
 
 const updateTimer = (settings, lobby) => {
-  //get specific lobby
+  // get specific lobby
   const currLobby = lobbies.get(lobby);
-  //update settings to param
+  // update settings to param
   currLobby.settings = settings;
-  //update lobbies map
+  // update lobbies map
   lobbies.set(lobby, currLobby);
   return currLobby;
 };
@@ -311,7 +311,7 @@ const resetGame = (lobbyName) => {
     correct: [],
   };
 
-  Object.keys(lobby.players).forEach((player) => {
+  Object.keys(lobby?.players).forEach((player) => {
     lobby.players[player].tokens = tokens;
   });
 
