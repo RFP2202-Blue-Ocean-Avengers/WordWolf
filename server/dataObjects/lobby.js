@@ -32,7 +32,7 @@ class Lobby {
     this.werewolf = [];
     this.seer = null;
     this.settings = {
-      minutes: 5,
+      minutes: 4,
       seconds: 0,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
