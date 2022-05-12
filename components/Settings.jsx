@@ -26,7 +26,7 @@ function Settings({ updateTimer, lobby }) {
     onClose: onSettingsClose,
   } = useDisclosure();
   const [minuteValue,
-    setMinuteValue] = useState(lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes);
+    setMinuteValue] = useState(lobby.settings.minutes < 0 ? 1 : lobby.settings.minutes);
 
   // lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes
   useEffect(() => {
@@ -59,7 +59,7 @@ function Settings({ updateTimer, lobby }) {
                 Game time (min)
                 <NumberInput
                   defaultValue={7}
-                  min={5}
+                  min={1}
                   max={30}
                   value={minuteValue}
                   onChange={handleChange}
