@@ -189,7 +189,7 @@ const startGame = (lobbyName) => {
   while (!mayorSelected) {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
     if (!player.spectator) {
-      lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
+      lobby.players[player.name].mayor = true;
       lobby.mayor = player;
       mayorSelected = true;
     }

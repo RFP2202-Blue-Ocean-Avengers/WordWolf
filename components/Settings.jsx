@@ -59,7 +59,7 @@ function Settings({ updateTimer, lobby }) {
                 Game time (min)
                 <NumberInput
                   defaultValue={7}
-                  min={5}
+                  min={4}
                   max={30}
                   value={minuteValue}
                   onChange={handleChange}
