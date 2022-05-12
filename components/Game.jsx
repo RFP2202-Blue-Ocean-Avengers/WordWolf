@@ -129,8 +129,8 @@ function Game({
           </Box>
         ) : null
       }
-      {(lobby?.players[loginData.name].role !== 'werewolf') && ((lobby.gameState === 'outOfTokens') || (lobby.gameState === 'outOfTime')) ? <VillagerVote /> : null}
-      {(lobby?.players[loginData.name].role === 'werewolf') && (lobby.gameState === 'wordGuessed') ? <WerewolfVote /> : null}
+      {(lobby?.players[loginData.name].role !== 'werewolf') && ((lobby.gameState === 'outOfTokens') || (lobby.gameState === 'outOfTime')) ? <VillagerVote /> : <VillagerVote />}
+      {(lobby?.players[loginData.name].role === 'werewolf') && (lobby.gameState === 'wordGuessed') ? <WerewolfVote /> : <WerewolfVote />}
       {
         lobby?.mayor?.name === loginData.name ? (
           <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
