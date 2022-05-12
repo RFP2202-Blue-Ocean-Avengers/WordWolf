@@ -7,7 +7,7 @@ function GameTable({ tokenSetter, lobby }) {
     currentPlay = lobby.gameState;
   } else if (lobby.gameState === 'questionRound') {
     if (lobby.questions.length === 0) {
-      currentPlay = 'question round';
+      currentPlay = 'Question Round - Ask away!';
     } else {
       currentPlay = lobby.questions[0]?.message;
     }

@@ -33,7 +33,7 @@ function TokenModal({ player, setplayerObj, tokenType }) {
   }
 
   return (
-    <Modal isOpen={player && (player?.tokens[tokenTypeSelected].length > 0)}>
+    <Modal isOpen={player}>
       <ModalOverlay />
       <ModalContent
       background="none"

@@ -3,10 +3,8 @@
 * {
   font-family: 'Koulen', cursive;
 }
-/* * {
-  transform: translate(-50%, 0);
-} */
-/* .background {
+
+.background {
   background-image: url("./../assets/Background.svg");
   background-size: cover;
   width: 100vw;
