@@ -12,13 +12,13 @@ import {
   Banner,
 } from './ModalStyles/UserRoleCard';
 
-function UserRole({ role }) {
+function UserRole({ roles }) {
   return (
-    role
+    roles
       ? (
         <RoleContainer>
           <InnerRoleContainer>
-            {role === 'mayor'
+            {roles === 'mayor'
               ? (
                 <UserRolePhotoContainer>
                   <Img>
@@ -27,7 +27,7 @@ function UserRole({ role }) {
                   <Banner>MAYOR</Banner>
                 </UserRolePhotoContainer>
               ) : null}
-            {role === 'seer'
+            {roles === 'seer'
               ? (
                 <UserRolePhotoContainer>
                   <Img>
@@ -36,7 +36,7 @@ function UserRole({ role }) {
                   <Banner>SEER</Banner>
                 </UserRolePhotoContainer>
               ) : null}
-            {role === 'villager'
+            {roles === 'villager'
               ? (
                 <UserRolePhotoContainer>
                   <Img>
@@ -45,7 +45,7 @@ function UserRole({ role }) {
                   <Banner>VILLAGER</Banner>
                 </UserRolePhotoContainer>
               ) : null}
-            {role === 'werewolf'
+            {roles === 'werewolf'
               ? (
                 <UserRolePhotoContainer>
                   <Img>

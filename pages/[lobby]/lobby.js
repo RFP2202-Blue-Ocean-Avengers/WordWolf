@@ -176,14 +176,11 @@ function Container() {
             onGameStart={onGameStart}
             loginData={loginData}
             updateTimer={updateTimer}
-            updateSettings={updateSettings}
-            afterQuestionsRound={afterQuestionsRound}
-            afterVotingRound={afterVotingRound}
           />
           <Game
             lobby={lobby}
             onMayorPick={onMayorPick}
-            afterQuestionsRound={afterQuestionsRound}
+            onTimeout={onTimeout}
             afterVotingRound={afterVotingRound}
             resetGame={resetGame}
             loginData={loginData}

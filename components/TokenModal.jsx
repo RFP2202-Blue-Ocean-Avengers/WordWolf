@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import {
+  useDisclosure, Button, Modal, ModalContent, ModalOverlay,
+  ModalHeader, ModalBody, ModalFooter,
+} from '@chakra-ui/react';
 import IndividualQuestion from './IndividualQuestion';
 import {
   TokenModalContainer,
@@ -28,8 +32,12 @@ function TokenModal({ player, setplayerObj, tokenType }) {
   }
 
   return (
-    player
-      ? (
+    <Modal isOpen={player}>
+      <ModalOverlay />
+      <ModalContent
+      background="none"
+      w="fit-content"
+      >
         <TokenModalContainer>
           <CloseButton onClick={() => onCancel()}>x</CloseButton>
           <ResponseContainer>
@@ -38,12 +46,13 @@ function TokenModal({ player, setplayerObj, tokenType }) {
             <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
           </ResponseContainer>
           <TokenList>
-            {player.tokens[tokenTypeSelected]?.map((question) => (
+            {player?.tokens[tokenTypeSelected]?.map((question) => (
               <IndividualQuestion question={question.message} />
             ))}
           </TokenList>
         </TokenModalContainer>
-      ) : null
+      </ModalContent>
+    </Modal>
   );
 }
 

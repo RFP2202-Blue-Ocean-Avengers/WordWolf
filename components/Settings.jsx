@@ -26,11 +26,11 @@ function Settings({ updateTimer, lobby }) {
     onClose: onSettingsClose,
   } = useDisclosure();
   const [minuteValue,
-    setMinuteValue] = useState(0);
+    setMinuteValue] = useState(lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes);
 
   // lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes
   useEffect(() => {
-    updateTimer({ minutes: minuteValue, seconds: 30 }, lobby);
+    updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
   }, [minuteValue]);
 
   const handleChange = (value) => {

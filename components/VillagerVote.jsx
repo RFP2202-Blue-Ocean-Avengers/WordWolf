@@ -12,7 +12,6 @@ needs the loppy
 
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
-
 import { socket } from '../pages/api/service/socket';
 import { StoreContext } from '../pages/api/contextStore';
 
@@ -40,7 +39,7 @@ function VillagerVote({ lobby, loginData }) {
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {Object.keys(lobby.players)
+          {lobby && Object.keys(lobby.players)
             .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
