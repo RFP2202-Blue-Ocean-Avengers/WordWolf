@@ -12,6 +12,7 @@ import Timer from './Timer';
 import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
+import SpecialQDisplay from './SpecialQDisplay';
 
 function Game({
   lobby,
@@ -83,7 +84,7 @@ function Game({
           w="100vw"
         >
           <Box
-            className="chat"
+            className="gamechat"
             display="flex"
             flexDirection="column"
             transform="scale(0.98)"
@@ -99,6 +100,9 @@ function Game({
               username={loginData?.name}
               lobby={loginData?.lobby}
             />
+          </Box>
+          <Box pos="relative" transform="scale(0.97)" top="20px">
+          <SpecialQDisplay lobby={lobby} />
           </Box>
           <VStack
             display="flex"
