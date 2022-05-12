@@ -32,8 +32,8 @@ class Lobby {
     this.werewolf = [];
     this.seer = null;
     this.settings = {
-      minutes: 0,
-      seconds: 30,
+      minutes: 5,
+      seconds: 0,
     };
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
@@ -53,6 +53,7 @@ class Lobby {
     this.chosenWord = ''; // word chosen by the mayor for this round
     this.messages = []; // all messages store for chat?
     this.questions = []; // questions queue
+    this.answeredQuestions = []; // all answered questions with their respective answers
     this.soClose = null; // question object for given token
     this.wayOff = null; // question object for given token
     this.correct = null; // question object for given token
@@ -200,7 +201,7 @@ const startGame = (lobbyName) => {
 
   // changes the game state so the front end can change the display accordingly
   lobby.gameState = 'mayorPick';
-  console.log(lobby);
+  // console.log(lobby);
 
   // updates the lobby data
   lobbies.set(lobbyName, lobby);
@@ -223,6 +224,7 @@ const answerQuestion = (answer, question, lobbyName) => {
   const lobby = getLobby(lobbyName);
   const player = lobby.players[question.name];
   player.tokens[answer].push(question);
+  lobby.answeredQuestions.push({ ...question, answer });
   lobby.questions.shift();
 
   if (answer === 'correct') {
