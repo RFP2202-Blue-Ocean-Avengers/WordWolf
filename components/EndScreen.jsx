@@ -60,7 +60,8 @@ function EndScreen({ lobby, resetGame, loginData }) {
     return null;
   };
 
-  const backToLobby = () => {
+  const backToLobby = (e) => {
+    e.preventDefault();
     onClose();
     resetGame();
   };
@@ -77,13 +78,13 @@ function EndScreen({ lobby, resetGame, loginData }) {
         <ModalBody>
           <div>
             {lobby.werewolf.length > 1 ? <h1>Wolves:</h1> : <h1>Wolf:</h1>}
-            {lobby.werewolf.map((wolf) => (<h2>{wolf.name}</h2>))}
+            {lobby.werewolf.map((wolf) => <h2>{wolf.name}</h2>)}
           </div>
           <div>
             <h1>Seer:</h1>
-            <h2>{lobby.seer}</h2>
+            <h2>{lobby.seer.name}</h2>
           </div>
-          {lobby.host === loginData.name ? <Button name="resetGame" onClick={backToLobby}>Reset Game</Button> : null }
+          {lobby.host === loginData.name ? <Button name="resetGame" onClick={(e) => backToLobby(e)}>Reset Game</Button> : null }
         </ModalBody>
         <ModalFooter />
       </ModalContent>

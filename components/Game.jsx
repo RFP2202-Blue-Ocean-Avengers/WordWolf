@@ -12,6 +12,7 @@ import Timer from './Timer';
 import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
+import AnsweredQuestions from './AnsweredQuestions';
 
 
 function Game({
@@ -46,6 +47,7 @@ function Game({
 
   return (
     <div className="game-background">
+      <AnsweredQuestions lobby={lobby} />
       <VStack
         name="main-container"
         alignItems="center"
