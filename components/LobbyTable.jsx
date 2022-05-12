@@ -2,7 +2,7 @@ import { Box, HStack } from '@chakra-ui/react';
 
 function LobbyTable({ toggleJoin, lobby }) {
   return (
-    <Box w="900px" h="485px" background="#3A4171" borderWidth="10px" borderColor="#D19E61" borderRadius="full" bgGradient="linear(to-r, #3A4171, #2d3664)" marginRight="200px" justify="center">
+    <Box className="lobby-table" w="900px" h="485px" background="#3A4171" borderWidth="10px" borderColor="#D19E61" borderRadius="full" bgGradient="linear(to-r, #3A4171, #2d3664)" marginRight="200px" justify="center" pos="fixed">
       <HStack>
         <Box name="seat1" id="#E6474E" as="button" w="70px" h="70px" borderRadius="full" background={lobby.seats.seat1 ? '#E6474E' : '#C4C4C4'} borderWidth="5px" borderColor="#E6474E" color="#333" fontWeight="600" pos="relative" top="-10" left="175" fontSize="24px" onClick={(e) => toggleJoin(e)}>{lobby?.seats?.seat1?.name.substring(0, 2).toUpperCase()}</Box>
         <Box name="seat6" id="#164186" as="button" w="70px" h="70px" borderRadius="full" background={lobby.seats.seat6 ? '#164186' : '#C4C4C4'} borderWidth="5px" borderColor="#164186" color="#fff" fontWeight="600" pos="relative" top="-10" left="340" fontSize="24px" onClick={(e) => toggleJoin(e)}>{lobby?.seats?.seat6?.name.substring(0, 2).toUpperCase()}</Box>

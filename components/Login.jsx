@@ -1,4 +1,4 @@
-import { Button, Input } from '@chakra-ui/react';
+import { Button, Input, Box } from '@chakra-ui/react';
 import Image from 'next/image';
 import Rules from './Rules';
 import LoginLogo from '../assets/LoginLogo.svg';
@@ -54,7 +54,9 @@ function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
           Create
         </Button>
       </form>
-      <Rules />
+      <Box style={{ marginBottom: '50px' }}>
+        <Rules />
+      </Box>
     </div>
   );
 }
