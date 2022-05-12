@@ -37,7 +37,10 @@ export const MaybeButton = styled.button`
 `;
 
 export const TokenList = styled.div`
-  background-color: #b3e6b3;
+  background-color: white;
+  border-width: 2px;
+  border-color: rgb(196, 196, 196);
+  box-sizing: border-box;
   height: 89%;
   overflow: scroll;
 `;

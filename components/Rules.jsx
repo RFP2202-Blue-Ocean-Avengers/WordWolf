@@ -50,7 +50,7 @@ function Rules() {
                     The Seer plays on the village team. They know the magic word. They do not know each other. If the magic word is guessed and the wolves guess one of the seers, the village team loses.
                   </li>
                   <li>
-                    <strong>Werewolf:</strong>
+                    <strong>Wolf:</strong>
                     {' '}
                     {' '}
                     Wolves play on the wolf team. They know the magic word. They also know each other. If the magic word is not guessed and the villagers guess one of the wolves, the wolf team loses.
