@@ -11,19 +11,19 @@ function SpecialQDisplay({ lobby }) {
     <Box w="500px" h="250px" backgroundColor="white" display="flex" flexDirection="column" justifyContent="center" paddingLeft="20px">
       <HStack alignItems="center" color="white">
         <CorrectToken><GrStar id="displayQCorrect" size={30} style={{ margin: '0px auto' }} /></CorrectToken>
-        <Text fontSize="xl" color="black">
+        <Text fontSize="25px" color="black">
           {lobby?.correct?.message}
         </Text>
       </HStack>
       <HStack alignItems="center" color="white">
         <CloseToken><BsExclamationLg id="displayQClose" size={30} style={{ margin: '0px auto' }} /></CloseToken>
-        <Text fontSize="xl" color="black">
+        <Text fontSize="25px" color="black">
           {lobby?.soClose?.message}
         </Text>
       </HStack>
       <HStack alignItems="center" color="white">
         <WayOffToken><MdDoDisturb id="displayQWayOff" size={30} style={{ margin: '0px auto' }} /></WayOffToken>
-        <Text fontSize="xl" color="black">
+        <Text fontSize="25px" color="black">
           {lobby?.wayOff?.message}
         </Text>
       </HStack>
