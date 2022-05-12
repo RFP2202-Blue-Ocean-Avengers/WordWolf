@@ -19,6 +19,8 @@ export const InnerRoleContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+  border-width: 1px;
+  border-color: black;
 `;
 
 export const UserRolePhotoContainer = styled.div`
