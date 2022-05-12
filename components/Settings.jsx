@@ -28,7 +28,7 @@ function Settings({ updateTimer, lobby }) {
   const [minuteValue,
     setMinuteValue] = useState(lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes);
 
-  // lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes
+  // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
   }, [minuteValue]);
