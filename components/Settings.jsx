@@ -19,7 +19,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SettingsIcon from '../assets/SettingsIcon.svg';
 
-function Settings({ updateTimer, lobby }) {
+function Settings({ updatePickCount, updateTimer, lobby }) {
   const {
     isOpen: isSettingsOpen,
     onOpen: onSettingsOpen,
@@ -27,12 +27,16 @@ function Settings({ updateTimer, lobby }) {
   } = useDisclosure();
   const [minuteValue,
     setMinuteValue] = useState(lobby.settings.minutes < 0 ? 1 : lobby.settings.minutes);
-  const [wordAmount, setWordAmount] = useState(2);
+  const [wordAmount, setWordAmount] = useState(lobby.pickCount ? lobby.pickCount : 2);
 
   // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
   }, [minuteValue]);
+
+  useEffect(() => {
+    updatePickCount(wordAmount);
+  }, [wordAmount]);
 
   const handleChange = (value) => {
     // const { value } = e.target;
