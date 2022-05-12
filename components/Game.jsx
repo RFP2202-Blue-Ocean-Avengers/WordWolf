@@ -12,6 +12,7 @@ import Timer from './Timer';
 import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
+import AnsweredQuestions from './AnsweredQuestions';
 
 function Game({
   lobby,
@@ -151,6 +152,7 @@ function Game({
           setplayerObj={setplayerObj}
         />
       </Box>
+      <AnsweredQuestions lobby={lobby} />
     </div>
   );
 }
