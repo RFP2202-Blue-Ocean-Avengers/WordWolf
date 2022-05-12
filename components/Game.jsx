@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, HStack, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import Image from 'next/image';
 import GameTable from './GameTable';
@@ -10,6 +10,8 @@ import MayorPickModal from './MayorPickModal';
 import MayorQModal from './MayorQModal';
 import Timer from './Timer';
 import Rules from './Rules';
+import VillagerVote from './VillagerVote';
+import WerewolfVote from './WerewolfVote';
 
 function Game({
   lobby,
@@ -42,17 +44,13 @@ function Game({
 
   return (
     <div className="game-background">
-      <Box
+      <VStack
         name="main-container"
-        display="flex"
         alignItems="center"
-        flexDirection="column"
         justifyContent="space-evenly"
       >
-        <Box
+        <HStack
           name="top-row"
-          display="flex"
-          flexDirection="row"
           justifyContent="space-evenly"
           w="100vw"
         >
@@ -64,61 +62,93 @@ function Game({
           />
           <Image src={GameLogo} />
           <Rules />
-        </Box>
-        <Box
+        </HStack>
+        <HStack
           className="middleContainer"
-          display="flex"
           transform="scale(0.93)"
           pos="relative"
-          left="95"
+          left="90"
         >
           <GameTable
             tokenSetter={tokenSetter}
             loginData={loginData}
             lobby={lobby}
           />
-        </Box>
-        <Box
-          className="bottom-container"
-          display="flex"
-          flexDirection="row"
+        </HStack>
+        <HStack
+          className="bottom-row"
+          justify="space-between"
+          w="100vw"
         >
           <Box
             className="chat"
             display="flex"
             flexDirection="column"
-            transform="scale(0.93)"
+            transform="scale(0.98)"
+            h="300"
+            marginLeft="20px"
           >
             <Box fontWeight="extrabold" fontSize="30" color="#FFF">
               {spectators}
               &nbsp;SPECTATORS
             </Box>
-            <Box alignSelf="center">
-              <GameChat
-                players={lobby?.players}
-                username={loginData?.name}
-                lobby={loginData?.lobby}
-              />
-            </Box>
-          </Box>
-          <UserRole role={lobby.players[loginData.name].role} />
-          <Box>
-            <TokenModal
-              player={playerObj}
-              tokenType={selected}
-              setplayerObj={setplayerObj}
+            <GameChat
+              players={lobby?.players}
+              username={loginData?.name}
+              lobby={loginData?.lobby}
             />
           </Box>
-          {lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
-            <Box pos="relative" right="160" top="400">
-              <MayorQModal lobby={lobby} />
-            </Box>
-          ) : null}
-        </Box>
+          <VStack
+            display="flex"
+            alignItems="end"
+            position="relative"
+            transform="scale(0.80)"
+            top="18px"
+          >
+            <UserRole roles={lobby?.players[loginData.name].role} />
+            {lobby?.mayor?.name === loginData.name
+              ? (
+                <Box
+                  w="250px"
+                  h="50px"
+                  backgroundColor="#9D373B"
+                  as="button"
+                  color="#FFF"
+                  fontSize="30px"
+                >
+                  END
+                </Box>
+              ) : null}
+          </VStack>
+        </HStack>
+      </VStack>
+      {
+        lobby?.mayor?.name === loginData.name && lobby?.questions.length > 0 ? (
+          <Box pos="relative" right="235" top="410" transform="scale(0.90)">
+            <MayorQModal lobby={lobby} />
+          </Box>
+        ) : null
+      }
+      {(lobby?.players[loginData.name].role !== 'werewolf') && ((lobby.gameState === 'outOfTokens') || (lobby.gameState === 'outOfTime')) ? <VillagerVote /> : null}
+      {(lobby?.players[loginData.name].role === 'werewolf') && (lobby.gameState === 'wordGuessed') ? <WerewolfVote /> : null}
+      {
+        lobby?.mayor?.name === loginData.name ? (
+          <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
+        ) : null
+      }
+      <Box
+        pos="absolute"
+        display="flex"
+        w="100vw"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <TokenModal
+          player={playerObj}
+          tokenType={selected}
+          setplayerObj={setplayerObj}
+        />
       </Box>
-      {lobby?.mayor?.name === loginData.name ? (
-        <MayorPickModal lobby={lobby} onMayorPick={onMayorPick} />
-      ) : null}
     </div>
   );
 }

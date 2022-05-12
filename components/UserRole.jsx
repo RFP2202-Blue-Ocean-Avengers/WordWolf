@@ -6,14 +6,16 @@ import {
   Banner,
 } from './ModalStyles/UserRoleCard';
 
-function UserRole({ role }) {
+function UserRole({ roles }) {
   return (
     <RoleContainer>
       <InnerRoleContainer>
         <UserRolePhotoContainer>
           <Img src="" />
-          <Banner>{role?.toUpperCase()}</Banner>
         </UserRolePhotoContainer>
+        <Banner>
+          {roles?.toUpperCase()}
+        </Banner>
       </InnerRoleContainer>
     </RoleContainer>
   );

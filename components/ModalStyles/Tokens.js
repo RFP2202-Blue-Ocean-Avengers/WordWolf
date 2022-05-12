@@ -43,4 +43,5 @@ export const TokenList = styled.div`
 `;
 
 export const Question = styled.div`
+  padding: 15px;
 `;
