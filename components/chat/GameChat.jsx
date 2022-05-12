@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Button, Input } from '@chakra-ui/react';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import uuid from 'react-uuid';
+import { StoreContext } from '../../pages/api/contextStore';
 import { socket } from '../../pages/api/service/socket';
 import Message from './Message';
 
-function GameChat({ players, username, lobby }) {
+function GameChat({ players, username }) {
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
+  const { lobby } = useContext(StoreContext);
   // get the message whenever there is new message sent
   useEffect(() => {
     socket.on('allGameMessages', (data) => {
@@ -25,10 +27,10 @@ function GameChat({ players, username, lobby }) {
       return;
     }
     const data = {
-      id: uuid(), name: username, lobby, message,
+      id: uuid(), name: username, lobby: lobby.name, message,
     };
     if (isQuestion) { data.question = true; } else { data.question = false; }
-    await socket.emit('newGameMessage', data, lobby);
+    await socket.emit('newGameMessage', data, lobby.name);
     setMessage('');
   };
 
@@ -42,7 +44,10 @@ function GameChat({ players, username, lobby }) {
       </ReactScrollableFeed>
 
       {(!players || !players[username].spectator) ? (
-        <div style={{ display: 'flex', padding: '10px', backgroundColor: 'white' }}>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: 'white',
+        }}
+        >
           {' '}
           <Input
             value={message}
@@ -52,7 +57,7 @@ function GameChat({ players, username, lobby }) {
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
 
-          {(players[username].mayor === true || lobby.gameState === 'questionRound') ? '' : (
+          {(lobby.mayor?.name === username || lobby.gameState !== 'questionRound') ? '' : (
             <Button
               style={{
                 backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px',
