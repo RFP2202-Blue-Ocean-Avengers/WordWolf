@@ -24,15 +24,13 @@ function WerewolfVote({ lobby, loginData }) {
     if (currVote === '---') {
       return null;
     }
-    socket.emit('VoteSeer', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    socket.emit('VoteSeer', { player: lobby?.players[currVote], lobbyName: lobby?.name });
     document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
   };
 
   const pickedDrop = (e) => {
     setCurrVote(e.target.value);
   };
-
-  console.log(lobby);
 
   return (
     <Container id="WerewolfVote">
@@ -41,7 +39,7 @@ function WerewolfVote({ lobby, loginData }) {
       <div>
         <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {Object.keys(lobby.players).map((p) =>
+          {lobby && Object.keys(lobby?.players).map((p) =>
             loginData.name !== p && <option value={p}>{p}</option>)}
         </ChooseS>
       </div>

@@ -3,14 +3,20 @@ import Tokens from './Tokens';
 
 function GameTable({ tokenSetter, lobby }) {
   let currentPlay;
-  if (lobby.gameState !== 'questionRound') {
-    currentPlay = lobby.gameState;
+  if (lobby.gameState === 'mayorPick') {
+    currentPlay = 'Mayor is choosing a word...';
   } else if (lobby.gameState === 'questionRound') {
     if (lobby.questions.length === 0) {
-      currentPlay = 'question round';
+      currentPlay = 'Question Round - Ask away!';
     } else {
       currentPlay = lobby.questions[0]?.message;
     }
+  } else if (lobby.gameState === 'wordGuessed') {
+    currentPlay = 'The word was guessed correctly!';
+  } else if (lobby.gameState === 'outOfTime') {
+    currentPlay = 'You ran out of time...';
+  } else if (lobby.gameState === 'outOfTokens') {
+    currentPlay = 'You ran out of tokens...';
   }
 
   return (
@@ -348,6 +354,7 @@ function GameTable({ tokenSetter, lobby }) {
         width="460px"
         height="60px"
         background="#FFFFFF"
+        fontSize="20px"
       >
         {currentPlay}
       </Box>

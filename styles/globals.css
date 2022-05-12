@@ -3,10 +3,8 @@
 * {
   font-family: 'Koulen', cursive;
 }
-/* * {
-  transform: translate(-50%, 0);
-} */
-/* .background {
+
+.background {
   background-image: url("./../assets/Background.svg");
   background-size: cover;
   width: 100vw;
@@ -38,7 +36,7 @@ text-align: center;
   justify-content: center;
   width: 200px;
   height: 62px;
-  background: #C4C4C4;
+  background: #FFF;
   text-align: center;
 }
 
@@ -102,7 +100,7 @@ text-align: center;
   justify-content: center;
   width: 200px;
   height: 62px;
-  background: #C4C4C4;
+  background: #FFF;
   font-size: 30px;
 }
 

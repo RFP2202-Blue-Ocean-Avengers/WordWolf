@@ -12,10 +12,7 @@ needs the loppy
 
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
 import { socket } from '../pages/api/service/socket';
-
-
 
 function VillagerVote({ lobby, loginData }) {
 
@@ -25,15 +22,13 @@ function VillagerVote({ lobby, loginData }) {
     if (currVote === '---') {
       return null;
     }
-    socket.emit('VoteWerewolf', { player: lobby.players[currVote], lobbyName: lobby?.name });
+    socket.emit('VoteWerewolf', { player: lobby?.players[currVote], lobbyName: lobby?.name });
     document.getElementById(e.target.id).style.display = 'none'; // might not re-appear with new game???
   };
 
   const pickedDrop = (e) => {
     setCurrVote(e.target.value);
   };
-
-  console.log(lobby);
 
   return (
     <Container id="VillagerVote">
@@ -42,8 +37,8 @@ function VillagerVote({ lobby, loginData }) {
       <div>
         <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
           <option value="DEFAULT" selected disabled>---</option>
-          {Object.keys(lobby.players).map((p) =>
-            loginData.name !== p && <option value={p}>{p}</option>)}
+          {lobby && Object.keys(lobby?.players).map((p) => loginData.name !== p
+          && <option value={p}>{p}</option>)}
         </ChooseW>
       </div>
 
