@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { Button, Input } from '@chakra-ui/react';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import uuid from 'react-uuid';
@@ -11,6 +12,11 @@ function GameChat({ players, username }) {
   const [allMessages, setAllMessages] = useState([]);
   const { lobby } = useContext(StoreContext);
   // get the message whenever there is new message sent
+  useEffect(() => {
+    axios.get(`/gameMessages/${lobby.name}`)
+      .then((data) => setAllMessages(data.data))
+      .catch();
+  }, []);
   useEffect(() => {
     socket.on('allGameMessages', (data) => {
       setAllMessages(data);

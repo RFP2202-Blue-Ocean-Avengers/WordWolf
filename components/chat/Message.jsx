@@ -11,7 +11,7 @@ function Message({ message }) {
     if (lobby.players[name]?.color) {
       setColor(lobby.players[name].color);
     }
-  }, [socket]);
+  }, [lobby]);
 
   return (
     <div style={{ fontSize: '24px' }}>
