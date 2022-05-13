@@ -36,6 +36,9 @@ io.on('connect', (socket) => {
 
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
+    if (!lobbyData) {
+      return;
+    }
     await emitConnectedToLobby(lobbyData, socket);
   });
   socket.on('joinLobby', async ({ name, lobby }) => {
@@ -43,6 +46,9 @@ io.on('connect', (socket) => {
 
     await assignPlayerToLobby(name, lobby, socket.id);
     const lobbyData = await getLobby(lobby);
+    if (!lobbyData) {
+      return;
+    }
     await emitConnectedToLobby(lobbyData, socket);
     emitLobbyData(lobby);
   });
