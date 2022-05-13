@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Modal,
   ModalContent,
@@ -21,10 +21,9 @@ import {
 
 function TokenModal({ player, setplayerObj, tokenType }) {
   const [tokenTypeSelected, setTokenType] = useState();
-
-  useEffect(() => {
-    setTokenType(tokenType);
-  }, [tokenType]);
+  const yesRef = useRef(null);
+  const noRef = useRef(null);
+  const maybeRef = useRef(null);
 
   function onClick(currentToken) {
     setTokenType(currentToken);
@@ -33,6 +32,19 @@ function TokenModal({ player, setplayerObj, tokenType }) {
   function onCancel() {
     setplayerObj(null);
   }
+
+  useEffect(() => {
+    setTokenType(tokenType);
+    if (tokenType === 'yes') {
+      yesRef.current?.focus();
+    }
+    if (tokenType === 'no') {
+      noRef.current?.focus();
+    }
+    if (tokenType) {
+      maybeRef.current?.focus();
+    }
+  }, [tokenType]);
 
   return (
     <Modal isOpen={player}>
@@ -44,9 +56,9 @@ function TokenModal({ player, setplayerObj, tokenType }) {
         <TokenModalContainer>
           <CloseButton onClick={() => onCancel()}>x</CloseButton>
           <ResponseContainer>
-            <YesButton onClick={() => onClick('yes')}>Yes</YesButton>
-            <NoButton onClick={() => onClick('no')}>No</NoButton>
-            <MaybeButton onClick={() => onClick('maybe')}>Maybe</MaybeButton>
+            <YesButton onClick={() => onClick('yes')} ref={yesRef}>Yes</YesButton>
+            <NoButton onClick={() => onClick('no')} ref={noRef}>No</NoButton>
+            <MaybeButton onClick={() => onClick('maybe')} ref={maybeRef}>Maybe</MaybeButton>
           </ResponseContainer>
           {tokenTypeSelected === 'yes'
             ? (
