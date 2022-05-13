@@ -29,6 +29,15 @@ function Container() {
     });
   }, [socket]);
 
+  useEffect(() => {
+    if (lobby?.gameState === 'lobby') {
+      setSoClose(false);
+      setWayOff(false);
+      setCorrect(false);
+      setVoted(false);
+    }
+  }, [lobby?.gameState]);
+
   // toggles player's spectator status'
   const toggleJoin = (e) => {
     e.preventDefault();
@@ -75,10 +84,6 @@ function Container() {
   // starts the game
   // if less than 4 players are joined do not let the game start
   const onGameStart = () => {
-    setSoClose(false);
-    setWayOff(false);
-    setCorrect(false);
-    setVoted(false);
     const joinedCount = Object.keys(lobby.players).reduce(
       (prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev),
       0,
@@ -113,6 +118,10 @@ function Container() {
     socket.emit('updateTimer', { settings, lobby: lobby.name });
   };
 
+  const updatePickCount = (pickCount) => {
+    socket.emit('updatePickCount', { pickCount, lobby: lobby.name });
+  };
+
   const display = () => {
     const gameArray = [
       'mayorPick',
@@ -140,6 +149,7 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
               updateTimer={updateTimer}
+              updatePickCount={updatePickCount}
             />
           </div>
         );
@@ -165,30 +175,6 @@ function Container() {
   return (
     <div>
       {lobby && display()}
-      {/* for testing purposes, I've displayed all the states of
-      the game out onto the lobby screen by default */}
-      {/* {lobby
-      && (
-      <>
-        <Lobby
-          lobby={lobby}
-          toggleJoin={toggleJoin}
-          toggleSpectate={toggleSpectate}
-          onGameStart={onGameStart}
-          loginData={loginData}
-          updateTimer={updateTimer}
-        />
-        <Game
-          lobby={lobby}
-          onMayorPick={onMayorPick}
-          onTimeout={onTimeout}
-          afterVotingRound={afterVotingRound}
-          resetGame={resetGame}
-          loginData={loginData}
-          updateTimer={updateTimer}
-        />
-      </>
-      )} */}
     </div>
   );
 }

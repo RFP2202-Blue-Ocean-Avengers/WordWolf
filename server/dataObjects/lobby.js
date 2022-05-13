@@ -32,9 +32,10 @@ class Lobby {
     this.werewolf = [];
     this.seer = null;
     this.settings = {
-      minutes: 4,
+      minutes: 1,
       seconds: 0,
     };
+    this.pickCount = 2;
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
     this.seats = {
@@ -57,7 +58,8 @@ class Lobby {
     this.soClose = null; // question object for given token
     this.wayOff = null; // question object for given token
     this.correct = null; // question object for given token
-    this.tokens = 36; // if this runs out the game ends
+    this.tokens = 36; // if this runs out the game ends, yes no tokens
+    this.maybeTokens = 12; // 12 maybe tokens, cannot give if have no more left, button disppears?
     this.villagerVotes = []; // player objects will be stored in here as votes
     this.werewolfVotes = []; // player objects will be stored in here as votes
     this.soClose = null; // question object for given token
@@ -66,12 +68,19 @@ class Lobby {
   }
 }
 
-const updateTimer = (settings, lobby) => {
-  //get specific lobby
+const updatePickCount = (pickCount, lobby) => {
   const currLobby = lobbies.get(lobby);
-  //update settings to param
+  currLobby.pickCount = Number(pickCount);
+  lobbies.set(lobby, currLobby);
+  return currLobby;
+};
+
+const updateTimer = (settings, lobby) => {
+  // get specific lobby
+  const currLobby = lobbies.get(lobby);
+  // update settings to param
   currLobby.settings = settings;
-  //update lobbies map
+  // update lobbies map
   lobbies.set(lobby, currLobby);
   return currLobby;
 };
@@ -189,15 +198,18 @@ const startGame = (lobbyName) => {
   while (!mayorSelected) {
     const player = lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]];
     if (!player.spectator) {
-      lobby.players[playerKeys[Math.floor(Math.random() * joinedCount)]].mayor = true;
+      lobby.players[player.name].mayor = true;
       lobby.mayor = player;
       mayorSelected = true;
     }
   }
 
-  // add a function to randomly select two words for the mayor to choose from
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
-  lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // add a function to randomly select x number of words for the mayor to choose from
+  for (let i = 0; i < lobby.pickCount; i += 1) {
+    lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  }
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+  // lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
 
   // changes the game state so the front end can change the display accordingly
   lobby.gameState = 'mayorPick';
@@ -222,10 +234,14 @@ const onMayorPick = (lobbyName, word) => {
 
 const answerQuestion = (answer, question, lobbyName) => {
   const lobby = getLobby(lobbyName);
+
+  if (answer === 'discard') {
+    lobby.questions.shift();
+    lobbies.set(lobbyName, lobby);
+    return lobby;
+  }
+
   const player = lobby.players[question.name];
-  player.tokens[answer].push(question);
-  lobby.answeredQuestions.push({ ...question, answer });
-  lobby.questions.shift();
 
   if (answer === 'correct') {
     lobby.correct = question;
@@ -234,9 +250,17 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobby.wayOff = question;
   } else if (answer === 'soClose') {
     lobby.soClose = question;
-  } else {
+  } else if (answer === 'maybe') {
+    lobby.maybeTokens -= 1;
+  } else if (answer === 'yes' || answer === 'no') {
     lobby.tokens -= 1;
+  } else { // in case answer is undefined or somethin else, although front end solves that
+    lobbies.set(lobbyName, lobby);
+    return lobby;
   }
+
+  player.tokens[answer].push(question);
+  lobby.answeredQuestions.push({ ...question, answer });
 
   if (lobby.tokens === 0) {
     lobby.gameState = 'outOfTokens';
@@ -287,7 +311,7 @@ const resetGame = (lobbyName) => {
     correct: [],
   };
 
-  Object.keys(lobby.players).forEach((player) => {
+  Object.keys(lobby?.players).forEach((player) => {
     lobby.players[player].tokens = tokens;
   });
 
@@ -304,10 +328,20 @@ const resetGame = (lobbyName) => {
   lobby.correct = null;
   lobby.gameState = 'lobby';
   lobby.tokens = 36;
+  lobby.maybeTokens = 12;
   lobby.villagerVotes = [];
   lobby.werewolfVotes = [];
 
   lobbies.set(lobbyName, lobby);
+  return lobby;
+};
+
+// pass the host if the host leaves
+
+const switchHost = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  const playerName = Object.keys(lobby.players)[0];
+  lobby.host = playerName;
   return lobby;
 };
 
@@ -325,7 +359,9 @@ module.exports = {
   afterVotingRound,
   resetGame,
   updateTimer,
+  updatePickCount,
   answerQuestion,
   VoteWerewolf,
   VoteSeer,
+  switchHost,
 };
