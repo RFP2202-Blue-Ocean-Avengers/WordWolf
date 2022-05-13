@@ -28,7 +28,7 @@ function Settings({
     onClose: onSettingsClose,
   } = useDisclosure();
   const [minuteValue,
-    setMinuteValue] = useState(lobby.settings.minutes < 0 ? 1 : lobby.settings.minutes);
+    setMinuteValue] = useState(lobby.timer < 0 ? 1 : lobby.timer);
   const [wordAmount, setWordAmount] = useState(lobby.pickCount ? lobby.pickCount : 2);
 
   // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
