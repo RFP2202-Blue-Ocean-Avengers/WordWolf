@@ -8,6 +8,7 @@ function Timer({
     seconds,
     minutes,
     start,
+    pause,
     restart,
   } = useTimer({
     expiryTimestamp,
@@ -46,6 +47,8 @@ function Timer({
       const time = new Date();
       time.setSeconds(time.getSeconds() + 30);
       restart(time);
+    } else if (lobby.gameState === 'endGame') {
+      pause();
     }
   }, [lobby.gameState]);
 
@@ -56,20 +59,6 @@ function Timer({
         :
         <span>{seconds < 10 ? (`0${seconds}`) : seconds}</span>
       </div>
-      {/* <button type="submit" onClick={start}>Start</button>
-      <button type="submit" onClick={pause}>Pause</button>
-      <button type="submit" onClick={resume}>Resume</button>
-      <button
-        type="submit"
-        onClick={() => {
-        // Restarts to 5 minutes timer
-          const time = new Date();
-          time.setSeconds(time.getSeconds() + 300);
-          restart(time);
-        }}
-      >
-        Restart
-      </button> */}
     </div>
   );
 }

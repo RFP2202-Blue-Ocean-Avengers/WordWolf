@@ -10,6 +10,7 @@ the vote is selected with a table select
 needs the lobby
 the key={`key-${p}`} inside of the <option> is so to remove the warning errors in the chrome dev log
 */
+
 import {
   Modal,
   ModalHeader,
@@ -68,12 +69,7 @@ function VillagerVote({ lobby, loginData }) {
   );
 }
 
-// {lobby && Object.keys(lobby?.players)
-// .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
-
 export default VillagerVote;
-
-// document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const ChooseW = styled.select`
   text-align: center;

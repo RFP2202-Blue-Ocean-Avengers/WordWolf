@@ -31,7 +31,6 @@ function Settings({
     setMinuteValue] = useState(lobby.timer < 0 ? 1 : lobby.timer);
   const [wordAmount, setWordAmount] = useState(lobby.pickCount ? lobby.pickCount : 2);
 
-  // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
     updateSaveTimer(minuteValue);
@@ -42,7 +41,6 @@ function Settings({
   }, [wordAmount]);
 
   const handleChange = (value) => {
-    // const { value } = e.target;
     setMinuteValue(value);
   };
 
@@ -82,7 +80,6 @@ function Settings({
                     <NumberDecrementStepper />
                   </NumberInputStepper>
                 </NumberInput>
-                {/* <input type="number" placeholder="00"  style={{ width: '40px' }}  /> */}
               </li>
               <li>
                 Available Words

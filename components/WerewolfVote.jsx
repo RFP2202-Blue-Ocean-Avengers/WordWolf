@@ -9,6 +9,7 @@ modal for the werewolf and any other special role to vote on the seer if the tim
 the choice for vote is done with the table select
 the key={`key-${p}`} inside of the <option> is so to remove the warning errors in the chrome dev log
 */
+
 import {
   Modal,
   ModalContent,
@@ -71,9 +72,6 @@ function WerewolfVote({ lobby, loginData }) {
 }
 
 export default WerewolfVote;
-
-
-// document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const ChooseS = styled.select`
   text-align: center;

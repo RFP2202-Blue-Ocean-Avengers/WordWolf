@@ -25,10 +25,6 @@ function Game({
   loginData,
   updateTimer,
 }) {
-  // const spectators = Object.keys(lobby.players).reduce(
-  //   (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
-  //   0,
-  // );
   const [spectators, setSpectators] = useState(
     Object.keys(lobby.players).reduce(
       (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
@@ -54,11 +50,6 @@ function Game({
 
   // for timer
   const time = new Date();
-  // time.setSeconds(
-  //   time.getSeconds()
-  //   + Math.floor(lobby.settings.minutes * 60)
-  //   + lobby.settings.seconds,
-  // );
   time.setSeconds(
     time.getSeconds()
     + Math.floor(lobby.timer * 60),
