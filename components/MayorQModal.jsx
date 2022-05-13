@@ -37,7 +37,7 @@ function MayorQModal({ lobby }) {
   } = useContext(StoreContext);
 
   useEffect(() => {
-    setCurrQuestion(lobby.questions[0] || '---');
+    setCurrQuestion(lobby?.questions[0] || '---');
   }, [lobby.questions]);
 
   const clickedOnButton = (e) => {
@@ -77,7 +77,7 @@ function MayorQModal({ lobby }) {
         {' '}
         Q:
         {' '}
-        {currQuestion.message || '---'}
+        {currQuestion?.message || '---'}
       </QuestionP>
 
       <ButtonsDiv id="QuestionButtons">
