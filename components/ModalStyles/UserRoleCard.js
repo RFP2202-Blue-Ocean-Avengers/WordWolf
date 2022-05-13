@@ -46,3 +46,15 @@ export const Banner = styled.div`
   background-color: black;
   border-radius: 5px;
 `;
+
+export const BannerContainer = styled.div`
+
+`;
+
+export const MayorBanner = styled.div`
+
+`;
+
+export const UserBanner = styled.div`
+
+`;
