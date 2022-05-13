@@ -6,10 +6,12 @@ const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
-  updateTimer, updatePickCount, answerQuestion, VoteWerewolf, VoteSeer,
+  updateTimer, updatePickCount, answerQuestion, VoteWerewolf, VoteSeer, switchHost, deleteLobby,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
-const { addMessage, getLobbyMessages, getGameMessages } = require('./dataObjects/chat');
+const {
+  addMessage, getLobbyMessages, getGameMessages, deleteLobbyMessages, deleteGameMessages,
+} = require('./dataObjects/chat');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -78,6 +80,7 @@ io.on('connect', (socket) => {
   socket.on('resetGame', async (lobby) => {
     await resetGame(lobby);
     emitLobbyData(lobby);
+    deleteGameMessages(lobby);
   });
   socket.on('updateTimer', async ({ settings, lobby }) => {
     await updateTimer(settings, lobby);
@@ -125,6 +128,18 @@ io.on('connect', (socket) => {
       await removePlayerFromLobby(player);
       socket.leave(player.lobby);
       emitLobbyData(player.lobby);
+      const lobbyData = await getLobby(player.lobby);
+      if (player.mayor || player.role === 'seer' || (player.role === 'werewolf' && lobbyData.werewolf.length === 1)) {
+        deleteGameMessages(player.lobby);
+        resetGame(player.lobby);
+      }
+      if (lobbyData.host === player.name) {
+        switchHost(player.lobby);
+      }
+      if (!lobbyData?.players) {
+        deleteLobby(player.lobby);
+        deleteLobbyMessages(player.lobby);
+      }
     }
   });
 });
