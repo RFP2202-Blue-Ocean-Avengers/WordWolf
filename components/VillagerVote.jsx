@@ -56,7 +56,8 @@ function VillagerVote({ lobby, loginData }) {
                 <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
                   <option value="DEFAULT" selected disabled>---</option>
                   {lobby && Object.keys(lobby?.players)
-                    .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
+                    .map((p) => ((loginData.name !== p) && (p.spectator === false))
+                      && <option value={p}>{p}</option>)}
                 </ChooseW>
                 {voted ? null : <Box as="button" marginTop="10" backgroundColor="#C4C4C4" id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</Box>}
               </Box>
@@ -67,9 +68,13 @@ function VillagerVote({ lobby, loginData }) {
   );
 }
 
+// {lobby && Object.keys(lobby?.players)
+// .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
+
 export default VillagerVote;
 
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const ChooseW = styled.select`
+  text-align: center;
 `;

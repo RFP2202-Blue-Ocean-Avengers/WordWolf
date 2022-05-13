@@ -57,14 +57,16 @@ function Lobby({
         </UnorderedList>
       </Box>
       <Box className="settings">
-        {lobby?.host === loginData?.name && (
-        <Settings
-          updateTimer={updateTimer}
-          updateSaveTimer={updateSaveTimer}
-          lobby={lobby}
-          updatePickCount={updatePickCount}
-        />
-        )}
+        {lobby?.host === loginData?.name
+          ? (
+            <Settings
+              updateTimer={updateTimer}
+              updateSaveTimer={updateSaveTimer}
+              lobby={lobby}
+              updatePickCount={updatePickCount}
+            />
+          )
+          : null}
       </Box>
     </div>
   );

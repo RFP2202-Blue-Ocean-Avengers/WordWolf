@@ -1,5 +1,5 @@
 import { Box, HStack, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import GameTable from './GameTable';
 import GameChat from './chat/GameChat';
@@ -25,13 +25,26 @@ function Game({
   loginData,
   updateTimer,
 }) {
-  const spectators = Object.keys(lobby.players).reduce(
-    (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
-    0,
+  // const spectators = Object.keys(lobby.players).reduce(
+  //   (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
+  //   0,
+  // );
+  const [spectators, setSpectators] = useState(
+    Object.keys(lobby.players).reduce(
+      (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
+      0,
+    ),
   );
-
   const [playerObj, setplayerObj] = useState(null);
   const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const joined = Object.keys(lobby.players).reduce(
+      (prev, player) => (lobby.players[player].spectator ? prev + 1 : prev),
+      0,
+    );
+    setSpectators(joined);
+  }, [lobby.players]);
 
   const tokenSetter = (name, token) => {
     setplayerObj(lobby?.players[name]);

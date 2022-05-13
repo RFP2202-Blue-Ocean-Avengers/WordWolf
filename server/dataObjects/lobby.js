@@ -71,6 +71,9 @@ class Lobby {
 
 const updatePickCount = (pickCount, lobby) => {
   const currLobby = lobbies.get(lobby);
+  if (!currLobby) {
+    return null;
+  }
   currLobby.pickCount = Number(pickCount);
   lobbies.set(lobby, currLobby);
   return currLobby;
@@ -79,6 +82,9 @@ const updatePickCount = (pickCount, lobby) => {
 const updateTimer = (settings, lobby) => {
   // get specific lobby
   const currLobby = lobbies.get(lobby);
+  if (!currLobby) {
+    return null;
+  }
   // update settings to param
   currLobby.settings = settings;
   // update lobbies map
@@ -88,6 +94,9 @@ const updateTimer = (settings, lobby) => {
 
 const updateSaveTimer = (timer, lobby) => {
   const currLobby = lobbies.get(lobby);
+  if (!currLobby) {
+    return null;
+  }
   currLobby.timer = timer;
   lobbies.set(lobby, currLobby);
   return currLobby;
@@ -109,6 +118,9 @@ const addLobby = (host, name) => {
 
 const getLobby = (lobbyName) => {
   const lobby = lobbies.get(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   return lobby;
 };
 
@@ -118,6 +130,9 @@ const deleteLobby = (name) => {
 
 const toggleJoin = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
+  if (!currentLobby) {
+    return null;
+  }
   currentLobby.players[name].spectator = false;
   currentLobby.players[name].seat = seat;
   currentLobby.players[name].color = color;
@@ -130,6 +145,9 @@ const toggleJoin = (name, lobby, seat, color) => {
 
 const swapSeats = (name, lobby, seat, color) => {
   const currentLobby = lobbies.get(lobby);
+  if (!currentLobby) {
+    return null;
+  }
   const prevSeat = currentLobby.players[name].seat;
   currentLobby.players[name].color = color;
   currentLobby.players[name].seat = seat;
@@ -141,6 +159,9 @@ const swapSeats = (name, lobby, seat, color) => {
 
 const toggleSpectate = (name, lobby) => {
   const currentLobby = lobbies.get(lobby);
+  if (!currentLobby) {
+    return null;
+  }
   const prevSeat = currentLobby.players[name].seat;
   currentLobby.players[name].spectator = true;
   currentLobby.players[name].seat = null;
@@ -152,6 +173,9 @@ const toggleSpectate = (name, lobby) => {
 
 const startGame = (lobbyName) => {
   const lobby = lobbies.get(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   const joinedCount = Object.keys(lobby.players)
     .reduce((prev, player) => (!lobby.players[player].spectator ? prev + 1 : prev), 0);
   const roles = ['villager', 'villager', 'seer', 'werewolf']; // base roles
@@ -230,6 +254,9 @@ const startGame = (lobbyName) => {
 
 const onMayorPick = (lobbyName, word) => {
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
 
   // assigns the mayor's chosen word to the lobby
   lobby.chosenWord = word;
@@ -242,7 +269,9 @@ const onMayorPick = (lobbyName, word) => {
 
 const answerQuestion = (answer, question, lobbyName) => {
   const lobby = getLobby(lobbyName);
-
+  if (!lobby) {
+    return null;
+  }
   if (answer === 'discard') {
     lobby.questions.shift();
     lobbies.set(lobbyName, lobby);
@@ -266,27 +295,34 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobbies.set(lobbyName, lobby);
     return lobby;
   }
-  lobby.questions.shift();
+
   player.tokens[answer].push(question);
   lobby.answeredQuestions.push({ ...question, answer });
+  lobby.questions.shift();
 
   if (lobby.tokens === 0) {
     lobby.gameState = 'outOfTokens';
   }
 
-  lobbies.set(lobbyName, lobby);
+  // lobbies.set(lobbyName, lobby);
   return lobby;
 };
 
-const VoteWerewolf = (player, lobbyName) => { // the villagers are voting
+const voteWerewolf = (player, lobbyName) => { // the villagers are voting
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   lobby.villagerVotes.push(player); // put who's werewolf here
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
 
-const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
+const voteSeer = (player, lobbyName) => { // the werewolfs are voting
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   lobby.werewolfVotes.push(player); // put who's a seer here
   lobbies.set(lobbyName, lobby);
   return lobby;
@@ -294,6 +330,9 @@ const VoteSeer = (player, lobbyName) => { // the werewolfs are voting
 
 const onTimeout = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   lobby.gameState = 'outOfTime';
   lobbies.set(lobbyName, lobby);
   return lobby;
@@ -301,6 +340,9 @@ const onTimeout = (lobbyName) => {
 
 const afterVotingRound = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
   lobby.gameState = 'endGame';
   lobbies.set(lobbyName, lobby);
   return lobby;
@@ -310,6 +352,10 @@ const afterVotingRound = (lobbyName) => {
 
 const resetGame = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
+
   const tokens = {
     yes: [],
     no: [],
@@ -348,6 +394,10 @@ const resetGame = (lobbyName) => {
 
 const switchHost = (lobbyName) => {
   const lobby = getLobby(lobbyName);
+  if (!lobby) {
+    return null;
+  }
+
   const playerName = Object.keys(lobby.players)[0];
   lobby.host = playerName;
   return lobby;
@@ -370,7 +420,7 @@ module.exports = {
   updateSaveTimer,
   updatePickCount,
   answerQuestion,
-  VoteWerewolf,
-  VoteSeer,
+  voteWerewolf,
+  voteSeer,
   switchHost,
 };
