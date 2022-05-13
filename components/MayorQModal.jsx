@@ -14,7 +14,7 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { Button, HStack, VStack } from '@chakra-ui/react';
 
@@ -31,25 +31,13 @@ import { StoreContext } from '../pages/api/contextStore';
 
 
 function MayorQModal({ lobby }) {
-  // const [currQuestion, setCurrQuestion] = useState();
   const {
     soClose, setSoClose, wayOff, setWayOff, correct, setCorrect,
   } = useContext(StoreContext);
 
-  // useEffect(() => {
-  //   setCurrQuestion(lobby?.questions[0] || '---');
-  // }, [lobby.questions]);
-
   const clickedOnButton = (e) => {
-    // if (currQuestion === '---' || currQuestion === undefined) {
-    //   return;
-    // }
-
     if (e.target.id) {
-      // socket.emit('AnsweredQuestion',
-      // { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
       socket.emit('AnsweredQuestion', { answer: e.target.id, question: lobby.questions[0], lobbyName: lobby?.name });
-      // lobby?.questions.shift();
     } else { // in case undefined gets passed to the server
       return;
     }
@@ -61,14 +49,10 @@ function MayorQModal({ lobby }) {
     } else if (e.target.id === 'correct') {
       setCorrect(true);
     }
-
-    // setCurrQuestion(lobby?.questions[0] || '---');
   };
 
   const clickedOnButtonDiscard = (e) => {
     socket.emit('AnsweredQuestion', { answer: e.target.id, question: lobby.questions[0], lobbyName: lobby?.name });
-    // lobby?.questions.shift();
-    // setCurrQuestion(lobby?.questions[0] || '---');
   };
 
   return (
@@ -79,7 +63,7 @@ function MayorQModal({ lobby }) {
         {' '}
         Q:
         {' '}
-        {lobby?.questions[0]?.message || '---'}
+        {lobby.questions[0]?.message || '---'}
       </QuestionP>
 
       <ButtonsDiv id="QuestionButtons">

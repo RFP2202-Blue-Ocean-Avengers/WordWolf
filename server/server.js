@@ -7,7 +7,7 @@ const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
   updateTimer, updateSaveTimer, updatePickCount, answerQuestion,
-  VoteWerewolf, VoteSeer, switchHost, deleteLobby,
+  voteWerewolf, voteSeer, switchHost, deleteLobby,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const {
@@ -116,12 +116,12 @@ io.on('connect', (socket) => {
   });
 
   socket.on('VoteWerewolf', async ({ player, lobbyName }) => {
-    await VoteWerewolf(player, lobbyName);
+    await voteWerewolf(player, lobbyName);
     emitLobbyData(lobbyName);
   });
 
   socket.on('VoteSeer', async ({ player, lobbyName }) => {
-    await VoteSeer(player, lobbyName);
+    await voteSeer(player, lobbyName);
     emitLobbyData(lobbyName);
   });
 

@@ -58,7 +58,8 @@ function WerewolfVote({ lobby, loginData }) {
                 <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
                   <option value="DEFAULT" selected disabled>---</option>
                   {lobby && Object.keys(lobby?.players)
-                    .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
+                    .map((p) => ((loginData.name !== p) && (p.spectate === false))
+                           && <option value={p}>{p}</option>)}
                 </ChooseS>
                 {voted ? null : <Box as="button" backgroundColor="#C4C4C4" marginTop="10" id="SubmitWeVote" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</Box>}
               </Box>
@@ -75,4 +76,5 @@ export default WerewolfVote;
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
 const ChooseS = styled.select`
+  text-align: center;
 `;
