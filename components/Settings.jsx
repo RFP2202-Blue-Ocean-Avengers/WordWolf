@@ -19,7 +19,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SettingsIcon from '../assets/SettingsIcon.svg';
 
-function Settings({ updatePickCount, updateTimer, lobby }) {
+function Settings({
+  updatePickCount, updateTimer, updateSaveTimer, lobby,
+}) {
   const {
     isOpen: isSettingsOpen,
     onOpen: onSettingsOpen,
@@ -32,6 +34,7 @@ function Settings({ updatePickCount, updateTimer, lobby }) {
   // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
+    updateSaveTimer(minuteValue);
   }, [minuteValue]);
 
   useEffect(() => {
