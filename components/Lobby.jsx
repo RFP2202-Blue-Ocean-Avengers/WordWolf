@@ -36,8 +36,8 @@ function Lobby({
         <LobbyTable toggleJoin={toggleJoin} loginData={loginData} lobby={lobby} />
       </Box>
       <Box className="lobby-btn">
-        {lobby.host === loginData.name ? null : <Button onClick={(e) => toggleSpectate(e)} width="11vw" height="9vh" bg="#D19E61" fontSize="32px" borderRadius="0px">Spectate</Button>}
-        {lobby.host === loginData.name
+        {lobby?.host === loginData?.name ? null : <Button onClick={(e) => toggleSpectate(e)} width="11vw" height="9vh" bg="#D19E61" fontSize="32px" borderRadius="0px">Spectate</Button>}
+        {lobby?.host === loginData?.name
           ? (
             <Button width="11vw" height="9vh" onClick={(e) => onGameStart(e)} bg="#D19E61" fontSize="32px" borderRadius="0px">
               Start
@@ -48,7 +48,7 @@ function Lobby({
         <h1>Spectators</h1>
         <UnorderedList>
           {lobby
-            ? Object.keys(lobby.players).map((player) => (!lobby.players[player].spectator
+            ? Object.keys(lobby?.players).map((player) => (!lobby.players[player].spectator
               ? null
               : (
                 <ListItem key={player} style={{ listStyle: 'none', marginLeft: '-15px' }}>{lobby.players[player].name}</ListItem>
@@ -57,12 +57,14 @@ function Lobby({
         </UnorderedList>
       </Box>
       <Box className="settings">
+        {lobby?.host === loginData?.name && (
         <Settings
           updateTimer={updateTimer}
           updateSaveTimer={updateSaveTimer}
           lobby={lobby}
           updatePickCount={updatePickCount}
         />
+        )}
       </Box>
     </div>
   );

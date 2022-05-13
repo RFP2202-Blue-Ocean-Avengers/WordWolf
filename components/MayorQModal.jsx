@@ -14,7 +14,7 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, HStack, VStack } from '@chakra-ui/react';
 
@@ -31,10 +31,14 @@ import { StoreContext } from '../pages/api/contextStore';
 
 
 function MayorQModal({ lobby }) {
-  const [currQuestion, setCurrQuestion] = useState(lobby?.questions[0] || '---');
+  const [currQuestion, setCurrQuestion] = useState();
   const {
     soClose, setSoClose, wayOff, setWayOff, correct, setCorrect,
   } = useContext(StoreContext);
+
+  useEffect(() => {
+    setCurrQuestion(lobby.questions[0] || '---');
+  }, [lobby.questions]);
 
   const clickedOnButton = (e) => {
     if (currQuestion === '---' || currQuestion === undefined) {
@@ -56,13 +60,13 @@ function MayorQModal({ lobby }) {
       setCorrect(true);
     }
 
-    setCurrQuestion(lobby?.questions[0] || '---');
+    // setCurrQuestion(lobby?.questions[0] || '---');
   };
 
   const clickedOnButtonDiscard = (e) => {
     socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
-    lobby?.questions.shift();
-    setCurrQuestion(lobby?.questions[0] || '---');
+    // lobby?.questions.shift();
+    // setCurrQuestion(lobby?.questions[0] || '---');
   };
 
   return (
