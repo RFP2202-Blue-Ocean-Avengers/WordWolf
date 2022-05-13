@@ -56,7 +56,7 @@ function VillagerVote({ lobby, loginData }) {
                 <ChooseW id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
                   <option value="DEFAULT" selected disabled>---</option>
                   {lobby && Object.keys(lobby?.players)
-                    .map((p) => ((loginData.name !== p) && (p.spectator === false))
+                    .map((p) => ((loginData.name !== p) && (lobby.players[p].spectator === false))
                       && <option value={p}>{p}</option>)}
                 </ChooseW>
                 {voted ? null : <Box as="button" marginTop="10" backgroundColor="#C4C4C4" id="Submit" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</Box>}
