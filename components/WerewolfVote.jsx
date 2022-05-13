@@ -8,7 +8,14 @@ Blue Ocean
 modal for the werewolf and any other special role to vote on the seer if the time has ran out
 the choice for vote is done with the table select
 */
-
+import {
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  ModalHeader,
+  ModalBody,
+  Box,
+} from '@chakra-ui/react';
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
@@ -32,19 +39,31 @@ function WerewolfVote({ lobby, loginData }) {
   };
 
   return (
-    <Container id="WerewolfVote">
-      <WhoIsP>WHO IS THE SEER?</WhoIsP>
-      <div>
-        <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
-          <option value="DEFAULT" selected disabled>---</option>
-          {lobby && Object.keys(lobby?.players)
-            .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
-        </ChooseS>
-      </div>
-      <div>
-        {voted ? null : <button id="SubmitWeVote" type="button" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</button>}
-      </div>
-    </Container>
+    <Modal isOpen={lobby.gameState === 'wordGuessed'}>
+      <ModalOverlay />
+      <ModalContent display="flex" justifyContent="center" alignItems="center" textAlign="center">
+        <ModalHeader>
+          {lobby?.players[loginData.name].role !== 'werewolf'
+            ? <h1>VOTING ROUND</h1> : <h1>WHO IS THE SEER?</h1>}
+        </ModalHeader>
+        <ModalBody>
+          {lobby?.players[loginData.name].role !== 'werewolf'
+            ? (
+              <h3>The wolves are currently voting...</h3>
+            )
+            : (
+              <Box display="flex" flexDirection="column">
+                <ChooseS id="PlayersDrop" name="players" onChange={(e) => { pickedDrop(e); }}>
+                  <option value="DEFAULT" selected disabled>---</option>
+                  {lobby && Object.keys(lobby?.players)
+                    .map((p) => loginData.name !== p && <option value={p}>{p}</option>)}
+                </ChooseS>
+                {voted ? null : <Box as="button" backgroundColor="#C4C4C4" marginTop="10" id="SubmitWeVote" onClick={(e) => { clickedOnButton(e); }}>SUBMIT</Box>}
+              </Box>
+            )}
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }
 
@@ -53,21 +72,5 @@ export default WerewolfVote;
 
 // document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
 
-const Container = styled.section`
-width: 180px;
-height: 105px;
-text-align: center;
-border-radius: 30px;
-background-color: #F8F8F8;
-`;
-
-const WhoIsP = styled.p`
-padding-top: 15px;
-margin: 0px auto;
-width: fit-content;
-color: black;
-`;
-
 const ChooseS = styled.select`
-background-color: #E0E0E0;
 `;
