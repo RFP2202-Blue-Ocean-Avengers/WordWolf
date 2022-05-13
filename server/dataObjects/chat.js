@@ -6,6 +6,9 @@ let gameMessages = [];
 const addMessage = (data, gameStart) => {
   const { lobby } = data;
   const theLobby = getLobby(lobby);
+  if (!theLobby) {
+    return null;
+  }
   if (gameStart) {
     gameMessages.push(data);
     if (data.question) {

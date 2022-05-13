@@ -26,6 +26,9 @@ class Player {
 
 const assignPlayerToLobby = (name, lobby, socketId) => {
   const currentLobby = lobbies.get(lobby);
+  if (!currentLobby) {
+    return null;
+  }
   if (Object.keys(currentLobby.players).length === 10) {
     return { error: 'Lobby is full' };
   }
@@ -38,6 +41,9 @@ const assignPlayerToLobby = (name, lobby, socketId) => {
 
 const removePlayerFromLobby = (player) => {
   const currentLobby = lobbies.get(player.lobby);
+  if (!currentLobby) {
+    return;
+  }
   if (currentLobby.players[player.name]) {
     // removes player from seat if they are in one
     if (currentLobby.players[player.name].seat) {
