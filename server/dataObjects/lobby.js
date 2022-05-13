@@ -35,6 +35,7 @@ class Lobby {
       minutes: 1,
       seconds: 0,
     };
+    this.timer = 1;
     this.pickCount = 2;
     this.gameState = 'lobby'; // four possible states [lobby, mayorPick, questionRound, endGame]
     this.players = {}; // an object that contains players in the game
@@ -81,6 +82,13 @@ const updateTimer = (settings, lobby) => {
   // update settings to param
   currLobby.settings = settings;
   // update lobbies map
+  lobbies.set(lobby, currLobby);
+  return currLobby;
+};
+
+const updateSaveTimer = (timer, lobby) => {
+  const currLobby = lobbies.get(lobby);
+  currLobby.timer = timer;
   lobbies.set(lobby, currLobby);
   return currLobby;
 };
@@ -258,7 +266,7 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobbies.set(lobbyName, lobby);
     return lobby;
   }
-
+  lobby.questions.shift();
   player.tokens[answer].push(question);
   lobby.answeredQuestions.push({ ...question, answer });
 
@@ -318,7 +326,7 @@ const resetGame = (lobbyName) => {
   lobby.mayor = null;
   lobby.werewolf = [];
   lobby.seer = null;
-  lobby.settings = { minutes: 4, seconds: 0 };
+  lobby.settings = { minutes: lobby.timer, seconds: 0 };
   lobby.words = [];
   lobby.chosenWord = '';
   lobby.questions = [];
@@ -359,6 +367,7 @@ module.exports = {
   afterVotingRound,
   resetGame,
   updateTimer,
+  updateSaveTimer,
   updatePickCount,
   answerQuestion,
   VoteWerewolf,
