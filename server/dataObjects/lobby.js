@@ -356,17 +356,15 @@ const resetGame = (lobbyName) => {
     return null;
   }
 
-  const tokens = {
-    yes: [],
-    no: [],
-    maybe: [],
-    wayOff: [],
-    soClose: [],
-    correct: [],
-  };
-
   Object.keys(lobby?.players).forEach((player) => {
-    lobby.players[player].tokens = tokens;
+    lobby.players[player].tokens = {
+      yes: [],
+      no: [],
+      maybe: [],
+      wayOff: [],
+      soClose: [],
+      correct: [],
+    };
   });
 
   lobby.mayor = null;
