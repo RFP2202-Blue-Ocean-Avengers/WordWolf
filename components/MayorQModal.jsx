@@ -43,7 +43,7 @@ function MayorQModal({ lobby }) {
 
     if (e.target.id) {
       socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
-      lobby?.questions.shift();
+      // lobby?.questions.shift();
     } else { // in case undefined gets passed to the server
       return;
     }

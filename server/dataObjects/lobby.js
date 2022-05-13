@@ -258,7 +258,7 @@ const answerQuestion = (answer, question, lobbyName) => {
     lobbies.set(lobbyName, lobby);
     return lobby;
   }
-
+  lobby.questions.shift();
   player.tokens[answer].push(question);
   lobby.answeredQuestions.push({ ...question, answer });
 
