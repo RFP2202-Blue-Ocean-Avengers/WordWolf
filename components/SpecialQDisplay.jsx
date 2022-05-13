@@ -12,7 +12,7 @@ function SpecialQDisplay({ lobby }) {
     <Box backgroundColor="white" padding="0px 8px">
       <Stack
         h="250px"
-        backgroundColor="#C4C4C4"
+        backgroundColor="#E7E7E7"
         justifyContent="space-evenly"
         borderRadius="20px"
         paddingLeft="5"
