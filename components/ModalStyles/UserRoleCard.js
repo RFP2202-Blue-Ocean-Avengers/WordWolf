@@ -48,13 +48,19 @@ export const Banner = styled.div`
 `;
 
 export const BannerContainer = styled.div`
-
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  max-height: 100px;
+  max-width: 110px;
+  min-width: 100%;
+  overflow: scroll;
 `;
 
 export const MayorBanner = styled.div`
-
+  text-align: center;
 `;
 
 export const UserBanner = styled.div`
-
+  text-align: center;
 `;
