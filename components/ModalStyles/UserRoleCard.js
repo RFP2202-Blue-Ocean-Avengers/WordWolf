@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const RoleContainer = styled.div`
   background-color: #D19E61;
-  border-radius: 5%;
   width: 220px;
   height: 250px;
 `;
@@ -19,8 +18,6 @@ export const InnerRoleContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  border-width: 1px;
-  border-color: black;
 `;
 
 export const UserRolePhotoContainer = styled.div`

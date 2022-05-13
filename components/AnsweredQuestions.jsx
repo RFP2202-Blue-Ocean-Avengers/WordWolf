@@ -7,6 +7,7 @@ import { ImCross } from 'react-icons/im';
 import { GrStar } from 'react-icons/gr';
 import { BsExclamationLg } from 'react-icons/bs';
 import { MdDoDisturb } from 'react-icons/md';
+import SpecialQDisplay from './SpecialQDisplay';
 
 function AnsweredQuestions({ lobby }) {
   const icons = {
@@ -19,9 +20,16 @@ function AnsweredQuestions({ lobby }) {
   };
 
   return (
-    <Box borderColor="#D19E61" borderWidth="10px" borderRadius="10px">
+    <Box borderColor="#D19E61" borderWidth="10px" bg="#fff">
       <Box backgroundColor="white" padding="10px" display="flex" justifyContent="center" textDecoration="underline">ANSWERED QUESTIONS</Box>
-      <List spacing={1} width="250px" style={{ 'background-color': 'white', height: '300px', overflow: 'scroll' }}>
+      <SpecialQDisplay lobby={lobby} />
+      <List
+        spacing={1}
+        width="300px"
+        style={{
+          backgroundColor: 'white', height: '300px', overflow: 'scroll', paddingTop: '15px',
+        }}
+      >
         {lobby.answeredQuestions
           .map((question) => (
             <ListItem display="flex" alignItems="center" paddingLeft="10px" key={question.id}>

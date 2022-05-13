@@ -25,6 +25,7 @@ import CloseIcon from '../assets/Close.svg';
 import CorrectIcon from '../assets/Correct.svg';
 import FarOffIcon from '../assets/FarOff.svg';
 import SoCloseIcon from '../assets/SoClose.svg';
+import Exit from '../assets/Exit.svg';
 
 import { socket } from '../pages/api/service/socket';
 import { StoreContext } from '../pages/api/contextStore';
@@ -53,13 +54,23 @@ function MayorQModal({ lobby }) {
 
   const clickedOnButtonDiscard = (e) => {
     socket.emit('AnsweredQuestion', { answer: e.target.id, question: lobby.questions[0], lobbyName: lobby?.name });
+    console.log(e.target.id);
   };
 
   return (
     <Container id="MayorQModal">
+      <button
+        id="discard"
+        type="button"
+        onClick={(e) => { clickedOnButtonDiscard(e); }}
+        style={{
+          position: 'absolute', top: '15px', right: '40px', width: '15px', zIndex: '99',
+        }}
+      >
+        <Image id="discard" src={Exit} />
+      </button>
 
-      <QuestionP id="CurrQuestion" style={{ marginBottom: '5px' }}>
-        <button id="discard" type="button" onClick={(e) => { clickedOnButtonDiscard(e); }} style={{ color: 'red' }}>[ X ]</button>
+      <QuestionP id="CurrQuestion" style={{ marginBottom: '5px', fontSize: '24px', zIndex: '1' }}>
         {' '}
         Q:
         {' '}
@@ -91,10 +102,12 @@ export default MayorQModal;
 
 const Container = styled.section`
 width: 220px;
-height: 175px;
+height: auto;
 text-align: center;
 border-radius: 50px;
 background-color: #F8F8F8;
+padding-top: 15px;
+padding-bottom: 15px;
 `;
 
 const ButtonsDiv = styled.div`
