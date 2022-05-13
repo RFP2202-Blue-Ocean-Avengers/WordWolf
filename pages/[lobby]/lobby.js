@@ -13,7 +13,9 @@ function Container() {
   const onInit = () => {
     const emit = loginData.create ? 'createLobby' : 'joinLobby';
     const payload = { name: loginData.name, lobby: loginData.lobby };
-    socket.emit(emit, payload);
+    if (payload.name && payload.lobby) {
+      socket.emit(emit, payload);
+    }
     socket.on('connectedToLobby', async (data) => {
       await setLobby(data.lobbyData);
     });
