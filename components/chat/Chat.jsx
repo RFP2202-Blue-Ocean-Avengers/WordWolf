@@ -14,7 +14,7 @@ function Chat({ players, username, lobby }) {
     axios(`/messages/${lobby}`)
       .then((data) => setAllMessages(data.data))
       .catch();
-  }, [socket]);
+  }, []);
   // get the message whenever there is new message sent
   useEffect(() => {
     socket.on('allMessages', (data) => {
@@ -66,7 +66,6 @@ function Chat({ players, username, lobby }) {
           width: '19.8vw',
           backgroundColor: 'white',
         }}
-
       >
         <ReactScrollableFeed>
           {allMessages?.map((msg) => <Message key={msg.id} players={players} message={msg} />)}
