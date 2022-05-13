@@ -138,8 +138,10 @@ io.on('connect', (socket) => {
     if (player) {
       await removePlayerFromLobby(player);
       socket.leave(player.lobby);
-      emitLobbyData(player.lobby);
       const lobbyData = await getLobby(player.lobby);
+      if (!lobbyData) {
+        return;
+      }
       if (player.mayor || player.role === 'seer' || (player.role === 'werewolf' && lobbyData.werewolf.length === 1)) {
         deleteGameMessages(player.lobby);
         resetGame(player.lobby);
@@ -151,6 +153,7 @@ io.on('connect', (socket) => {
         deleteLobby(player.lobby);
         deleteLobbyMessages(player.lobby);
       }
+      emitLobbyData(player.lobby);
     }
   });
 });
