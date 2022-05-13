@@ -105,7 +105,7 @@ function EndScreen({ lobby, resetGame, loginData }) {
               {lobby?.werewolf.map((wolf) => (
                 <div>
                   {wolf.name}
-                  &nbsp;
+                  {' '}
                 </div>
               ))}
             </Box>
