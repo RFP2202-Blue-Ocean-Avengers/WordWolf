@@ -45,7 +45,7 @@ function Game({
       winnerState = <Box><VillagerVote lobby={lobby} loginData={loginData} /></Box>;
     }
   } else if (lobby?.players[loginData.name].role === 'werewolf' && lobby.gameState === 'wordGuessed') {
-    winnerState = <Box pos="absolute" top="7"><WerewolfVote lobby={lobby} loginData={loginData} /></Box>;
+    winnerState = <Box pos="absolute" top="5"><WerewolfVote lobby={lobby} loginData={loginData} /></Box>;
   }
 
   // for timer

@@ -1,4 +1,4 @@
-import { Box, HStack, VStack } from '@chakra-ui/react';
+import { Box, HStack, VStack, Text } from '@chakra-ui/react';
 import Tokens from './Tokens';
 
 function GameTable({ tokenSetter, lobby, loginData }) {
@@ -619,15 +619,28 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
           textAlign="center"
           bottom="95"
-          left="15"
+          left="5px"
           color="white"
           fontWeight="bold"
+          w="460px"
+          h="25px"
         >
-          Tokens remaining: &nbsp;
+          <Box display="flex" paddingLeft="10px">
+          <Text>Yes</Text>
+          &nbsp;/&nbsp;
+          <Text>No</Text>
+          &nbsp;remaining: &nbsp;
           {lobby.tokens}
+          &nbsp;
+          </Box>
+          <Box display="flex" paddingRight="25px">
+          <Text>Maybe</Text>
+          &nbsp;remaining:&nbsp;
+          {lobby.tokens}
+          </Box>
         </Box>
       </VStack>
     </Box>
