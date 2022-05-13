@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Wolf from '../assets/wolf.jpeg';
-import Mayor from '../assets/mayor.jpeg';
 import Seer from '../assets/seer.jpeg';
 import Villager from '../assets/villager.jpeg';
 
@@ -18,15 +17,6 @@ function UserRole({ roles }) {
       ? (
         <RoleContainer>
           <InnerRoleContainer>
-            {roles === 'mayor'
-              ? (
-                <UserRolePhotoContainer>
-                  <Img>
-                    <Image src={Mayor} />
-                  </Img>
-                  <Banner>MAYOR</Banner>
-                </UserRolePhotoContainer>
-              ) : null}
             {roles === 'seer'
               ? (
                 <UserRolePhotoContainer>

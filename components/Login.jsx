@@ -7,9 +7,10 @@ import LoginBanner from '../assets/LoginBanner.svg';
 
 function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#211E32', height: '120vh', paddingTop: '20px',
-    }}
+    <Box
+      style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#211E32', paddingTop: '20px',
+      }}
     >
       <Image src={LoginLogo} />
       <form style={{
@@ -58,7 +59,7 @@ function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
       <Box style={{ marginBottom: '50px' }}>
         <Rules />
       </Box>
-    </div>
+    </Box>
   );
 }
 

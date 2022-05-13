@@ -179,9 +179,18 @@ nextApp.prepare()
       const allmessages = getLobbyMessages(req.params.lobby);
       if (allmessages) {
         res.send(allmessages);
-      } else {
-        res.send([]);
+        return;
       }
+      res.send([]);
+    });
+
+    app.get('/gameMessages/:lobby', (req, res) => {
+      const allGameMessages = getGameMessages(req.params.lobby);
+      if (allGameMessages) {
+        res.send(allGameMessages);
+        return;
+      }
+      res.send([]);
     });
 
     app.get('*', async (req, res) => handler(req, res));

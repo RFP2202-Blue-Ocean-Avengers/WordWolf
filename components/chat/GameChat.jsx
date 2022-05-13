@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { Button, Input } from '@chakra-ui/react';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import uuid from 'react-uuid';
@@ -11,6 +12,11 @@ function GameChat({ players, username }) {
   const [allMessages, setAllMessages] = useState([]);
   const { lobby } = useContext(StoreContext);
   // get the message whenever there is new message sent
+  useEffect(() => {
+    axios.get(`/gameMessages/${lobby.name}`)
+      .then((data) => setAllMessages(data.data))
+      .catch();
+  }, []);
   useEffect(() => {
     socket.on('allGameMessages', (data) => {
       setAllMessages(data);
@@ -52,7 +58,7 @@ function GameChat({ players, username }) {
           <Input
             value={message}
             style={{
-              backgroundColor: '#C4C4C4', width: '320px', height: '45px', marginRight: '10px',
+              backgroundColor: '#C4C4C4', width: '320px', height: '45px', marginRight: '10px', borderRadius: '0px',
             }}
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
@@ -60,7 +66,7 @@ function GameChat({ players, username }) {
           {(lobby.mayor?.name === username || lobby.gameState !== 'questionRound') ? '' : (
             <Button
               style={{
-                backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px',
+                backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px', borderRadius: '0px',
               }}
               onClick={() => handleSubmitOnClick(true)}
             >
@@ -70,7 +76,7 @@ function GameChat({ players, username }) {
 
           <Button
             style={{
-              backgroundColor: 'black', color: 'white', width: '97px', height: '46px',
+              backgroundColor: 'black', color: 'white', width: '97px', height: '46px', borderRadius: '0px',
             }}
             onClick={() => handleSubmitOnClick()}
           >
