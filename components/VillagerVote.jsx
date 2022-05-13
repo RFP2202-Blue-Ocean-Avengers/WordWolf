@@ -7,7 +7,8 @@ Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Ki
 Blue Ocean
 modal for the villager, mayor and seer roles to vote on the werewolf if the word has been gussed
 the vote is selected with a table select
-needs the loppy
+needs the lobby
+the key={`key-${p}`} inside of the <option> is so to remove the warning errors in the chrome dev log
 */
 import {
   Modal,
@@ -28,8 +29,9 @@ function VillagerVote({ lobby, loginData }) {
   const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
+    e.preventDefault();
     if (currVote === '---') {
-      return null;
+      return;
     }
     socket.emit('VoteWerewolf', { player: lobby?.players[currVote], lobbyName: lobby?.name });
     setVoted(true);

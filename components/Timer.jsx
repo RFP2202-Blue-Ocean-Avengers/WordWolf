@@ -26,6 +26,14 @@ function Timer({
   }, [seconds, minutes]);
 
   useEffect(() => {
+    if (seconds <= 10 && minutes < 1) {
+      document.getElementById('timerBox').style.backgroundColor = '#9D373B';
+    } else {
+      document.getElementById('timerBox').style.backgroundColor = '#FFF';
+    }
+  }, [seconds]);
+
+  useEffect(() => {
     if (lobby.gameState === 'questionRound') {
       start();
     } else if (lobby.gameState === 'outOfTokens' || lobby.gameState === 'outOfTime') {

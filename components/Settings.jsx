@@ -19,23 +19,32 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SettingsIcon from '../assets/SettingsIcon.svg';
 
-function Settings({ updateTimer, lobby }) {
+function Settings({ updatePickCount, updateTimer, lobby }) {
   const {
     isOpen: isSettingsOpen,
     onOpen: onSettingsOpen,
     onClose: onSettingsClose,
   } = useDisclosure();
   const [minuteValue,
-    setMinuteValue] = useState(lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes);
+    setMinuteValue] = useState(lobby.settings.minutes < 0 ? 1 : lobby.settings.minutes);
+  const [wordAmount, setWordAmount] = useState(lobby.pickCount ? lobby.pickCount : 2);
 
-  // lobby.settings.minutes < 6 ? 5 : lobby.settings.minutes
+  // lobby.settings.minutes < 5 ? 4 : lobby.settings.minutes
   useEffect(() => {
     updateTimer({ minutes: minuteValue, seconds: 0 }, lobby);
   }, [minuteValue]);
 
+  useEffect(() => {
+    updatePickCount(wordAmount);
+  }, [wordAmount]);
+
   const handleChange = (value) => {
     // const { value } = e.target;
     setMinuteValue(value);
+  };
+
+  const handleWordChange = (value) => {
+    setWordAmount(value);
   };
 
   return (
@@ -56,10 +65,10 @@ function Settings({ updateTimer, lobby }) {
             <br />
             <ul>
               <li>
-                Game time (min)
+                Game Time (Min)
                 <NumberInput
                   defaultValue={7}
-                  min={5}
+                  min={1}
                   max={30}
                   value={minuteValue}
                   onChange={handleChange}
@@ -71,6 +80,22 @@ function Settings({ updateTimer, lobby }) {
                   </NumberInputStepper>
                 </NumberInput>
                 {/* <input type="number" placeholder="00"  style={{ width: '40px' }}  /> */}
+              </li>
+              <li>
+                Available Words
+                <NumberInput
+                  defaultValue={2}
+                  min={2}
+                  max={5}
+                  value={wordAmount}
+                  onChange={handleWordChange}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
               </li>
             </ul>
           </ModalBody>

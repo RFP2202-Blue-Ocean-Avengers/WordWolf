@@ -1,5 +1,5 @@
 import {
-  Button, UnorderedList, ListItem, HStack, VStack, Box,
+  Button, UnorderedList, ListItem, HStack, Box,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import LobbyTable from './LobbyTable';
@@ -10,7 +10,7 @@ import GameLogo from '../assets/GameLogo.svg';
 import Timer from './LobbyTimerDisplay';
 
 function Lobby({
-  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer,
+  lobby, toggleJoin, onGameStart, loginData, toggleSpectate, updateTimer, updatePickCount,
 }) {
   const time = new Date();
   time.setSeconds(time.getSeconds()
@@ -56,9 +56,8 @@ function Lobby({
         </UnorderedList>
       </Box>
       <Box className="settings">
-        <Settings updateTimer={updateTimer} lobby={lobby} />
+        <Settings updateTimer={updateTimer} lobby={lobby} updatePickCount={updatePickCount} />
       </Box>
-
     </div>
   );
 }

@@ -38,32 +38,30 @@ function MayorQModal({ lobby }) {
 
   const clickedOnButton = (e) => {
     if (currQuestion === '---' || currQuestion === undefined) {
-      return null;
+      return;
     }
 
     if (e.target.id) {
-      // the gosh dangit react icon's <path> thingy has passed the id
-      // instead of the <button> or the icon's <svg> id
       socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
       lobby?.questions.shift();
-    } else {
-      return null;
+    } else { // in case undefined gets passed to the server
+      return;
     }
 
     if (e.target.id === 'soClose') {
       setSoClose(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     } else if (e.target.id === 'wayOff') {
       setWayOff(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     } else if (e.target.id === 'correct') {
       setCorrect(true);
-      // document.getElementById(e.target.id).style.display = 'none';
-      // might not re-appear with new game???
     }
 
+    setCurrQuestion(lobby?.questions[0] || '---');
+  };
+
+  const clickedOnButtonDiscard = (e) => {
+    socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
+    lobby?.questions.shift();
     setCurrQuestion(lobby?.questions[0] || '---');
   };
 
@@ -71,15 +69,18 @@ function MayorQModal({ lobby }) {
     <Container id="MayorQModal">
 
       <QuestionP id="CurrQuestion" style={{ marginBottom: '5px' }}>
+        <button id="discard" type="button" onClick={(e) => { clickedOnButtonDiscard(e); }} style={{ color: 'red' }}>[ X ]</button>
+        {' '}
         Q:
         {' '}
         {currQuestion.message || '---'}
       </QuestionP>
+
       <ButtonsDiv id="QuestionButtons">
         <VStack spacing="10px">
           <HStack spacing="10px">
             <Button id="yes" bg="#3C8F45" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#2b5e30' }} onClick={(e) => { clickedOnButton(e); }}><Image id="yes" src={YesIcon} /></Button>
-            <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="maybe" src={CloseIcon} /></Button>
+            {lobby.maybeTokens ? <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="maybe" src={CloseIcon} /></Button> : null}
             <Button id="no" bg="#BB1F1F" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#851717' }} onClick={(e) => { clickedOnButton(e); }}><Image id="no" src={NoIcon} /></Button>
           </HStack>
           <HStack spacing="10px">

@@ -7,6 +7,7 @@ Amy Kwak, Andy Chan, Anny Wang, Bogdan Gordin, Casey Eads, Danny Wong, Eunice Ki
 Blue Ocean
 modal for the werewolf and any other special role to vote on the seer if the time has ran out
 the choice for vote is done with the table select
+the key={`key-${p}`} inside of the <option> is so to remove the warning errors in the chrome dev log
 */
 import {
   Modal,
@@ -18,17 +19,18 @@ import {
 } from '@chakra-ui/react';
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
-
 import { socket } from '../pages/api/service/socket';
 import { StoreContext } from '../pages/api/contextStore';
+
 
 function WerewolfVote({ lobby, loginData }) {
   const [currVote, setCurrVote] = useState('---');
   const { voted, setVoted } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
+    e.preventDefault();
     if (currVote === '---') {
-      return null;
+      return;
     }
     socket.emit('VoteSeer', { player: lobby.players[currVote], lobbyName: lobby?.name });
     setVoted(true);
