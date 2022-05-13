@@ -37,6 +37,7 @@ function Game({
   );
   const [playerObj, setplayerObj] = useState(null);
   const [selected, setSelected] = useState(null);
+  const is16 = (typeof window !== 'undefined' && window.innerWidth > 1500);
 
   useEffect(() => {
     const joined = Object.keys(lobby.players).reduce(
@@ -70,6 +71,7 @@ function Game({
           name="top-row"
           justifyContent="space-evenly"
           w="100vw"
+          style={{ paddingTop: '10px' }}
         >
           <Timer
             updateTimer={updateTimer}
@@ -91,7 +93,7 @@ function Game({
           <Box pos="relative" marginLeft="25px">
             <AnsweredQuestions lobby={lobby} />
           </Box>
-          <Box transform="scale(0.93)" pos="relative" right="223">
+          <Box transform="scale(0.93)" pos="relative" right="223" style={is16 ? null : { marginLeft: '325px' }}>
             <GameTable
               tokenSetter={tokenSetter}
               loginData={loginData}

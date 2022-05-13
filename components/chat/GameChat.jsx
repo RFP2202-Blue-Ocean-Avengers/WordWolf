@@ -52,7 +52,7 @@ function GameChat({ players, username }) {
           <Input
             value={message}
             style={{
-              backgroundColor: '#C4C4C4', width: '320px', height: '45px', marginRight: '10px',
+              backgroundColor: '#C4C4C4', width: '320px', height: '45px', marginRight: '10px', borderRadius: '0px',
             }}
             onChange={(e) => handleMessageOnChange(e.target.value)}
           />
@@ -60,7 +60,7 @@ function GameChat({ players, username }) {
           {(lobby.mayor?.name === username || lobby.gameState !== 'questionRound') ? '' : (
             <Button
               style={{
-                backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px',
+                backgroundColor: '#D19E61', color: 'black', width: '97px', height: '46px', marginRight: '10px', borderRadius: '0px',
               }}
               onClick={() => handleSubmitOnClick(true)}
             >
@@ -70,7 +70,7 @@ function GameChat({ players, username }) {
 
           <Button
             style={{
-              backgroundColor: 'black', color: 'white', width: '97px', height: '46px',
+              backgroundColor: 'black', color: 'white', width: '97px', height: '46px', borderRadius: '0px',
             }}
             onClick={() => handleSubmitOnClick()}
           >

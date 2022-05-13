@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const RoleContainer = styled.div`
   background-color: #D19E61;
-  border-radius: 5%;
   width: 220px;
   height: 250px;
 `;

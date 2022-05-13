@@ -32,6 +32,7 @@ function Chat({ players, username, lobby }) {
     await socket.emit('newMessage', data, lobby);
     setMessage('');
   };
+  const is16 = (typeof window !== 'undefined' && window.innerWidth > 1500);
   return (
     <div
       style={{
@@ -54,11 +55,18 @@ function Chat({ players, username, lobby }) {
       >
         CHAT
       </h2>
-      <div style={{
-        height: '70vh',
-        width: '19.8vw',
-        backgroundColor: 'white',
-      }}
+      <div style={is16
+        ? {
+          height: '70vh',
+          width: '19.8vw',
+          backgroundColor: 'white',
+        }
+        : {
+          height: '66vh',
+          width: '19.8vw',
+          backgroundColor: 'white',
+        }}
+
       >
         <ReactScrollableFeed>
           {allMessages?.map((msg) => <Message key={msg.id} players={players} message={msg} />)}
