@@ -639,7 +639,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           <Box display="flex" paddingRight="25px">
           <Text>Maybe</Text>
           &nbsp;remaining:&nbsp;
-          {lobby.tokens}
+          {lobby.maybeTokens}
           </Box>
         </Box>
       </VStack>
