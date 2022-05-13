@@ -8,6 +8,8 @@ import {
   Img,
 } from './ModalStyles/UserRoleCard';
 
+// mayor is expected to be a string of the player's name
+
 function MayorDisplay({ mayor }) {
   return (
     <UserRolePhotoContainer>
@@ -16,7 +18,7 @@ function MayorDisplay({ mayor }) {
       </Img>
       <BannerContainer>
         <MayorBanner>MAYOR</MayorBanner>
-        <UserBanner>{mayor}</UserBanner>
+        <UserBanner>{mayor?.toUpperCase}</UserBanner>
       </BannerContainer>
     </UserRolePhotoContainer>
   );
