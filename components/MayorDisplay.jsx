@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Box } from '@chakra-ui/react';
 import Mayor from '../assets/mayor.jpeg';
 import {
   BannerContainer,
@@ -10,7 +11,7 @@ import {
 
 // mayor is expected to be a string of the player's name
 
-function MayorDisplay({ mayor }) {
+function MayorDisplay({ mayor, lobby }) {
   return (
     <UserRolePhotoContainer>
       <Img>
@@ -18,7 +19,9 @@ function MayorDisplay({ mayor }) {
       </Img>
       <BannerContainer>
         <MayorBanner>MAYOR</MayorBanner>
-        <UserBanner>{mayor?.toUpperCase}</UserBanner>
+        <Box color={lobby?.mayor.color}>
+          <UserBanner>{mayor?.toUpperCase()}</UserBanner>
+        </Box>
       </BannerContainer>
     </UserRolePhotoContainer>
   );

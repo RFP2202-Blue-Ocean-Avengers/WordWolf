@@ -12,9 +12,9 @@ import Timer from './Timer';
 import Rules from './Rules';
 import VillagerVote from './VillagerVote';
 import WerewolfVote from './WerewolfVote';
-import SpecialQDisplay from './SpecialQDisplay';
 import EndScreen from './EndScreen';
 import AnsweredQuestions from './AnsweredQuestions';
+import MayorDisplay from './MayorDisplay';
 
 function Game({
   lobby,
@@ -90,15 +90,18 @@ function Game({
           justifyContent="space-between"
           w="100vw"
         >
-          <Box pos="relative" marginLeft="25px">
+          <Box pos="relative" marginLeft="10px" transform="scale(0.9)">
             <AnsweredQuestions lobby={lobby} />
           </Box>
-          <Box transform="scale(0.93)" pos="relative" right="223" style={is16 ? null : { marginLeft: '325px' }}>
+          <Box transform="scale(0.93)" pos="relative" right="223" style={is16 ? null : { marginLeft: '290px' }}>
             <GameTable
               tokenSetter={tokenSetter}
               loginData={loginData}
               lobby={lobby}
             />
+          </Box>
+          <Box style={is16 ? { position: 'absolute', top: '-1.2vh', right: '6vw' } : { position: 'absolute', top: '-1.2vh', right: '2vw' }}>
+            <MayorDisplay mayor={lobby?.mayor.name} lobby={lobby} />
           </Box>
         </HStack>
         <HStack
@@ -124,9 +127,7 @@ function Game({
               lobby={loginData?.lobby}
             />
           </Box>
-          <Box pos="relative" transform="scale(0.97)" top="20px">
-            <SpecialQDisplay lobby={lobby} />
-          </Box>
+          <Box pos="relative" transform="scale(0.97)" top="20px" />
           <VStack
             display="flex"
             alignItems="end"
