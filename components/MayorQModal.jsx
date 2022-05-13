@@ -14,7 +14,7 @@ needs the lobby object's questions array
 also to visually function some questions are already needed inside of the lobby.lobby.questions
 */
 
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { Button, HStack, VStack } from '@chakra-ui/react';
 
@@ -31,19 +31,13 @@ import { StoreContext } from '../pages/api/contextStore';
 
 
 function MayorQModal({ lobby }) {
-  const [currQuestion, setCurrQuestion] = useState(lobby?.questions[0] || '---');
   const {
     soClose, setSoClose, wayOff, setWayOff, correct, setCorrect,
   } = useContext(StoreContext);
 
   const clickedOnButton = (e) => {
-    if (currQuestion === '---' || currQuestion === undefined) {
-      return;
-    }
-
     if (e.target.id) {
-      socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
-      lobby?.questions.shift();
+      socket.emit('AnsweredQuestion', { answer: e.target.id, question: lobby.questions[0], lobbyName: lobby?.name });
     } else { // in case undefined gets passed to the server
       return;
     }
@@ -55,14 +49,10 @@ function MayorQModal({ lobby }) {
     } else if (e.target.id === 'correct') {
       setCorrect(true);
     }
-
-    setCurrQuestion(lobby?.questions[0] || '---');
   };
 
   const clickedOnButtonDiscard = (e) => {
-    socket.emit('AnsweredQuestion', { answer: e.target.id, question: currQuestion, lobbyName: lobby?.name });
-    lobby?.questions.shift();
-    setCurrQuestion(lobby?.questions[0] || '---');
+    socket.emit('AnsweredQuestion', { answer: e.target.id, question: lobby.questions[0], lobbyName: lobby?.name });
   };
 
   return (
@@ -73,14 +63,14 @@ function MayorQModal({ lobby }) {
         {' '}
         Q:
         {' '}
-        {currQuestion.message || '---'}
+        {lobby.questions[0]?.message || '---'}
       </QuestionP>
 
       <ButtonsDiv id="QuestionButtons">
         <VStack spacing="10px">
           <HStack spacing="10px">
             <Button id="yes" bg="#3C8F45" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#2b5e30' }} onClick={(e) => { clickedOnButton(e); }}><Image id="yes" src={YesIcon} /></Button>
-            {lobby.maybeTokens ? <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="maybe" src={CloseIcon} /></Button> : null}
+            {lobby?.maybeTokens ? <Button id="maybe" bg="#3A5DB6" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#29458c' }} onClick={(e) => { clickedOnButton(e); }}><Image id="maybe" src={CloseIcon} /></Button> : null}
             <Button id="no" bg="#BB1F1F" borderRadius="full" w="50px" h="50px" padding="3" _hover={{ bg: '#851717' }} onClick={(e) => { clickedOnButton(e); }}><Image id="no" src={NoIcon} /></Button>
           </HStack>
           <HStack spacing="10px">

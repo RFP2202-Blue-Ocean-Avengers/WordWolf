@@ -118,6 +118,10 @@ function Container() {
     socket.emit('updateTimer', { settings, lobby: lobby.name });
   };
 
+  const updateSaveTimer = (timer) => {
+    socket.emit('updateSaveTimer', { timer, lobby: lobby.name });
+  };
+
   const updatePickCount = (pickCount) => {
     socket.emit('updatePickCount', { pickCount, lobby: lobby.name });
   };
@@ -149,6 +153,7 @@ function Container() {
               onGameStart={onGameStart}
               loginData={loginData}
               updateTimer={updateTimer}
+              updateSaveTimer={updateSaveTimer}
               updatePickCount={updatePickCount}
             />
           </div>

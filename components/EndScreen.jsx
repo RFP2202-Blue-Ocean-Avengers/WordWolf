@@ -102,7 +102,12 @@ function EndScreen({ lobby, resetGame, loginData }) {
             >
               {lobby?.werewolf.length > 1 ? <div>Wolves:</div> : <div>Wolf:</div>}
               &nbsp;
-              {lobby?.werewolf.map((wolf) => (<div>{wolf.name}</div>))}
+              {lobby?.werewolf.map((wolf) => (
+                <div>
+                  {wolf.name}
+                  {' '}
+                </div>
+              ))}
             </Box>
             <Box
               backgroundColor="#D19E61"

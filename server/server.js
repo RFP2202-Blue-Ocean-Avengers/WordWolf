@@ -6,7 +6,8 @@ const next = require('next');
 const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
-  updateTimer, updatePickCount, answerQuestion, VoteWerewolf, VoteSeer, switchHost, deleteLobby,
+  updateTimer, updateSaveTimer, updatePickCount, answerQuestion,
+  voteWerewolf, voteSeer, switchHost, deleteLobby,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const {
@@ -86,6 +87,10 @@ io.on('connect', (socket) => {
     await updateTimer(settings, lobby);
     emitLobbyData(lobby);
   });
+  socket.on('updateSaveTimer', async ({ timer, lobby }) => {
+    await updateSaveTimer(timer, lobby);
+    emitLobbyData(lobby);
+  });
   socket.on('updatePickCount', async ({ pickCount, lobby }) => {
     await updatePickCount(pickCount, lobby);
     emitLobbyData(lobby);
@@ -111,12 +116,12 @@ io.on('connect', (socket) => {
   });
 
   socket.on('VoteWerewolf', async ({ player, lobbyName }) => {
-    await VoteWerewolf(player, lobbyName);
+    await voteWerewolf(player, lobbyName);
     emitLobbyData(lobbyName);
   });
 
   socket.on('VoteSeer', async ({ player, lobbyName }) => {
-    await VoteSeer(player, lobbyName);
+    await voteSeer(player, lobbyName);
     emitLobbyData(lobbyName);
   });
 

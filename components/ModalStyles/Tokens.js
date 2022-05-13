@@ -62,5 +62,6 @@ export const TokenListMaybe = styled.div`
 `;
 
 export const Question = styled.div`
-  padding: 15px;
+  padding-left: 15px;
+  padding-top: 15px;
 `;
