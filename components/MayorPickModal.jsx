@@ -3,8 +3,6 @@ import {
   ModalHeader, ModalBody, ModalFooter, Box,
 } from '@chakra-ui/react';
 
-import { useEffect } from 'react';
-
 function MayorPickModal({ lobby, onMayorPick, loginData }) {
   const onWordPick = (e) => {
     onMayorPick(e.target.name);
