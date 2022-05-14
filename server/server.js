@@ -7,7 +7,7 @@ const {
   lobbies, addLobby, getLobby, startGame, toggleJoin, swapSeats,
   toggleSpectate, onMayorPick, onTimeout, afterVotingRound, resetGame,
   updateTimer, updateSaveTimer, updatePickCount, answerQuestion,
-  voteWerewolf, voteSeer, switchHost, deleteLobby,
+  voteWerewolf, voteSeer, switchHost, deleteLobby, rerollWords,
 } = require('./dataObjects/lobby');
 const { players, assignPlayerToLobby, removePlayerFromLobby } = require('./dataObjects/player');
 const {
@@ -131,9 +131,14 @@ io.on('connect', (socket) => {
     emitLobbyData(lobbyName);
   });
 
+  socket.on('rerollWords', async ({ lobbyName }) => {
+    await rerollWords(lobbyName);
+    emitLobbyData(lobbyName);
+  });
+
   socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting
-    console.log(`closed socket: ${socket.id}`);
+    console.log(`${new Date()}: closed socket id ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
       await removePlayerFromLobby(player);

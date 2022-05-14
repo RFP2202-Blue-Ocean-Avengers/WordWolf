@@ -409,6 +409,18 @@ const switchHost = (lobbyName) => {
   return lobby;
 };
 
+const rerollWords = (lobbyName) => {
+  const lobby = getLobby(lobbyName);
+  if (lobby) {
+    lobby.words.splice(0, lobby.words.length);
+    for (let i = 0; i < lobby.pickCount; i += 1) {
+      lobby.words.push(wordList[Math.floor(Math.random() * wordList.length)]);
+    }
+    return lobby;
+  }
+  return null;
+};
+
 module.exports = {
   lobbies,
   addLobby,
@@ -429,4 +441,5 @@ module.exports = {
   voteWerewolf,
   voteSeer,
   switchHost,
+  rerollWords,
 };
