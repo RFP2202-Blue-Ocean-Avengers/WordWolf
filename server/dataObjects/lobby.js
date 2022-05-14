@@ -314,6 +314,11 @@ const voteWerewolf = (player, lobbyName) => { // the villagers are voting
     return null;
   }
   lobby.villagerVotes.push(player); // put who's werewolf here
+  const joinedCount = Object.keys(lobby.players)
+    .reduce((prev, name) => (!lobby.players[name].spectator ? prev + 1 : prev), 0);
+  if (lobby.villagerVotes.length === (joinedCount - lobby.werewolf.length)) {
+    lobby.gameState = 'endGame';
+  }
   lobbies.set(lobbyName, lobby);
   return lobby;
 };
@@ -324,6 +329,9 @@ const voteSeer = (player, lobbyName) => { // the werewolfs are voting
     return null;
   }
   lobby.werewolfVotes.push(player); // put who's a seer here
+  if (lobby.werewolfVotes.length === lobby.werewolf.length) {
+    lobby.gameState = 'endGame';
+  }
   lobbies.set(lobbyName, lobby);
   return lobby;
 };

@@ -13,10 +13,6 @@ function Lobby({
   lobby, toggleJoin, onGameStart, loginData, toggleSpectate,
   updateTimer, updatePickCount, updateSaveTimer,
 }) {
-  const time = new Date();
-  time.setSeconds(time.getSeconds()
-  + Math.floor(lobby.settings.minutes * 60)
-  + lobby.settings.seconds);
   return (
     <div className="background">
       <HStack

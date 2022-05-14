@@ -1,4 +1,4 @@
-import { Button, Box } from "@chakra-ui/react";
+import { Button, Box } from '@chakra-ui/react';
 
 function Tokens({ tokenSetter, lobby, seat }) {
   const playerName = lobby?.seats[seat]?.name;
@@ -15,7 +15,7 @@ function Tokens({ tokenSetter, lobby, seat }) {
         top="35"
         left="5"
         fontWeight="extrabold"
-        onClick={() => tokenSetter(playerName, "no")}
+        onClick={() => tokenSetter(playerName, 'no')}
       >
         {lobby?.players[playerName]?.tokens.no.length === 0
           ? 0
@@ -29,7 +29,7 @@ function Tokens({ tokenSetter, lobby, seat }) {
         background="#3A5DB6"
         pos="relative"
         fontWeight="extrabold"
-        onClick={() => tokenSetter(playerName, "maybe")}
+        onClick={() => tokenSetter(playerName, 'maybe')}
       >
         {lobby?.players[playerName]?.tokens.maybe.length === 0
           ? 0
@@ -45,7 +45,7 @@ function Tokens({ tokenSetter, lobby, seat }) {
         top="35"
         right="5"
         fontWeight="extrabold"
-        onClick={() => tokenSetter(playerName, "yes")}
+        onClick={() => tokenSetter(playerName, 'yes')}
       >
         {lobby?.players[playerName]?.tokens.yes.length === 0
           ? 0

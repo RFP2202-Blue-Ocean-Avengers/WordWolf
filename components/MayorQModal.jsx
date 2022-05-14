@@ -98,8 +98,6 @@ function MayorQModal({ lobby }) {
 
 export default MayorQModal;
 
-// document.getElementById(e.target.id).style.borderBottom = '8px solid LightSkyBlue';
-
 const Container = styled.section`
 width: 220px;
 height: auto;
@@ -123,36 +121,3 @@ margin: 0px auto;
 width: fit-content;
 color: black;
 `;
-
-// {lobby.players[loginData.name].mayor === true && <MayorQModal />}
-
-// [{
-//   id: '98g9d-54gfd83-dsfds',
-//   name: 'Bogdan',
-//   lobby: 'lobby1',
-//   message: 'is it an animal?',
-//   question: true
-// },
-// {
-//   id: '0gnd-54tr2r-ds9g91s',
-//   name: 'Bogdan',
-//   lobby: 'lobby1',
-//   message: 'is it a cat?',
-//   question: true
-// },
-// {
-//   id: '98g21j-543283-9g9dfds',
-//   name: 'bogdan2',
-//   lobby: 'lobby1',
-//   message: 'is it a dog?',
-//   question: true
-// }]
-
-// import MayorQModal from './MayorQModal';
-// import VillagerVote from './VillagerVote';
-// import WerewolfVote from './WerewolfVote';
-
-
-// <MayorQModal lobby={lobby}/>
-//       <VillagerVote lobby={lobby}/>
-//       <WerewolfVote lobby={lobby}/>

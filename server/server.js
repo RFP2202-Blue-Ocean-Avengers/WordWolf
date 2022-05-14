@@ -133,7 +133,7 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', async () => {
     // add on disconnect, remove from seat in the lobby if they are sitting
-    console.log(`closed socket: ${socket.id}`);
+    console.log(`${new Date()}: closed socket ${socket.id}`);
     const player = players.get(socket.id);
     if (player) {
       await removePlayerFromLobby(player);
