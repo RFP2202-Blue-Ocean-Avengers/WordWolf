@@ -23,50 +23,18 @@
 
 WordWolf is a multiplayer browser game formatted after Werewords. It allows up to 10 players/spectators and a minimum of four players to start. A player can be assigned one of 3 roles - Wolf, Seer, or Villager. One player will also be assigned the role of Mayor. A word is chosen and the players have to attempt to guess the word by only asking "yes" or "no" questions before the time or their tokens run out. But *watch out, not everyone's on your side...* There's a wolf or two in the mix that know the word and are trying to lead you in the wrong direction. Luckily you have your seer(s) in your corner to help get you back on track! Watchout wolves, make yourself to obvious and even if the players don't guess the word they can still win by finding out who you are. Seers don't be too helpful, if the word is guessed the wolves still have an opputunity to win if they discover your true identity.
 
-**Mayor**
-- Always has another role
-- Chooses the word to start
-- Answers whether or not the questions are true
-    
-**Wolf**
-- Knows the word
-- Can guess who the seers are
-- Tries to keep players from guessing the correct word
-    
-**Seer**
-- Knows the word
-- Tries to get the players to guess the correct word
-- Can throw a winning game if the wolves find out who they are
-  
-**Villager**
-- Cannot see the word
-- Ask questions to get closer to discovery
-- Votes at the end who they think the wolf is
-###
+## Roles ##
 
-## Installation ##
-
-To run this application off your local computer, please clone this repo and perform the following:
-
-- Make a .env file with contents PORT=3000
-
-- Install necessary libraries
-
-  - `npm i --production`
-
-- Build
-
-  - `npm run build`
-
-Start the server
-
-  - `npm start`
-
-Go to localhost:3000 for access to WordWolf
-
-## Game Play ##
+|**Mayor**                      |**Wolf**                        |**Seer**                               |**Villager**                    |
+|-------------------------------|--------------------------------|---------------------------------------|--------------------------------|
+|1 player                       |1-2 players                     |1-2 players                            |2-6 players                     |
+|Always has another role        |Knows the word                  |Knows the word                         |Cannot see the word             |
+|Choose/know word to start      |Can guess who the seers are     |Directs players to correct word        |Asks narrowing questions        |     
+|Answers questions appropriately|Steers players from correct word|Winning game becomes lost if discoverd |Votes who they think the wolf is|
 
 ### [Play Here](http://www.wordwolf.xyz/) ###
+
+## Features ##
 
 ### Login ###
 
@@ -100,20 +68,17 @@ Go to localhost:3000 for access to WordWolf
 
 &emsp;  &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; ![alt text](game.gif)
 
-- Real time game progression/state
-- Allows players to check the questions/tokens for each player with interactive feature of the token modal
-- Renders players tokens dynamically for indivuals and the group
-- Renders proper view and modals based on game state and player role assigned
-- Real time rendering of # of tokens remaining (maybe/ yes or no)
-- Ensures proper connectivity of all components for seamless game play
-- Individual player roles reflected by player card
-- Universal mayor roll display
-- Mayor has access to modal for answering questions
-- Timer displays amount of time left - changes red in last 10s
-- Access to how to play modal
-- Only table players can chat
-- All table players except mayor can ask questions
-- Voting modal displays at end of game to all applicable players based on their role
+|Feature Highlights              |Feature Highlights                                                                                       |
+|--------------------------------|---------------------------------------------------------------------------------------------------------|
+|Real time game progression/state|Allows players to check the questions/tokens for each player with interactive feature of the token modal |
+|Renders players tokens dynamically for indivuals and the group|Renders proper view and modals based on game state and player role assigned|
+|Real time rendering of # of tokens remaining (maybe/ yes or no)|Ensures proper connectivity of all components for seamless game play      |
+|Individual player roles reflected by player card|Universal mayor roll display                                                             |
+|Mayor has access to modal for answering questions|Timer displays amount of time left - changes red in last 10s                            |
+|Access to how to play modal|Only table players can chat                                                                                   |
+|All table players except mayor can ask questions|Voting modal displays at end of game to all applicable players based on their role       |
+
+### [Play Here](http://www.wordwolf.xyz/) ###
 
 ## Contributers ##
 
@@ -130,3 +95,23 @@ Go to localhost:3000 for access to WordWolf
 **Software Engineer:** &nbsp;&nbsp; Bogdan Gordin -  &nbsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/bogdangordin/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/bogdangordin)
 
 **Software Engineer:** &nbsp;&nbsp; Casey Eads - &emsp;&nbsp;&nbsp;&nbsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/casey-eads-1d618/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/ceads1618)
+
+## Installation ##
+
+To run this application off your local computer, please clone this repo and perform the following:
+
+- Make a .env file with contents PORT=3000
+
+- Install necessary libraries
+
+  - `npm i --production`
+
+- Build
+
+  - `npm run build`
+
+Start the server
+
+  - `npm start`
+
+Go to localhost:3000 for access to WordWolf
