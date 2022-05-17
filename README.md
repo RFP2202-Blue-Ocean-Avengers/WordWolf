@@ -129,7 +129,7 @@ Backend Architect & Software Engineer: &emsp;**Danny Wong**
 
 &emsp;
 
-Software Engineer: &emsp;**Annie Wang**
+Software Engineer: &emsp;**Anny Wang**
 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&nbsp;&nbsp; &emsp;&emsp; Software Engineer: &emsp;**Bogdan Gordin**
 
 &emsp;&emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/hsinanwang) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/astrjc0326)
