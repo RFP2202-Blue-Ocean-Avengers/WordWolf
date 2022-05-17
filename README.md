@@ -38,122 +38,91 @@ WordWolf is a multiplayer browser game formatted after Werewords. It allows up t
 
 &emsp;
 
-### [Play Here](http://www.wordwolf.xyz/) ###
+### This game is currently deployed! Play it [here](http://www.wordwolf.xyz/) ###
+
 ---
 ## Features ##
 
-### Login ###
-
-&emsp;  &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; ![alt text](join.gif)
+### Join ###
 
 &emsp;
 
-<table>
- <tr>
-    <td>Allows player to join or create a lobby</td>
-    <td>Can't join lobbies not yet created</td>
- </tr>
- <tr>
-    <td>Can't create duplicate lobbies</td>
-    <td>Confirms unique username for lobby being joined</td>
- </tr>
-   <tr>
-    <td>How to play modal allows access to rules, tips, and roles</td>
-    <td>Uses Socket.io and object oriented programming to support multiple games/lobbies</td>
- </tr>
-</table>
+
+&emsp; ![alt text](join.gif)
+
+&emsp;
+
+- Allows player to join or create a lobby
+- Can't join lobbies not yet created
+- Can't create duplicate lobbies
+- Confirms unique username for lobby being joined
+- How to play modal allows access to rules, tips, and roles
+- Uses Socket.io and object oriented programming to support multiple games/lobbies
 
 &emsp;
 
 ### Lobby ###
 
-&emsp;  &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; ![alt text](lobby.gif)
+&emsp;
+
+&emsp; ![alt text](lobby.gif)
 
 &emsp;
 
-<table>
- <tr>
-    <td>Utilizes Socket.io to serve a unified game state w/low latency</td>
-    <td>Differentiates between host and other players</td>
- </tr>
- <tr>
-    <td>Only host can start game and change settings</td>
-    <td>Can choose up to 4 starting words to choose from</td>
- </tr>
-   <tr>
-    <td>Can set game duration between 1 and 30 minutes</td>
-    <td>Allows up to 10 players or spectators</td>
- </tr>
- <tr>
-    <td>Players can choose color/placement on table or spectate</td>
-    <td>Requires a minimum of 4 players to begin a game</td>
- </tr>
- <tr>
-    <td>Chat dynamically reflects player colors</td>
-    <td>Chat lets newly joined users see prior chats</td>
- </tr>
-   <tr>
-    <td>Chat has auto-scroll</td>
-    <td>Access to how to play modal</td>
- </tr>
-</table>
+- Utilizes Socket.io to serve a unified game state w/low latency
+- Differentiates between host and other playersOnly host can start game and change settings
+- Can choose up to 4 starting words to choose from
+- Can set game duration between 1 and 30 minutes
+- Allows up to 10 players or spectators
+- Players can choose color/placement on table or spectate
+- Requires a minimum of 4 players to begin a game
+- Chat dynamically reflects player colors
+- Chat lets newly joined users see prior chats
+- Chat has auto-scroll
+- Access to how to play modal
 
 &emsp;
 
 ### Game Table ###
 
-&emsp;  &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; ![alt text](game.gif)
+&emsp;
+
+&emsp; ![alt text](game.gif)
 
 &emsp;
 
-<table>
- <tr>
-    <td>Real time game progression/state</td>
-    <td>Allows players to check the questions/tokens for each player with interactive token modal</td>
- </tr>
- <tr>
-    <td>Renders players' tokens dynamically for individuals and the group</td>
-    <td>Renders proper view and modals based on game state and player role assignment</td>
- </tr>
-   <tr>
-    <td>Real time rendering of amount of tokens remaining (maybe, yes, or no)</td>
-    <td>Ensures proper connectivity of all components for seamless game play</td>
- </tr>
- <tr>
-    <td>Individual player roles reflected by player card</td>
-    <td>Universal mayor role display</td>
- </tr>
-   <tr>
-    <td>Mayor has access to modal for answering questions</td>
-    <td>Timer displays amount of time left and changes red in the last 10s</td>
- </tr>
-  <tr>
-    <td>Access to how to play modal</td>
-    <td>Only table players can chat</td>
- </tr>
-   <tr>
-    <td>All table players except mayor can ask questions</td>
-    <td>Voting modal displays at end of game to all applicable players based on their role</td>
- </tr>
-</table>
+- Real time game progression/state
+- Allows players to check the questions/tokens for each player with interactive token modal
+- Renders players' tokens dynamically for individuals and the group
+- Renders proper view and modals based on game state and player role assignment
+- Real time rendering of amount of tokens remaining (maybe, yes, or no)
+- Ensures proper connectivity of all components for seamless game play
+- Individual player roles reflected by player card
+- Universal mayor role display
+- Mayor has access to modal for answering questions
+- Timer displays amount of time left and changes red in the last 10s
+- Access to how to play modal
+- Only table players can chat
+- All table players except mayor can ask questions
+- Voting modal displays at end of game to all applicable players based on their role
 
 &emsp;
 
-### [Play Here](http://www.wordwolf.xyz/) ###
+### This game is currently deployed! Play it [here](http://www.wordwolf.xyz/) ###
 ---
 
 ## Contributers ##
 
-Product Manager: &emsp;**Eunice Kim**
-&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; UI Engineer: &emsp;**Amy Kwak**
+Product Manager & Software Engineer: &emsp;**Eunice Kim**
+&emsp; &emsp; &emsp; &emsp; UI Engineer & Software Engineer: &emsp;**Amy Kwak**
 
 &emsp;&emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/euniceyunjkim/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/euniceyunjkim)
 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/amykwak/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/amyKwak)
 
 &emsp;
 
-Backend Architect: &emsp;**Danny Wong**
-&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&nbsp; Software Engineer: &emsp;**Andy Chan**
+Backend Architect & Software Engineer: &emsp;**Danny Wong**
+&emsp; &emsp;&nbsp;&emsp; Software Engineer: &emsp;**Andy Chan**
 
 &emsp;&emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/danny96wong/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/SoymilkSky)
 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/andychan727/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/ChanAndy727)
@@ -161,7 +130,7 @@ Backend Architect: &emsp;**Danny Wong**
 &emsp;
 
 Software Engineer: &emsp;**Annie Wang**
-&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;&nbsp; &emsp;&emsp; Software Engineer: &emsp;**Bogdan Gordin**
+&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&nbsp;&nbsp; &emsp;&emsp; Software Engineer: &emsp;**Bogdan Gordin**
 
 &emsp;&emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/hsinanwang) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/astrjc0326)
 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/bogdangordin/) &emsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/bogdangordin)
