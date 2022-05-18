@@ -27,7 +27,7 @@ function AnsweredQuestions({ lobby }) {
         spacing={1}
         width="300px"
         style={{
-          backgroundColor: 'white', height: '300px', overflow: 'scroll', paddingTop: '15px',
+          backgroundColor: 'white', height: '250px', overflow: 'scroll', paddingTop: '15px',
         }}
       >
         {lobby.answeredQuestions
