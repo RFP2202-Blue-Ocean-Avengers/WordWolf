@@ -65,6 +65,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="-10"
             left="175"
+            zIndex="999"
           >
             {lobby?.seats?.seat1?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -97,6 +98,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="-10"
             left="340"
+            zIndex="999"
           >
             {lobby?.seats?.seat6?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -127,6 +129,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="-10"
             left="500"
+            zIndex="999"
           >
             {lobby?.seats?.seat2?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -162,6 +165,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="5"
             left="-2"
+            zIndex="999"
           >
             {lobby?.seats?.seat10?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -192,6 +196,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="5"
             left="740"
+            zIndex="999"
           >
             {lobby?.seats?.seat8?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -223,6 +228,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="170"
             left="-2"
+            zIndex="999"
           >
             {lobby?.seats?.seat7?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -252,6 +258,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="170"
             left="740"
+            zIndex="999"
           >
             {lobby?.seats?.seat9?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -283,6 +290,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="220"
             left="175"
+            zIndex="999"
           >
             {lobby?.seats?.seat3?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -314,6 +322,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="220"
             left="340"
+            zIndex="999"
           >
             {lobby?.seats?.seat5?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -343,6 +352,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             pos="relative"
             top="220"
             left="500"
+            zIndex="999"
           >
             {lobby?.seats?.seat4?.name.substring(0, 2).toUpperCase()}
           </Box>
@@ -366,6 +376,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="185"
           bottom="220"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat1" />
         </Box>
@@ -387,6 +398,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="392"
           bottom="260"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat6" />
         </Box>
@@ -408,6 +420,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="605"
           bottom="300"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat2" />
         </Box>
@@ -429,6 +442,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="50"
           bottom="265"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat10" />
         </Box>
@@ -450,6 +464,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="710"
           bottom="305"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat8" />
         </Box>
@@ -471,6 +486,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="50"
           bottom="230"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat7" />
         </Box>
@@ -492,6 +508,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="710"
           bottom="270"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat9" />
         </Box>
@@ -513,6 +530,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="185"
           bottom="235"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat3" />
         </Box>
@@ -534,6 +552,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="392"
           bottom="275"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat5" />
         </Box>
@@ -555,6 +574,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
           pos="relative"
           left="605"
           bottom="315"
+          zIndex="999"
         >
           <Tokens tokenSetter={tokenSetter} lobby={lobby} seat="seat4" />
         </Box>
@@ -586,6 +606,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
               fontWeight="bold"
               bottom="90"
               fontSize="18px"
+              h="27px"
             >
               {`The word is ${lobby?.chosenWord}`}
             </Box>
@@ -638,7 +659,7 @@ function GameTable({ tokenSetter, lobby, loginData }) {
             {lobby.tokens}
           &nbsp;
           </Box>
-          <Box display="flex" paddingRight="25px">
+          <Box display="flex" paddingRight="25px" h="fit-content">
             <Text>Maybe</Text>
           &nbsp;remaining:&nbsp;
             {lobby.maybeTokens}
