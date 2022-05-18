@@ -144,7 +144,13 @@ function Game({
                 >
                   END
                 </Box>
-              ) : null}
+              )
+              : (
+                <Box
+                  w="220px"
+                  h="50px"
+                />
+              )}
           </VStack>
         </HStack>
       </VStack>

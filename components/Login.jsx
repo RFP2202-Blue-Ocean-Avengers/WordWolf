@@ -2,6 +2,7 @@ import { Button, Input, Box } from '@chakra-ui/react';
 
 import Image from 'next/image';
 import Rules from './Rules';
+import Credits from './Credits';
 import LoginLogo from '../assets/LoginLogo.svg';
 import LoginBanner from '../assets/LoginBanner.svg';
 
@@ -56,8 +57,9 @@ function Login({ handleFormChange, handleCreateLobby, handleJoinLobby }) {
           Create
         </Button>
       </form>
-      <Box style={{ marginBottom: '50px' }}>
+      <Box display="flex" w="550px" justifyContent="space-evenly" flexDirection="row" style={{ marginBottom: '50px' }}>
         <Rules />
+        <Credits />
       </Box>
     </Box>
   );

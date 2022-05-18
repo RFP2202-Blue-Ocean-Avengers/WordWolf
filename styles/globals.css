@@ -103,3 +103,13 @@ text-align: center;
   font-size: 30px;
 }
 
+.credits {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 62px;
+  background: #FFF;
+  font-size: 30px;
+}
